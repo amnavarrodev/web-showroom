@@ -1,0 +1,24 @@
+{
+  "es": {
+    "title": "Mi Showroom de Diseño",
+    "subtitle": "Explora prototipos interactivos y conceptos web modernos.",
+    "cta_btn": "Ver Proyecto",
+    "theme_light": "Modo Claro",
+    "theme_dark": "Modo Oscuro",
+    "card1_title": "🏢 Landing Corporativa",
+    "card1_desc": "Diseño enfocado en conversión y seriedad profesional para empresas B2B.",
+    "card2_title": "🛒 E-commerce Concept",
+    "card2_desc": "Propuesta visual minimalista con enfoque en fotografía de producto."
+  },
+  "en": {
+    "title": "Design Showroom",
+    "subtitle": "Explore interactive prototypes and modern web concepts.",
+    "cta_btn": "View Project",
+    "theme_light": "Light Mode",
+    "theme_dark": "Dark Mode",
+    "card1_title": "🏢 Corporate Landing",
+    "card1_desc": "Conversion-focused design with professional appeal for B2B companies.",
+    "card2_title": "🛒 E-commerce Concept",
+    "card2_desc": "Minimalist visual proposal focused on product photography."
+  }
+}
