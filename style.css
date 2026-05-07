@@ -1,0 +1,23 @@
+:root {
+    --transition-speed: 0.3s;
+}
+
+body {
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.hover-up {
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.hover-up:hover {
+    transform: translateY(-8px);
+    border-color: var(--bs-primary);
+}
+
+/* Ajuste sutil para las tarjetas en modo oscuro */
+[data-bs-theme="dark"] .card {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
