@@ -1,61 +1,44 @@
 <!DOCTYPE html>
-<html lang="es" data-bs-theme="light">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Showroom</title>
-    <!-- Bootstrap 5.3 CSS -->
-    <link href="https://jsdelivr.net" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg border-bottom sticky-top bg-body-tertiary">
-        <div class="container">
-            <span class="navbar-brand fw-bold">PORTFOLIO.LAB</span>
-            
-            <div class="d-flex gap-2">
-                <!-- Selector de Idioma -->
-                <select id="langSwitcher" class="form-select form-select-sm">
+    <nav class="navbar">
+        <div class="container nav-content">
+            <span class="logo">PORTFOLIO.LAB</span>
+            <div class="controls">
+                <select id="langSwitcher" class="select-minimal">
                     <option value="es">ES</option>
                     <option value="en">EN</option>
                 </select>
-                <!-- Toggle de Tema -->
-                <button id="themeToggle" class="btn btn-outline-secondary btn-sm">
-                    🌙
-                </button>
+                <button id="themeToggle" class="btn-icon">🌙</button>
             </div>
         </div>
     </nav>
 
-    <header class="py-5 mb-4 text-center">
-        <div class="container py-4">
-            <h1 class="display-4 fw-bold" data-i18n="title">Mi Showroom de Diseño</h1>
-            <p class="lead text-secondary" data-i18n="subtitle">Explora prototipos interactivos y conceptos web modernos.</p>
-        </div>
+    <header class="hero container">
+        <h1 data-i18n="title">Mi Showroom de Diseño</h1>
+        <p data-i18n="subtitle">Explora prototipos interactivos y conceptos web modernos.</p>
     </header>
 
-    <main class="container mb-5">
-        <div class="row g-4">
+    <main class="container">
+        <div class="grid">
             <!-- Card 1 -->
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm hover-up">
-                    <div class="card-body p-4">
-                        <h3 class="h5 fw-bold" data-i18n="card1_title">🏢 Landing Corporativa</h3>
-                        <p class="text-secondary mb-4" data-i18n="card1_desc">Diseño enfocado en conversión y seriedad profesional.</p>
-                        <a href="./prototipo-1/index.html" class="btn btn-primary w-100" data-i18n="cta_btn">Ver Proyecto</a>
-                    </div>
-                </div>
+            <div class="card">
+                <h3 data-i18n="card1_title">🏢 Landing Corporativa</h3>
+                <p data-i18n="card1_desc">Diseño enfocado en conversión y seriedad profesional.</p>
+                <a href="./prototipo-1/index.html" class="btn-primary" data-i18n="cta_btn">Ver Proyecto</a>
             </div>
             <!-- Card 2 -->
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm hover-up">
-                    <div class="card-body p-4">
-                        <h3 class="h5 fw-bold" data-i18n="card2_title">🛒 E-commerce Concept</h3>
-                        <p class="text-secondary mb-4" data-i18n="card2_desc">Propuesta visual minimalista para tiendas online.</p>
-                        <a href="./prototipo-2/index.html" class="btn btn-primary w-100" data-i18n="cta_btn">Ver Proyecto</a>
-                    </div>
-                </div>
+            <div class="card">
+                <h3 data-i18n="card2_title">🛒 E-commerce Concept</h3>
+                <p data-i18n="card2_desc">Propuesta visual minimalista para tiendas online.</p>
+                <a href="./prototipo-2/index.html" class="btn-primary" data-i18n="cta_btn">Ver Proyecto</a>
             </div>
         </div>
     </main>
