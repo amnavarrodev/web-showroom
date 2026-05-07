@@ -11,7 +11,7 @@ Cada carpeta en la raíz representa un prototipo independiente con su propio `in
 
 ## 🌐 Visualización Directa
 Todos los prototipos están desplegados mediante **GitHub Pages**. Puedes acceder a la galería principal en:
-👉 `https://TU_USUARIO.github.io/TU_REPO/`
+👉 `https://amnavarrodev.github.io/web-showroom/`
 
 ---
 *Creado con ❤️ por Allien Martin - amnavarrodev*
