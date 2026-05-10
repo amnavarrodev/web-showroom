@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrazCuba ✈️ Viajes desde Cuba a Brasil, Uruguay y Guyana</title>
+    <style>
+        :root {
+            --cuba-red: #CF0A2C;
+            --cuba-blue: #002A8F;
+            --brazil-green: #009739;
+            --brazil-yellow: #FEDD00;
+            --brazil-blue: #002776;
+            --white: #FFFFFF;
+            --dark: #1a1a1a;
+            --light-gray: #f5f5f5;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --gold-accent: #D4A843;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #fafafa;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========== TOP BAR ========== */
+        .top-bar {
+            background: var(--cuba-blue);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .top-bar .flag-icon {
+            font-size: 1.2rem;
+        }
+        .top-bar span {
+            background: var(--cuba-red);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            animation: pulse-badge 2s infinite;
+        }
+        @keyframes pulse-badge {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* ========== NAVEGACIÓN ========== */
+        .navbar {
+            background: white;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+        .logo .logo-braz {
+            color: var(--brazil-green);
+        }
+        .logo .logo-cuba {
+            color: var(--cuba-red);
+        }
+        .logo-icon {
+            font-size: 2rem;
+            animation: bounce-plane 2s infinite;
+        }
+        @keyframes bounce-plane {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-8px) rotate(-3deg);
+            }
+            60% {
+                transform: translateY(0);
+            }
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #444;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            padding: 6px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            background: var(--brazil-yellow);
+            color: #000;
+        }
+        .btn-reservar {
+            background: var(--cuba-red) !important;
+            color: white !important;
+            padding: 10px 22px !important;
+            border-radius: 30px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(207, 10, 44, 0.4);
+            transition: all 0.3s !important;
+            animation: pulse-btn 2s infinite;
+        }
+        .btn-reservar:hover {
+            background: #a00822 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(207, 10, 44, 0.5);
+        }
+        @keyframes pulse-btn {
+            0%,
+            100% {
+                box-shadow: 0 4px 15px rgba(207, 10, 44, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(207, 10, 44, 0.7);
+            }
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: linear-gradient(135deg, #002776 0%, #009739 50%, #fedc00 100%);
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.06)" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,192C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.5;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        .hero h1 .highlight {
+            background: var(--cuba-red);
+            padding: 0 12px;
+            border-radius: 8px;
+            display: inline-block;
+            transform: rotate(-1deg);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+        .hero .cta-hero {
+            display: inline-block;
+            background: white;
+            color: #002776;
+            padding: 14px 35px;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        .hero .cta-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+            background: var(--brazil-yellow);
+        }
+
+        /* ========== SECCIONES ========== */
+        .section-title {
+            text-align: center;
+            padding: 50px 20px 10px;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #002776;
+            letter-spacing: -0.5px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 35px;
+            font-size: 1.05rem;
+        }
+        .section-title .icon-title {
+            display: inline-block;
+            animation: bounce-plane 2s infinite;
+        }
+
+        /* ========== TARJETAS DE DESTINO ========== */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+            padding: 20px 30px 50px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .dest-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .dest-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+        .dest-card-image {
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: all 0.5s;
+        }
+        .dest-card:hover .dest-card-image {
+            transform: scale(1.05);
+        }
+        .dest-card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--cuba-red);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+        .dest-card-country {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.65);
+            color: white;
+            padding: 5px 14px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+        }
+        .dest-card-body {
+            padding: 20px 22px 22px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .dest-card h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #002776;
+            margin-bottom: 6px;
+        }
+        .dest-card .city-subtitle {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .dest-card p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .dest-card .price-tag {
+            display: inline-block;
+            background: #fff9e6;
+            border: 2px dashed var(--brazil-yellow);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 700;
+            color: #002776;
+            font-size: 0.9rem;
+        }
+        .dest-card .price-tag strong {
+            color: var(--cuba-red);
+            font-size: 1.1rem;
+        }
+        .dest-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .btn-card {
+            background: var(--brazil-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+        .btn-card:hover {
+            background: #007a2f;
+            transform: scale(1.04);
+        }
+
+        /* ========== SECCIÓN URUGUAY & GUYANA ========== */
+        .other-destinations {
+            background: linear-gradient(180deg, #f9f9f9 0%, #fff 100%);
+            padding: 40px 20px 60px;
+        }
+        .other-destinations .section-title {
+            color: #002776;
+        }
+
+        /* ========== CARACTERÍSTICAS ========== */
+        .features-strip {
+            background: var(--cuba-blue);
+            color: white;
+            padding: 40px 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            text-align: center;
+        }
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+        footer .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        footer .footer-logo .bz {
+            color: var(--brazil-green);
+        }
+        footer .footer-logo .cb {
+            color: var(--cuba-red);
+        }
+        footer a {
+            color: var(--brazil-yellow);
+            text-decoration: none;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .navbar {
+                padding: 10px 15px;
+                justify-content: center;
+                gap: 10px;
+            }
+            .nav-links {
+                gap: 8px;
+                justify-content: center;
+            }
+            .nav-links a {
+                font-size: 0.78rem;
+                padding: 5px 10px;
+            }
+            .destinations-grid {
+                grid-template-columns: 1fr;
+                padding: 10px 15px 30px;
+                gap: 20px;
+            }
+            .section-title {
+                font-size: 1.6rem;
+                padding: 30px 15px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <span class="flag-icon">🇨🇺</span> Vuelos directos desde La Habana, Santa Clara y Holguín
+        <span>OFERTAS ESPECIALES</span> ¡Paquetes con todo incluido!
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">✈️</span>
+            <span class="logo-braz">Braz</span><span class="logo-cuba">Cuba</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#brasil">🇧🇷 Brasil</a></li>
+            <li><a href="#uruguay">🇺🇾 Uruguay</a></li>
+            <li><a href="#guyana">🇬🇾 Guyana</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#" class="btn-reservar">📞 Reservar Ahora</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Descubre <span class="highlight">Sudamérica</span> desde Cuba</h1>
+            <p>Viajes inolvidables a las ciudades más vibrantes de Brasil, la elegancia de Uruguay y la naturaleza exuberante de Guyana. ¡Tu aventura empieza aquí!</p>
+            <a href="#destinos" class="cta-hero">🌎 Explorar Destinos</a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN BRASIL -->
+    <div id="brasil">
+        <h2 class="section-title">
+            <span class="icon-title">🇧🇷</span> Ciudades de Brasil
+        </h2>
+        <p class="section-subtitle">Las joyas brasileñas que te esperan con los brazos abiertos</p>
+        <div class="destinations-grid" id="destinos">
+
+            <!-- Curitiba -->
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1578321272176-b7e4e4e8b3d2?w=800&q=80');">
+                    <span class="dest-card-badge">🏆 Top Cultural</span>
+                    <span class="dest-card-country">🇧🇷 Brasil</span>
+                </div>
+                <div class="dest-card-body">
+                    <div>
+                        <h3>Curitiba</h3>
+                        <p class="city-subtitle">🌿 La ciudad modelo de América Latina</p>
+                        <p>Famosa por su innovador urbanismo, el Jardín Botánico con su icónico invernadero de cristal y el Museo Oscar Niemeyer. Una ciudad limpia, verde y llena de cultura que te sorprenderá en cada esquina.</p>
+                    </div>
+                    <div class="dest-card-footer">
+                        <span class="price-tag">Desde <strong>$420 USD</strong></span>
+                        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- São Paulo -->
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?w=800&q=80');">
+                    <span class="dest-card-badge">🌟 Mega Ciudad</span>
+                    <span class="dest-card-country">🇧🇷 Brasil</span>
+                </div>
+                <div class="dest-card-body">
+                    <div>
+                        <h3>São Paulo</h3>
+                        <p class="city-subtitle">🏙️ La capital financiera y gastronómica</p>
+                        <p>La metrópoli más grande de Sudamérica te ofrece una escena cultural incomparable: desde la Avenida Paulista hasta el Mercado Municipal. Compras, arte callejero y la mejor gastronomía brasileña te esperan.</p>
+                    </div>
+                    <div class="dest-card-footer">
+                        <span class="price-tag">Desde <strong>$480 USD</strong></span>
+                        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Río de Janeiro -->
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80');">
+                    <span class="dest-card-badge">🔥 Más Popular</span>
+                    <span class="dest-card-country">🇧🇷 Brasil</span>
+                </div>
+                <div class="dest-card-body">
+                    <div>
+                        <h3>Río de Janeiro</h3>
+                        <p class="city-subtitle">🏖️ La Ciudad Maravillosa</p>
+                        <p>El Cristo Redentor, el Pan de Azúcar, Copacabana e Ipanema... Río es pura magia. Siente el ritmo de la samba, disfruta de sus playas doradas y déjate envolver por la alegría carioca. ¡Un sueño hecho realidad!</p>
+                    </div>
+                    <div class="dest-card-footer">
+                        <span class="price-tag">Desde <strong>$520 USD</strong></span>
+                        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boa Vista -->
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1590682680695-43b964a3ae17?w=800&q=80');">
+                    <span class="dest-card-badge">🌴 Aventura Norte</span>
+                    <span class="dest-card-country">🇧🇷 Brasil</span>
+                </div>
+                <div class="dest-card-body">
+                    <div>
+                        <h3>Boa Vista</h3>
+                        <p class="city-subtitle">🦜 Puerta de entrada a la Amazonía</p>
+                        <p>Capital de Roraima, Boa Vista es una ciudad planificada con un trazado único en forma de abanico. Disfruta de la Praia do Cauamé, el Parque Anauá y la cercanía con el Monte Roraima. Naturaleza salvaje y cultura indígena.</p>
+                    </div>
+                    <div class="dest-card-footer">
+                        <span class="price-tag">Desde <strong>$580 USD</strong></span>
+                        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN URUGUAY -->
+    <div class="other-destinations" id="uruguay">
+        <h2 class="section-title">
+            <span class="icon-title">🇺🇾</span> Uruguay
+        </h2>
+        <p class="section-subtitle">Elegancia, tranquilidad y playas encantadoras</p>
+        <div class="destinations-grid">
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1613336026275-d6d473084e98?w=800&q=80');">
+                    <span class="dest-card-badge">🥩 Paraíso Gastronómico</span>
+                    <span class="dest-card-country">🇺🇾 Uruguay</span>
+                </div>
+                <div class="dest-card-body">
+                    <div>
+                        <h3>Montevideo</h3>
+                        <p class="city-subtitle">🏛️ Capital cultural del Río de la Plata</p>
+                        <p>Descubre la Rambla costera, el encanto del Mercado del Puerto y sus exquisitos asados. Montevideo combina historia, arte y una calidad de vida envidiable. Pasea por la Ciudad Vieja y siente el alma uruguaya.</p>
+                    </div>
+                    <div class="dest-card-footer">
+                        <span class="price-tag">Desde <strong>$550 USD</strong></span>
+                        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                    </div>
+                </div>
+            </div>
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1589906493603-a574586d60e7?w=800&q=80');">
+                    <span class="dest-card-badge">🏖️ Relax Total</span>
+                    <span class="dest-card-country">🇺🇾 Uruguay</span>
+                </div>
+                <div class="dest-card-body">
+                    <div>
+                        <h3>Punta del Este</h3>
+                        <p class="city-subtitle">✨ El balneario más exclusivo</p>
+                        <p>Playas de arena blanca, la famosa escultura de "La Mano", casinos de clase mundial y una vida nocturna vibrante. Punta del Este es el lugar ideal para quienes buscan lujo y descanso en la costa atlántica.</p>
+                    </div>
+                    <div class="dest-card-footer">
+                        <span class="price-tag">Desde <strong>$620 USD</strong></span>
+                        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN GUYANA -->
+    <div class="other-destinations" id="guyana" style="background: #fff;">
+        <h2 class="section-title">
+            <span class="icon-title">🇬🇾</span> Guyana
+        </h2>
+        <p class="section-subtitle">Naturaleza virgen y cultura caribeña única</p>
+        <div class="destinations-grid">
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800&q=80');">
+                    <span class="dest-card-badge">🌿 Eco-Turismo</span>
+                    <span class="dest-card-country">🇬🇾 Guyana</span>
+                </div>
+                <div class="dest-card-body">
+                    <div>
+                        <h3>Georgetown</h3>
+                        <p class="city-subtitle">🏛️ Joya colonial del Caribe</p>
+                        <p>Capital de Guyana, con su arquitectura de madera colonial británica, la imponente Catedral de San Jorge y el animado Mercado Stabroek. Una mezcla fascinante de culturas caribeñas, africanas e indígenas. ¡El secreto mejor guardado de Sudamérica!</p>
+                    </div>
+                    <div class="dest-card-footer">
+                        <span class="price-tag">Desde <strong>$500 USD</strong></span>
+                        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                    </div>
+                </div>
+            </div>
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80');">
+                    <span class="dest-card-badge">🏞️ Aventura Salvaje</span>
+                    <span class="dest-card-country">🇬🇾 Guyana</span>
+                </div>
+                <div class="dest-card-body">
+                    <div>
+                        <h3>Cataratas Kaieteur</h3>
+                        <p class="city-subtitle">💧 Una de las cascadas más imponentes del mundo</p>
+                        <p>Con 226 metros de caída libre, Kaieteur es casi 5 veces más alta que las Cataratas del Niágara. Rodeada de selva virgen, es un espectáculo natural que muy pocos han tenido el privilegio de contemplar. ¡Una experiencia única en la vida!</p>
+                    </div>
+                    <div class="dest-card-footer">
+                        <span class="price-tag">Desde <strong>$650 USD</strong></span>
+                        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEATURES STRIP -->
+    <div class="features-strip">
+        <div class="feature-item">
+            <span class="feature-icon">📄</span>
+            <span>Trámites de visa simplificados</span>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">🏨</span>
+            <span>Hoteles verificados</span>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <span>Seguro de viaje incluido</span>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">📞</span>
+            <span>Soporte 24/7 en español</span>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">💵</span>
+            <span>Pagos en CUP, USD y MLC</span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="footer-logo">
+            <span class="bz">Braz</span><span class="cb">Cuba</span> ✈️
+        </div>
+        <p>📍 Oficinas en La Habana, Santa Clara y Camagüey | 📞 +53 5 123 4567 | ✉️ info@brazcuba.cu</p>
+        <p style="margin-top:8px;">Síguenos en redes: <a href="#">Facebook</a> · <a href="#">Instagram</a> · <a href="#">Telegram</a></p>
+        <p style="margin-top:15px; font-size:0.75rem; color:#777;">© 2026 BrazCuba Travel Agency. Todos los derechos reservados. Imágenes con fines ilustrativos.</p>
+    </footer>
+
+    <!-- SCRIPT para scroll suave -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
