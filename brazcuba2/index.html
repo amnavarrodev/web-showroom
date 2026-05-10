@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrazCuba ✈️ Viajes desde Cuba a Brasil, Uruguay y Guyana</title>
+    <style>
+        :root {
+            --cuba-red: #CF0A2C;
+            --cuba-blue: #002A8F;
+            --brazil-green: #009739;
+            --brazil-yellow: #FEDD00;
+            --brazil-blue: #002776;
+            --white: #FFFFFF;
+            --dark: #1a1a1a;
+            --light-gray: #f5f5f5;
+            --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            --gold-accent: #D4A843;
+            --uruguay-blue: #0038A8;
+            --guyana-green: #007A33;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #fdfdfd;
+            color: #2c2c2c;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========== TOP BAR ========== */
+        .top-bar {
+            background: linear-gradient(90deg, #002A8F 0%, #001f6e 100%);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 0.4px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .top-bar .flag-icon {
+            font-size: 1.3rem;
+        }
+        .top-bar span {
+            background: var(--cuba-red);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            animation: pulse-badge 2s infinite;
+            box-shadow: 0 2px 10px rgba(207, 10, 44, 0.5);
+        }
+        @keyframes pulse-badge {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        /* ========== NAVEGACIÓN ========== */
+        .navbar {
+            background: white;
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+        .logo .logo-braz {
+            color: var(--brazil-green);
+            text-shadow: 1px 1px 0 #e0e0e0;
+        }
+        .logo .logo-cuba {
+            color: var(--cuba-red);
+            text-shadow: 1px 1px 0 #e0e0e0;
+        }
+        .logo-icon {
+            font-size: 2.2rem;
+            animation: bounce-plane 2s infinite;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+        }
+        @keyframes bounce-plane {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(-10px) rotate(-4deg);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            75% {
+                transform: translateY(-4px) rotate(2deg);
+            }
+        }
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #444;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 8px 14px;
+            border-radius: 25px;
+            white-space: nowrap;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--brazil-yellow);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .nav-links a:hover::after {
+            width: 70%;
+        }
+        .nav-links a:hover {
+            color: #000;
+            background: #f9f9f9;
+        }
+        .btn-reservar {
+            background: var(--cuba-red) !important;
+            color: white !important;
+            padding: 11px 24px !important;
+            border-radius: 30px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(207, 10, 44, 0.35);
+            transition: all 0.3s ease !important;
+            animation: pulse-btn 2s infinite;
+        }
+        .btn-reservar:hover {
+            background: #a00822 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(207, 10, 44, 0.5);
+        }
+        @keyframes pulse-btn {
+            0%,
+            100% {
+                box-shadow: 0 6px 20px rgba(207, 10, 44, 0.35);
+            }
+            50% {
+                box-shadow: 0 10px 35px rgba(207, 10, 44, 0.65);
+            }
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: linear-gradient(145deg, #002776 0%, #003f8a 28%, #009739 65%, #fedc00 100%);
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,256L48,240C96,224,192,192,288,181.3C384,171,480,181,576,192C672,203,768,213,864,202.7C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
+            color: white;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 18px;
+            line-height: 1.2;
+        }
+        .hero h1 .highlight {
+            background: var(--cuba-red);
+            padding: 4px 18px;
+            border-radius: 10px;
+            display: inline-block;
+            transform: rotate(-1deg);
+            box-shadow: 0 4px 20px rgba(207, 10, 44, 0.6);
+        }
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 620px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+        }
+        .hero .cta-hero {
+            display: inline-block;
+            background: white;
+            color: #002776;
+            padding: 15px 38px;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+            border: 2px solid transparent;
+        }
+        .hero .cta-hero:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
+            background: var(--brazil-yellow);
+            border-color: #fff;
+            color: #000;
+        }
+
+        /* ========== SECCIONES ========== */
+        .section-title {
+            text-align: center;
+            padding: 60px 20px 5px;
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #002776;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+        .section-title .icon-title {
+            display: inline-block;
+            animation: bounce-plane 2s infinite;
+            font-size: 2.6rem;
+        }
+
+        /* ========== TARJETAS DE DESTINO ========== */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px 35px 50px;
+            max-width: 1350px;
+            margin: 0 auto;
+        }
+        .dest-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid #f0f0f0;
+            position: relative;
+        }
+        .dest-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.18);
+            border-color: #e0e0e0;
+        }
+        .dest-card-image {
+            height: 260px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+        .dest-card:hover .dest-card-image {
+            transform: scale(1.04);
+        }
+        .dest-card-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.0) 55%, rgba(0, 0, 0, 0.55) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .dest-card-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--cuba-red);
+            color: white;
+            padding: 7px 16px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.6px;
+            z-index: 3;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+        }
+        .dest-card-country {
+            position: absolute;
+            bottom: 18px;
+            left: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            z-index: 3;
+            backdrop-filter: blur(6px);
+            letter-spacing: 0.4px;
+        }
+        .dest-card-body {
+            padding: 22px 24px 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .dest-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #001f5c;
+            margin-bottom: 4px;
+            letter-spacing: -0.3px;
+        }
+        .dest-card .city-subtitle {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .dest-card p {
+            font-size: 0.92rem;
+            color: #555;
+            line-height: 1.55;
+            margin-bottom: 18px;
+        }
+        .dest-card .price-tag {
+            display: inline-block;
+            background: #fffdf5;
+            border: 2px dashed var(--brazil-yellow);
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            color: #002776;
+            font-size: 0.92rem;
+            letter-spacing: 0.3px;
+        }
+        .dest-card .price-tag strong {
+            color: var(--cuba-red);
+            font-size: 1.15rem;
+        }
+        .dest-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-card {
+            background: var(--brazil-green);
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 28px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.88rem;
+            letter-spacing: 0.4px;
+            box-shadow: 0 4px 14px rgba(0, 151, 57, 0.3);
+            white-space: nowrap;
+        }
+        .btn-card:hover {
+            background: #007a2f;
+            transform: scale(1.05);
+            box-shadow: 0 8px 22px rgba(0, 151, 57, 0.45);
+        }
+
+        /* ========== SECCIÓN URUGUAY / GUYANA (tarjeta única) ========== */
+        .single-card-grid {
+            display: flex;
+            justify-content: center;
+            padding: 20px 35px 50px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .single-card-grid .dest-card {
+            width: 100%;
+        }
+
+        /* ========== CARACTERÍSTICAS ========== */
+        .features-strip {
+            background: linear-gradient(135deg, #002A8F 0%, #001f6e 100%);
+            color: white;
+            padding: 45px 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 45px;
+            text-align: center;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.3s;
+        }
+        .feature-item:hover {
+            transform: translateY(-4px);
+        }
+        .feature-icon {
+            font-size: 2.8rem;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #181818;
+            color: #ccc;
+            text-align: center;
+            padding: 35px 20px;
+            font-size: 0.95rem;
+            border-top: 4px solid var(--brazil-yellow);
+        }
+        footer .footer-logo {
+            font-size: 1.7rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        footer .footer-logo .bz {
+            color: var(--brazil-green);
+        }
+        footer .footer-logo .cb {
+            color: var(--cuba-red);
+        }
+        footer a {
+            color: var(--brazil-yellow);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .navbar {
+                padding: 10px 15px;
+                justify-content: center;
+                gap: 12px;
+            }
+            .nav-links {
+                gap: 6px;
+                justify-content: center;
+            }
+            .nav-links a {
+                font-size: 0.76rem;
+                padding: 6px 10px;
+            }
+            .destinations-grid {
+                grid-template-columns: 1fr;
+                padding: 10px 18px 30px;
+                gap: 22px;
+            }
+            .single-card-grid {
+                padding: 10px 18px 30px;
+            }
+            .section-title {
+                font-size: 1.8rem;
+                padding: 35px 15px 5px;
+            }
+            .features-strip {
+                gap: 25px;
+                padding: 30px 20px;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .destinations-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <span class="flag-icon">🇨🇺</span> Vuelos con conexión rápida desde La Habana, Santa Clara y Holguín
+        <span>¡OFERTA LANZAMIENTO!</span> Paquetes 2026 con todo incluido
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">✈️</span>
+            <span class="logo-braz">Braz</span><span class="logo-cuba">Cuba</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#brasil">🇧🇷 Brasil</a></li>
+            <li><a href="#uruguay">🇺🇾 Uruguay</a></li>
+            <li><a href="#guyana">🇬🇾 Guyana</a></li>
+            <li><a href="#contacto">📞 Contacto</a></li>
+            <li><a href="#" class="btn-reservar">Reservar Ahora</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Descubre <span class="highlight">Sudamérica</span> desde Cuba</h1>
+            <p>Viajes soñados a las ciudades más fascinantes de Brasil, la serena belleza de Montevideo y el encanto auténtico de Georgetown. ¡Haz las maletas, la aventura te espera!</p>
+            <a href="#destinos" class="cta-hero">🌎 Ver Todos los Destinos</a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN BRASIL -->
+    <div id="brasil">
+        <h2 class="section-title">
+            <span class="icon-title">🇧🇷</span> Ciudades de Brasil
+        </h2>
+        <p class="section-subtitle">Cuatro joyas brasileñas que no te puedes perder</p>
+        <div class="destinations-grid" id="destinos">
+
+            <!-- Curitiba -->
+            <div class="dest-card">
+                <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1598901865264-4b16e6d0e8b2?w=800&q=80');"
+                title="Jardín Botánico de Curitiba">
+                <span class="dest-card-badge">🏆 Capital Ecológica</span>
+                <span class="dest-card-country">🇧🇷 Curitiba · Paraná</span>
+            </div>
+            <div class="dest-card-body">
+                <div>
+                    <h3>Curitiba</h3>
+                    <p class="city-subtitle">🌿 La ciudad modelo de sostenibilidad</p>
+                    <p>Referente mundial en planificación urbana, Curitiba enamora con su icónico <strong>Jardín Botánico</strong> de cristal, el Parque Barigui y el Museo Oscar Niemeyer. Una urbe limpia, innovadora y llena de cultura que te recibirá con los brazos abiertos.</p>
+                </div>
+                <div class="dest-card-footer">
+                    <span class="price-tag">Desde <strong>$420 USD</strong></span>
+                    <a href="#" class="btn-card">Ver Paquete ✈️</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- São Paulo -->
+        <div class="dest-card">
+            <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1590012316707-45b6e1f29ee7?w=800&q=80');"
+            title="Avenida Paulista, São Paulo">
+            <span class="dest-card-badge">🌟 Megaciudad</span>
+            <span class="dest-card-country">🇧🇷 São Paulo · SP</span>
+        </div>
+        <div class="dest-card-body">
+            <div>
+                <h3>São Paulo</h3>
+                <p class="city-subtitle">🏙️ El corazón financiero y cultural</p>
+                <p>La metrópoli más grande de Sudamérica te deslumbra con la <strong>Avenida Paulista</strong>, el MASP, el Mercado Municipal y una escena gastronómica de clase mundial. Arte callejero, compras infinitas y una energía que nunca duerme te esperan en Sampa.</p>
+            </div>
+            <div class="dest-card-footer">
+                <span class="price-tag">Desde <strong>$480 USD</strong></span>
+                <a href="#" class="btn-card">Ver Paquete ✈️</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Río de Janeiro -->
+    <div class="dest-card">
+        <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1518639192441-8fce0a011e7a?w=800&q=80');"
+        title="Cristo Redentor, Río de Janeiro">
+        <span class="dest-card-badge">🔥 Imperdible</span>
+        <span class="dest-card-country">🇧🇷 Río de Janeiro · RJ</span>
+    </div>
+    <div class="dest-card-body">
+        <div>
+            <h3>Río de Janeiro</h3>
+            <p class="city-subtitle">🏖️ La Ciudad Maravillosa</p>
+            <p>El <strong>Cristo Redentor</strong> abrazándote desde el Corcovado, el Pan de Azúcar al atardecer, las playas de Copacabana e Ipanema... Río es pura emoción. Siente el ritmo de la samba, saborea una caipirinha frente al mar y déjate contagiar por la alegría carioca.</p>
+        </div>
+        <div class="dest-card-footer">
+            <span class="price-tag">Desde <strong>$520 USD</strong></span>
+            <a href="#" class="btn-card">Ver Paquete ✈️</a>
+        </div>
+    </div>
+</div>
+
+<!-- Boa Vista -->
+<div class="dest-card">
+    <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1626814025880-7f3d4c3b8b4d?w=800&q=80');"
+    title="Monte Roraima, paisaje de Boa Vista">
+    <span class="dest-card-badge">🌴 Aventura Norte</span>
+    <span class="dest-card-country">🇧🇷 Boa Vista · Roraima</span>
+</div>
+<div class="dest-card-body">
+    <div>
+        <h3>Boa Vista</h3>
+        <p class="city-subtitle">🦜 Puerta de entrada a la Amazonía</p>
+        <p>Capital de Roraima, Boa Vista es única con su trazado urbano en abanico. Disfruta de la <strong>Praia do Cauamé</strong>, el Parque Anauá y la imponente silueta del Monte Roraima. Naturaleza virgen, cultura indígena y un cielo estrellado que quita el aliento.</p>
+    </div>
+    <div class="dest-card-footer">
+        <span class="price-tag">Desde <strong>$580 USD</strong></span>
+        <a href="#" class="btn-card">Ver Paquete ✈️</a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- SECCIÓN URUGUAY (SOLO MONTEVIDEO) -->
+<div id="uruguay" style="background: #fafafa; padding-bottom: 10px;">
+    <h2 class="section-title">
+        <span class="icon-title">🇺🇾</span> Uruguay
+    </h2>
+    <p class="section-subtitle">Elegancia rioplatense y encanto costero en una sola ciudad</p>
+    <div class="single-card-grid">
+        <div class="dest-card">
+            <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1590073245886-7b1e0f1a0a0e?w=800&q=80');"
+            title="Rambla de Montevideo al atardecer">
+            <span class="dest-card-badge">🥩 Capital Gastronómica</span>
+            <span class="dest-card-country">🇺🇾 Montevideo · Uruguay</span>
+        </div>
+        <div class="dest-card-body">
+            <div>
+                <h3>Montevideo</h3>
+                <p class="city-subtitle">🏛️ Historia, arte y mar junto al Río de la Plata</p>
+                <p>Recorre la <strong>Rambla</strong> costera con sus atardeceres inolvidables, piérdete en la Ciudad Vieja entre cafés y librerías, y saborea los mejores asados en el Mercado del Puerto. Montevideo combina la calma de un pueblo grande con la riqueza cultural de una capital llena de alma.</p>
+            </div>
+            <div class="dest-card-footer">
+                <span class="price-tag">Desde <strong>$550 USD</strong></span>
+                <a href="#" class="btn-card">Ver Paquete ✈️</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- SECCIÓN GUYANA (SOLO GEORGETOWN) -->
+<div id="guyana" style="background: #fff; padding-bottom: 10px;">
+    <h2 class="section-title">
+        <span class="icon-title">🇬🇾</span> Guyana
+    </h2>
+    <p class="section-subtitle">Descubre la joya escondida del Caribe sudamericano</p>
+    <div class="single-card-grid">
+        <div class="dest-card">
+            <div class="dest-card-image" style="background-image: url('https://images.unsplash.com/photo-1604884133257-cb0f0e5e4b8c?w=800&q=80');"
+            title="Arquitectura colonial de Georgetown, Guyana">
+            <span class="dest-card-badge">🌿 Destino Emergente</span>
+            <span class="dest-card-country">🇬🇾 Georgetown · Guyana</span>
+        </div>
+        <div class="dest-card-body">
+            <div>
+                <h3>Georgetown</h3>
+                <p class="city-subtitle">🏛️ Encanto colonial y naturaleza desbordante</p>
+                <p>Capital de Guyana, Georgetown fascina con su arquitectura de madera de estilo colonial británico, la imponente <strong>Catedral de San Jorge</strong> (una de las más altas del mundo) y el vibrante Mercado Stabroek. Una fusión única de culturas caribeñas, africanas e indígenas que muy pocos han tenido el privilegio de conocer.</p>
+            </div>
+            <div class="dest-card-footer">
+                <span class="price-tag">Desde <strong>$500 USD</strong></span>
+                <a href="#" class="btn-card">Ver Paquete ✈️</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- CARACTERÍSTICAS -->
+<div class="features-strip">
+    <div class="feature-item">
+        <span class="feature-icon">📄</span>
+        <span>Trámites de visa<br>simplificados</span>
+    </div>
+    <div class="feature-item">
+        <span class="feature-icon">🏨</span>
+        <span>Hoteles verificados<br>y céntricos</span>
+    </div>
+    <div class="feature-item">
+        <span class="feature-icon">🛡️</span>
+        <span>Seguro de viaje<br>incluido</span>
+    </div>
+    <div class="feature-item">
+        <span class="feature-icon">📞</span>
+        <span>Soporte 24/7<br>en español</span>
+    </div>
+    <div class="feature-item">
+        <span class="feature-icon">💵</span>
+        <span>Pagos en CUP,<br>USD y MLC</span>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contacto">
+    <div class="footer-logo">
+        <span class="bz">Braz</span><span class="cb">Cuba</span> ✈️
+    </div>
+    <p>📍 Oficinas en La Habana, Santa Clara y Camagüey | 📞 +53 5 123 4567 | ✉️ info@brazcuba.cu</p>
+    <p style="margin-top:8px;">Síguenos en redes: <a href="#">Facebook</a> · <a href="#">Instagram</a> · <a href="#">Telegram</a></p>
+    <p style="margin-top:15px; font-size:0.78rem; color:#888;">© 2026 BrazCuba Travel Agency. Todos los derechos reservados. Imágenes representativas de cada destino.</p>
+</footer>
+
+<!-- Script para scroll suave -->
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
