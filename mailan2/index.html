@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Mailan Morales · Belleza & Cuidado Personal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e1e1e;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, .logo, .testimonial-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - estilo flotante minimalista */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #1e1e1e;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            background: #f0ebe4;
+            color: #1e1e1e;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #3a3a3a;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c4a484;
+            transition: width 0.25s;
+        }
+
+        nav ul li a:hover {
+            color: #000;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #1e1e1e;
+        }
+
+        /* Hero con imagen grande */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px 60px;
+            background: #faf8f5;
+            margin-bottom: 20px;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 1100px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-text {
+            flex: 1 1 380px;
+        }
+
+        .hero-text .brand-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #b4937c;
+            margin-bottom: 12px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 28px;
+            max-width: 400px;
+        }
+
+        .btn {
+            background: #1e1e1e;
+            color: white;
+            padding: 14px 34px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background: #3a3a3a;
+            transform: translateY(-2px);
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 32px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.06);
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+
+        section {
+            margin: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #6b6b6b;
+            margin-bottom: 50px;
+            font-size: 1.05rem;
+        }
+
+        /* Grid de productos estilo cards limpias */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid #f0ede8;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 20px 35px rgba(0,0,0,0.04);
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            background: #f5f2ec;
+        }
+
+        .product-info {
+            padding: 18px 18px 22px;
+        }
+
+        .product-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #b4937c;
+            font-weight: 600;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 6px 0 6px;
+        }
+
+        .product-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1a1a1a;
+        }
+
+        /* Galería de clientes más dinámica */
+        .clients-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 14px;
+        }
+
+        .client-photo {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: 0.25s;
+            filter: brightness(0.98);
+            background: #e9e3d9;
+        }
+
+        .client-photo:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+
+        /* Testimonios con diseño distinto */
+        .testimonials-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .testimonial-card {
+            background: #faf8f5;
+            border-radius: 28px;
+            padding: 30px 24px;
+            max-width: 330px;
+            flex: 1 1 260px;
+            text-align: left;
+            border: 1px solid #eee9e2;
+        }
+
+        .testimonial-stars {
+            color: #c4a484;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #3a3a3a;
+            margin-bottom: 20px;
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-author img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ddd6cc;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .author-role {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Footer */
+        footer {
+            background: #f5f2ed;
+            padding: 50px 20px 30px;
+            margin-top: 60px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+        .footer-col p, .footer-col a {
+            color: #4a4a4a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .social-icons i {
+            font-size: 1.5rem;
+            margin-right: 18px;
+            color: #5a5a5a;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .social-icons i:hover {
+            color: #b4937c;
+        }
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #dad3c9;
+            padding-top: 22px;
+            font-size: 0.8rem;
+            color: #6b6b6b;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e1e1e;
+            color: white;
+            width: 54px;
+            height: 54px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            z-index: 200;
+            text-decoration: none;
+            transition: 0.25s;
+        }
+        .whatsapp-float:hover {
+            background: #3a3a3a;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: white;
+                padding: 16px 0;
+                gap: 12px;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .hero-text h1 {
+                font-size: 2.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                Mailan Morales <span>· tienda</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav id="navMenu">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#clientes">Clientas</a></li>
+                    <li><a href="#testimonios">Reseñas</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="brand-tag">Belleza · Cuidado · Estilo</div>
+                    <h1>Descubre tu brillo con Mailan Morales</h1>
+                    <p>Productos seleccionados de facial, peluquería, maquillaje y perfumería para realzar tu esencia.</p>
+                    <a href="#productos" class="btn">Ver colección <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="hero-image">
+                    <!-- IMAGEN DE MUESTRA - Cambiar por foto real de Mailan Morales o su tienda -->
+                    <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&h=600&fit=crop&auto=format" alt="Productos Mailan Morales" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section id="productos" class="container">
+            <h2 class="section-title">Nuestra selección</h2>
+            <p class="section-subtitle">Calidad que se siente, resultados que se notan</p>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&h=350&fit=crop&auto=format" alt="Crema hidratante" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Facial</span>
+                        <h3 class="product-name">Crema Revitalizante</h3>
+                        <p class="product-desc">Con colágeno y péptidos, hidratación 24h.</p>
+                        <span class="product-price">$32.900</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500&h=350&fit=crop&auto=format" alt="Labial mate" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Maquillaje</span>
+                        <h3 class="product-name">Labial Líquido Matte</h3>
+                        <p class="product-desc">Alta pigmentación, acabado aterciopelado.</p>
+                        <span class="product-price">$14.500</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500&h=350&fit=crop&auto=format" alt="Aceite capilar" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Peluquería</span>
+                        <h3 class="product-name">Aceite Capilar Argan</h3>
+                        <p class="product-desc">Nutrición intensa, control de frizz.</p>
+                        <span class="product-price">$18.200</span>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&h=350&fit=crop&auto=format" alt="Perfume unisex" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Perfumería</span>
+                        <h3 class="product-name">Eau de Toilette Cítrico</h3>
+                        <p class="product-desc">Notas de bergamota, limón y almizcle.</p>
+                        <span class="product-price">$45.600</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="clientes" class="container">
+            <h2 class="section-title">Ellas confían en Mailan</h2>
+            <p class="section-subtitle">Fotos reales de nuestras clientas (pronto las tuyas)</p>
+            <div class="clients-gallery">
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300&h=300&fit=crop&auto=format" alt="Cliente feliz" class="client-photo" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=300&h=300&fit=crop&auto=format" alt="Cliente sonriente" class="client-photo" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&auto=format" alt="Cliente maquillaje" class="client-photo" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&auto=format" alt="Cliente cuidado" class="client-photo" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=300&h=300&fit=crop&auto=format" alt="Cliente peluquería" class="client-photo" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=300&h=300&fit=crop&auto=format" alt="Cliente facial" class="client-photo" loading="lazy">
+            </div>
+        </section>
+
+        <section id="testimonios" class="container">
+            <h2 class="section-title">Comentarios que nos inspiran</h2>
+            <p class="section-subtitle">Lo que dicen quienes ya vivieron la experiencia Mailan Morales</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Mailan me asesoró con la crema perfecta para mi piel mixta. Desde entonces mi rutina cambió por completo, ¡gracias!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&auto=format" alt="Cliente" loading="lazy">
+                        <div>
+                            <div class="author-name">Andrea López</div>
+                            <div class="author-role">Cliente hace 6 meses</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"El labial mate es lo máximo, no se transfiere y los tonos son hermosos. Ya quiero probar más colores."</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&auto=format" alt="Cliente" loading="lazy">
+                        <div>
+                            <div class="author-name">Camila Ríos</div>
+                            <div class="author-role">Makeup lover</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">"Recibí mi pedido en 2 días, todo impecable. El aceite de argán dejó mi cabello sedoso. ¡Servicio increíble!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=100&h=100&fit=crop&auto=format" alt="Cliente" loading="lazy">
+                        <div>
+                            <div class="author-name">Valeria Sanz</div>
+                            <div class="author-role">Estilista profesional</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Mailan Morales</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Estilo 456, Local 7</p>
+                <p><i class="fas fa-phone-alt"></i> +56 9 8765 4321</p>
+                <p><i class="fas fa-envelope"></i> contacto@mailanmorales.com</p>
+            </div>
+            <div class="footer-col">
+                <h3>Horario</h3>
+                <p>Lun a Vie: 9:30 - 19:30</p>
+                <p>Sábados: 10:00 - 15:00</p>
+                <p>Domingos: cerrado</p>
+            </div>
+            <div class="footer-col">
+                <h3>Redes</h3>
+                <div class="social-icons">
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <p style="margin-top:12px;">#MailanMoralesBeauty</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 Mailan Morales · Todas las fotos son de muestra. Reemplazar con imágenes reales.
+        </div>
+    </footer>
+
+    <a href="https://wa.me/56987654321?text=Hola%20Mailan%20Morales%2C%20quiero%20info" class="whatsapp-float" target="_blank" title="Escríbenos">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.querySelector('ul').classList.toggle('active');
+        });
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navMenu.querySelector('ul').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
