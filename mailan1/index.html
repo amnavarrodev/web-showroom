@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Belleza & Estilo · Tienda de Cosmética</title>
+    <!-- Fuentes e íconos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fdfaf7;
+            color: #3e2c23;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .logo, .testimonial-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.92);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2rem;
+            color: #b5838d;
+            letter-spacing: 2px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: #d4a373;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 36px;
+            font-weight: 500;
+            color: #5e4b3c;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: inherit;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #d4a373;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #b5838d;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #5e4b3c;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(103deg, #f9efe2 0%, #f5e1d4 100%);
+            border-radius: 0 0 60px 60px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 1100px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-text {
+            flex: 1 1 400px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.2rem;
+            color: #4a2e2b;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #6b4e3d;
+            margin-bottom: 28px;
+            font-weight: 300;
+        }
+
+        .btn {
+            background: #d4a373;
+            color: white;
+            padding: 14px 36px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 18px rgba(212,163,115,0.3);
+        }
+
+        .btn:hover {
+            background: #b5838d;
+            box-shadow: 0 12px 24px rgba(181,131,141,0.4);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            flex: 1 1 320px;
+            text-align: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 40px;
+            box-shadow: 20px 20px 40px rgba(0,0,0,0.08);
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+
+        /* Secciones */
+        section {
+            margin: 70px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #4a2e2b;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #8b6b5c;
+            font-weight: 300;
+            margin-bottom: 48px;
+            font-size: 1.1rem;
+        }
+
+        /* Productos grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px rgba(181,131,141,0.15);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            background-color: #f3e9e0;
+        }
+
+        .product-info {
+            padding: 20px 20px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #b5838d;
+            font-weight: 600;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            margin: 8px 0 6px;
+            font-weight: 600;
+            color: #3e2c23;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: #6b5b4f;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #4a2e2b;
+            margin-top: 4px;
+        }
+
+        /* Galería clientes (estilo Instagram) */
+        .clients-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        .client-photo {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 24px;
+            transition: 0.3s;
+            filter: brightness(0.96);
+            background: #eddcd2;
+        }
+
+        .client-photo:hover {
+            transform: scale(1.03);
+            filter: brightness(1.05);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        /* Testimonios */
+        .testimonials-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 32px;
+            padding: 28px 24px;
+            max-width: 340px;
+            flex: 1 1 280px;
+            box-shadow: 0 18px 35px rgba(0,0,0,0.04);
+            position: relative;
+            text-align: center;
+        }
+
+        .testimonial-card i.fa-quote-left {
+            color: #d4a373;
+            font-size: 2rem;
+            opacity: 0.5;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #4a3b32;
+            margin-bottom: 20px;
+            font-size: 0.98rem;
+        }
+
+        .testimonial-client-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 8px;
+            border: 3px solid #f3e1d0;
+            background: #e7cfbc;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-role {
+            color: #8b6b5c;
+            font-size: 0.8rem;
+        }
+
+        .stars {
+            color: #d4a373;
+            margin: 6px 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #f5ede6;
+            border-radius: 60px 60px 0 0;
+            padding: 48px 24px 30px;
+            margin-top: 60px;
+            color: #4a3b32;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+            color: #4a2e2b;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #5e4b3c;
+            text-decoration: none;
+            display: block;
+            margin: 6px 0;
+            font-size: 0.95rem;
+        }
+
+        .social-icons i {
+            font-size: 1.6rem;
+            margin-right: 16px;
+            color: #b5838d;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .social-icons i:hover {
+            color: #d4a373;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #d9c7ba;
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: #7b6b5e;
+        }
+
+        /* Botón WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: #25D366;
+            color: white;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 20px rgba(37,211,102,0.4);
+            z-index: 200;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            background: #20b858;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: white;
+                padding: 20px 0;
+                gap: 16px;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <i class="fas fa-spa"></i> Belleza & Estilo
+            </div>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <nav id="navMenu">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#clientes">Clientas</a></li>
+                    <li><a href="#testimonios">Reseñas</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Realza tu belleza natural</h1>
+                    <p>Productos premium de cuidado facial, maquillaje, peluquería y perfumería seleccionados para ti.</p>
+                    <a href="#productos" class="btn">Explorar colección <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
+                </div>
+                <div class="hero-image">
+                    <!-- IMAGEN DE MUESTRA - Reemplazar con foto real de la tienda -->
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop&auto=format" alt="Productos de belleza" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos -->
+        <section id="productos" class="container">
+            <h2 class="section-title">Nuestros Productos</h2>
+            <p class="section-subtitle">Cada artículo pensado para consentirte</p>
+            <div class="products-grid">
+                <!-- Producto 1: Facial -->
+                <div class="product-card">
+                    <!-- IMAGEN DE MUESTRA: Crema facial -->
+                    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&h=350&fit=crop&auto=format" alt="Crema hidratante facial" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Cuidado Facial</span>
+                        <h3 class="product-name">Sérum Iluminador</h3>
+                        <p class="product-desc">Hidratación profunda con vitamina C y ácido hialurónico.</p>
+                        <span class="product-price">$28.500</span>
+                    </div>
+                </div>
+                <!-- Producto 2: Maquillaje -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500&h=350&fit=crop&auto=format" alt="Paleta de maquillaje" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Maquillaje</span>
+                        <h3 class="product-name">Paleta de Sombras Nude</h3>
+                        <p class="product-desc">12 tonos altamente pigmentados, larga duración.</p>
+                        <span class="product-price">$36.800</span>
+                    </div>
+                </div>
+                <!-- Producto 3: Peluquería -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500&h=350&fit=crop&auto=format" alt="Champú profesional" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Peluquería</span>
+                        <h3 class="product-name">Champú Repair & Shine</h3>
+                        <p class="product-desc">Con keratina y aceite de argán para cabello dañado.</p>
+                        <span class="product-price">$19.900</span>
+                    </div>
+                </div>
+                <!-- Producto 4: Perfumería -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&h=350&fit=crop&auto=format" alt="Perfume floral" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Perfumería</span>
+                        <h3 class="product-name">Eau de Parfum Rose</h3>
+                        <p class="product-desc">Notas de rosa damascena, jazmín y sándalo.</p>
+                        <span class="product-price">$52.000</span>
+                    </div>
+                </div>
+                <!-- Producto extra: Aseo personal -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500&h=350&fit=crop&auto=format" alt="Jabones artesanales" class="product-img" loading="lazy">
+                    <div class="product-info">
+                        <span class="product-category">Aseo Personal</span>
+                        <h3 class="product-name">Jabón Exfoliante Natural</h3>
+                        <p class="product-desc">Con avena, miel y almendras. Piel suave y renovada.</p>
+                        <span class="product-price">$8.200</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería de clientas (fotos de ellas usando productos) -->
+        <section id="clientes" class="container">
+            <h2 class="section-title">Ellas ya lo usan</h2>
+            <p class="section-subtitle">Nuestras clientas reales · inspírate</p>
+            <div class="clients-gallery">
+                <!-- IMAGEN DE MUESTRA: Cliente 1 -->
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300&h=300&fit=crop&auto=format" alt="Cliente feliz" class="client-photo" loading="lazy">
+                <!-- IMAGEN DE MUESTRA: Cliente 2 -->
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=300&h=300&fit=crop&auto=format" alt="Cliente sonriente" class="client-photo" loading="lazy">
+                <!-- IMAGEN DE MUESTRA: Cliente 3 -->
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&auto=format" alt="Cliente con maquillaje" class="client-photo" loading="lazy">
+                <!-- IMAGEN DE MUESTRA: Cliente 4 -->
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=300&h=300&fit=crop&auto=format" alt="Cliente peluquería" class="client-photo" loading="lazy">
+                <!-- IMAGEN DE MUESTRA: Cliente 5 -->
+                <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=300&h=300&fit=crop&auto=format" alt="Cliente cuidado facial" class="client-photo" loading="lazy">
+                <!-- IMAGEN DE MUESTRA: Cliente 6 -->
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&auto=format" alt="Cliente perfume" class="client-photo" loading="lazy">
+            </div>
+            <p style="text-align:center; margin-top:20px; font-style:italic; color:#8b6b5c;">
+                <i class="fas fa-camera-retro" style="margin-right:6px;"></i> ¿Quieres aparecer aquí? Compártenos tu foto usando nuestros productos.
+            </p>
+        </section>
+
+        <!-- Testimonios / Comentarios -->
+        <section id="testimonios" class="container">
+            <h2 class="section-title">Lo que dicen nuestras clientas</h2>
+            <p class="section-subtitle">Reseñas reales que nos inspiran</p>
+            <div class="testimonials-container">
+                <!-- Comentario 1 -->
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p class="testimonial-text">"Desde que uso el sérum iluminador mi piel cambió por completo. La atención en la tienda fue maravillosa, me asesoraron súper bien."</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <!-- IMAGEN DE MUESTRA: clienta testimonio -->
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&auto=format" alt="María Gómez" class="testimonial-client-img" loading="lazy">
+                    <div class="testimonial-name">María Gómez</div>
+                    <div class="testimonial-role">Cliente frecuente</div>
+                </div>
+                <!-- Comentario 2 -->
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p class="testimonial-text">"La paleta de sombras es increíble, los colores duran todo el día. Además el envío llegó rapidísimo. ¡Recomendadísima!"</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&auto=format" alt="Carolina Ruiz" class="testimonial-client-img" loading="lazy">
+                    <div class="testimonial-name">Carolina Ruiz</div>
+                    <div class="testimonial-role">Makeup artist</div>
+                </div>
+                <!-- Comentario 3 -->
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p class="testimonial-text">"Mi cabello quedó espectacular con el champú de keratina. Noté la diferencia desde la primera lavada. Volveré por más."</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?w=150&h=150&fit=crop&auto=format" alt="Valentina Díaz" class="testimonial-client-img" loading="lazy">
+                    <div class="testimonial-name">Valentina Díaz</div>
+                    <div class="testimonial-role">Estilista</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Belleza & Estilo</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Calle Los Álamos 123, Local 4</p>
+                <p><i class="fas fa-phone-alt"></i> +56 9 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> hola@bellezayestilo.cl</p>
+            </div>
+            <div class="footer-col">
+                <h3>Horario</h3>
+                <p>Lunes a Viernes: 10:00 - 19:00</p>
+                <p>Sábados: 10:00 - 14:00</p>
+                <p>Domingo: cerrado</p>
+            </div>
+            <div class="footer-col">
+                <h3>Síguenos</h3>
+                <div class="social-icons">
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-tiktok"></i>
+                    <i class="fab fa-pinterest-p"></i>
+                </div>
+                <p style="margin-top:16px;">Etiquétanos con #BellezaEstiloReal</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Belleza & Estilo · Todos los derechos reservados. Fotos de muestra, reemplazar por imágenes reales.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/56912345678?text=Hola%2C+quiero+informaci%C3%B3n+de+productos" class="whatsapp-float" target="_blank" title="Chatea con nosotras">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Script menú móvil -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.querySelector('ul').classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace (móvil)
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navMenu.querySelector('ul').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
