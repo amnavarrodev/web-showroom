@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>TuTienda | Alimentos y Electrodomésticos</title>
+    <!-- Fuentes modernas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f766e;
+            letter-spacing: -0.5px;
+        }
+        .logo i {
+            margin-right: 8px;
+            color: #f59e0b;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            font-size: 1rem;
+        }
+        .nav-links a:hover {
+            color: #0f766e;
+        }
+        .btn-contacto-nav {
+            background: #0f766e;
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        .btn-contacto-nav:hover {
+            background: #0e6b62;
+            color: white !important;
+        }
+
+        /* Sección Hero */
+        .hero {
+            background: linear-gradient(103deg, #ecfdf5 0%, #f0fdf4 60%, #fef3c7 100%);
+            padding: 70px 0;
+            border-radius: 0 0 60px 60px;
+            margin-bottom: 40px;
+        }
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .hero-text h1 {
+            font-size: 3.3rem;
+            font-weight: 700;
+            color: #064e3b;
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            margin-bottom: 30px;
+            max-width: 450px;
+        }
+        .btn {
+            display: inline-block;
+            background: #0f766e;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #115e59;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(15, 118, 110, 0.3);
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 32px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+
+        /* Secciones generales */
+        section {
+            padding: 70px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 50px auto;
+            font-size: 1.1rem;
+        }
+
+        /* Productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            transition: transform 0.25s ease, box-shadow 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.1);
+        }
+        .product-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+        .product-info {
+            padding: 20px 20px 24px;
+        }
+        .product-info h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .product-info .category {
+            color: #0f766e;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .product-info p {
+            color: #4b5563;
+            font-size: 0.95rem;
+        }
+
+        /* Galería de clientes */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 1 / 1;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: 0.25s;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+            color: white;
+            padding: 16px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* Testimonios */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .testimonial-card {
+            background: white;
+            border-radius: 28px;
+            padding: 30px 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: 0.2s;
+        }
+        .testimonial-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .testimonial-header img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fef3c7;
+        }
+        .testimonial-header .name {
+            font-weight: 650;
+            font-size: 1.1rem;
+        }
+        .testimonial-header .stars {
+            color: #f59e0b;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .comment {
+            color: #374151;
+            font-style: italic;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 50px 0 30px;
+            margin-top: 40px;
+            border-radius: 60px 60px 0 0;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+        .footer-col p, .footer-col a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .social-icons i {
+            font-size: 1.4rem;
+            margin-right: 18px;
+            color: #94a3b8;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .social-icons i:hover {
+            color: #f59e0b;
+        }
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #1e293b;
+            padding-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .nav-links {
+                gap: 20px;
+            }
+        }
+        @media (max-width: 580px) {
+            .nav-links {
+                gap: 14px;
+                font-size: 0.9rem;
+            }
+            .logo {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-store-alt"></i> <!-- CAMBIAR: logo o ícono si desea -->
+                TuTienda
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#galeria">Galería</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto" class="btn-contacto-nav">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-text">
+                <h1>Calidad que se siente en casa</h1>
+                <p>Descubre alimentos frescos y electrodomésticos que simplifican tu día a día. Lo mejor para tu hogar, directo de nuestra tienda a tu puerta.</p>
+                <a href="#productos" class="btn">Ver productos <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
+            </div>
+            <div class="hero-image">
+                <!-- CAMBIAR: Imagen principal de la tienda o productos estrella -->
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tienda de alimentos y electrodomésticos">
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos -->
+    <section id="productos">
+        <div class="container">
+            <h2 class="section-title">Nuestros productos</h2>
+            <p class="section-subtitle">Selección especial de alimentos frescos y electrodomésticos de alta duración.</p>
+            <div class="products-grid">
+                <!-- Producto 1 - Alimento -->
+                <div class="product-card">
+                    <!-- CAMBIAR: Foto real de producto alimenticio -->
+                    <img src="https://images.unsplash.com/photo-1610348725531-698119adeba7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Canasta de frutas frescas">
+                    <div class="product-info">
+                        <span class="category">Alimentos</span>
+                        <h3>Frutas y Verduras Orgánicas</h3>
+                        <p>Directo del campo, seleccionadas para garantizar frescura y sabor natural.</p>
+                    </div>
+                </div>
+                <!-- Producto 2 - Electrodoméstico -->
+                <div class="product-card">
+                    <!-- CAMBIAR: Foto real de licuadora o electrodoméstico -->
+                    <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Licuadora moderna">
+                    <div class="product-info">
+                        <span class="category">Electrodomésticos</span>
+                        <h3>Licuadora Profesional</h3>
+                        <p>Potencia y diseño para preparar tus batidos y sopas en segundos.</p>
+                    </div>
+                </div>
+                <!-- Producto 3 - Alimento -->
+                <div class="product-card">
+                    <!-- CAMBIAR: Foto real de producto de despensa -->
+                    <img src="https://images.unsplash.com/photo-1583258292688-d0213e6b46b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Granos y cereales">
+                    <div class="product-info">
+                        <span class="category">Alimentos</span>
+                        <h3>Granos y Cereales Selectos</h3>
+                        <p>Arroz, quinoa, lentejas y más, cuidadosamente empacados.</p>
+                    </div>
+                </div>
+                <!-- Producto 4 - Electrodoméstico -->
+                <div class="product-card">
+                    <!-- CAMBIAR: Foto real de cafetera o similar -->
+                    <img src="https://images.unsplash.com/photo-1525972292986-5b5c7b4b0b24?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cafetera italiana">
+                    <div class="product-info">
+                        <span class="category">Electrodomésticos</span>
+                        <h3>Cafetera de Acero</h3>
+                        <p>Prepara el café perfecto todas las mañanas, estilo y resistencia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería de clientes (fotos reales con productos) -->
+    <section id="galeria" style="background: #f1f5f9; border-radius: 60px 60px 0 0;">
+        <div class="container">
+            <h2 class="section-title">Nuestros clientes felices</h2>
+            <p class="section-subtitle">Momentos reales compartidos por quienes ya disfrutan de nuestros productos.</p>
+            <div class="gallery-grid">
+                <!-- CAMBIAR cada imagen por fotos reales de clientes usando productos -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542596594-649edbc13630?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Cliente con frutas">
+                    <div class="gallery-caption">¡Mis frutas favoritas! 🍎</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1603202662747-00e33e7d1464?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Cliente usando licuadora">
+                    <div class="gallery-caption">Licuadora increíble 💚</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Hombre cocinando">
+                    <div class="gallery-caption">Cocinando con lo mejor 👨‍🍳</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1595587636496-4a2b7b3c6b2e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mujer con electrodoméstico">
+                    <div class="gallery-caption">Mi nueva cafetera ☕</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Familia con compras">
+                    <div class="gallery-caption">Compra familiar 🛒</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517244688094-f1c34c2b5d16?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Cliente feliz con producto">
+                    <div class="gallery-caption">Calidad que se nota ✨</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios (comentarios) -->
+    <section id="testimonios" style="background: white; border-radius: 0 0 60px 60px; margin-bottom: 30px;">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+            <p class="section-subtitle">Opiniones reales de personas que confían en nosotros.</p>
+            <div class="testimonials-grid">
+                <!-- Testimonio 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <!-- CAMBIAR: foto del cliente real -->
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="María Gómez">
+                        <div>
+                            <div class="name">María Gómez</div>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="comment">"Compré la licuadora y frutas orgánicas, ¡todo excelente! La atención fue muy rápida y los productos de primera."</p>
+                </div>
+                <!-- Testimonio 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <!-- CAMBIAR: foto del cliente real -->
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Carlos Ruiz">
+                        <div>
+                            <div class="name">Carlos Ruiz</div>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="comment">"Los electrodomésticos duran muchísimo. Ya tengo mi cafetera y olla arrocera, son fantásticas."</p>
+                </div>
+                <!-- Testimonio 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <!-- CAMBIAR: foto del cliente real -->
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Ana López">
+                        <div>
+                            <div class="name">Ana López</div>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="comment">"Siempre compro mis granos y cereales aquí. La calidad es constante y los precios justos. ¡Recomendado!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto rápido / Footer -->
+    <footer class="footer" id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3><i class="fas fa-store-alt"></i> TuTienda</h3>
+                    <p>Alimentos frescos y electrodomésticos de calidad desde 2010.</p>
+                    <div class="social-icons">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Calle Comercio 123, Ciudad</p>
+                    <p><i class="fas fa-phone"></i> +56 9 1234 5678</p>
+                    <p><i class="fas fa-envelope"></i> hola@tutienda.com</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Horario</h3>
+                    <p>Lunes a Viernes: 9:00 - 19:00</p>
+                    <p>Sábados: 10:00 - 15:00</p>
+                    <p>Domingo: cerrado</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 TuTienda. Todos los derechos reservados. | Diseñado con ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para scroll suave y pequeña animación -->
+    <script>
+        // Scroll suave para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Animación simple al hacer scroll (intersection observer para tarjetas)
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card, .gallery-item, .testimonial-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(25px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+        // Disparar visibilidad inicial para elementos ya en pantalla
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.product-card, .gallery-item, .testimonial-card').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) {
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
