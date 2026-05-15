@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Mailan Morales · Tu presencia digital empieza aquí</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: #fdfdfb;
+            color: #2c2416;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: #fffbf5;
+            border-bottom: 1px solid #efe3d3;
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            color: #5e3c2c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #c49a6c;
+            font-size: 2rem;
+        }
+
+        .btn-outline {
+            border: 1.5px solid #c49a6c;
+            background: transparent;
+            color: #5e3c2c;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: #c49a6c;
+            color: white;
+        }
+
+        /* Hero principal */
+        .hero {
+            background: linear-gradient(120deg, #fef7ed 0%, #f9efe0 100%);
+            padding: 70px 24px 80px;
+            text-align: center;
+            border-radius: 0 0 60px 60px;
+            margin-bottom: 30px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #e7d7c0;
+            color: #4f3322;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            line-height: 1.15;
+            color: #3b2619;
+            margin-bottom: 20px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #5f4a37;
+            max-width: 580px;
+            margin: 0 auto 32px;
+            font-weight: 400;
+        }
+
+        .btn-primary {
+            background: #5e3c2c;
+            color: white;
+            padding: 15px 38px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            transition: 0.25s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(94,60,44,0.2);
+        }
+
+        .btn-primary:hover {
+            background: #3b2619;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(94,60,44,0.25);
+        }
+
+        .hero-image {
+            margin-top: 40px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+            object-fit: cover;
+            aspect-ratio: 16/9;
+        }
+
+        /* Secciones */
+        section {
+            margin: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.6rem;
+            color: #3b2619;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #6f5e4c;
+            margin-bottom: 52px;
+            font-size: 1.05rem;
+        }
+
+        /* Grid de ventajas */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 32px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 34px 22px 28px;
+            border-radius: 28px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.03);
+            border: 1px solid #f0e7db;
+            transition: 0.25s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+
+        .benefit-icon {
+            font-size: 2.2rem;
+            color: #c49a6c;
+            margin-bottom: 18px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #3b2619;
+        }
+
+        .benefit-card p {
+            color: #5f4a37;
+            font-size: 0.92rem;
+        }
+
+        /* Comparativa */
+        .compare-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .compare-card {
+            flex: 1 1 280px;
+            max-width: 340px;
+            border-radius: 24px;
+            padding: 30px 22px;
+            text-align: center;
+        }
+
+        .compare-card.without {
+            background: #f9f4ef;
+            border: 1px solid #e2d4c4;
+        }
+
+        .compare-card.with {
+            background: #e7d7c0;
+            border: 2px solid #b28b62;
+            position: relative;
+        }
+
+        .compare-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+
+        .compare-list {
+            list-style: none;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .compare-list li {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .compare-list i.fa-times {
+            color: #b05e5e;
+        }
+        .compare-list i.fa-check {
+            color: #5e7d4a;
+        }
+
+        /* Ejemplo visual de web */
+        .mockup-box {
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.05);
+            border: 1px solid #efe0ce;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mockup-text {
+            flex: 1 1 250px;
+        }
+
+        .mockup-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .mockup-text ul {
+            list-style: none;
+        }
+
+        .mockup-text ul li {
+            margin: 10px 0;
+        }
+        .mockup-text i {
+            color: #c49a6c;
+            margin-right: 8px;
+        }
+
+        .mockup-img {
+            flex: 1 1 300px;
+            text-align: center;
+        }
+
+        .mockup-img img {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 24px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            object-fit: cover;
+            aspect-ratio: 4/3;
+        }
+
+        /* Footer */
+        footer {
+            background: #3b2619;
+            color: #e5d7c6;
+            padding: 50px 24px 30px;
+            border-radius: 50px 50px 0 0;
+            text-align: center;
+        }
+
+        footer .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: #f0dfcc;
+        }
+
+        footer p {
+            margin-bottom: 20px;
+            opacity: 0.85;
+        }
+
+        .contact-info i {
+            margin-right: 6px;
+            color: #c49a6c;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 26px;
+            right: 26px;
+            background: #25D366;
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            z-index: 300;
+            box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .whatsapp-float:hover {
+            background: #1da851;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <i class="fas fa-spa"></i> Mailan Morales
+            </div>
+            <a href="#beneficios" class="btn-outline">Descubrir ventajas</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-badge">🌐 Presencia digital para tu negocio</div>
+            <h1>Mailan, tu tienda merece brillar en internet</h1>
+            <p>Una página web profesional te permite mostrar tus productos de belleza las 24 horas, ganar nuevas clientas y hacer crecer tu marca sin límites.</p>
+            <a href="#beneficios" class="btn-primary">Ver todos los beneficios <i class="fas fa-arrow-down" style="margin-left:8px;"></i></a>
+            <div class="hero-image">
+                <!-- Imagen de muestra: una tienda de belleza con presencia digital -->
+                <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=900&h=450&fit=crop&auto=format" alt="Presencia digital para negocio de belleza" loading="lazy">
+            </div>
+        </section>
+
+        <!-- Beneficios -->
+        <section id="beneficios" class="container">
+            <h2 class="section-title">¿Por qué tener una página web?</h2>
+            <p class="section-subtitle">Ventajas reales que transforman tu negocio de belleza</p>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Abierta 24/7</h3>
+                    <p>Tus productos se muestran incluso mientras duermes. Las clientas pueden verlos a cualquier hora.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Sin límites geográficos</h3>
+                    <p>Llega a clientas de toda la ciudad, el país o incluso fuera. Tu tienda, ahora sin fronteras.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-star"></i></div>
+                    <h3>Imagen profesional</h3>
+                    <p>Una web bien diseñada genera confianza y te diferencia de la competencia. Habla de calidad.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-camera-retro"></i></div>
+                    <h3>Galería de productos</h3>
+                    <p>Muestra tus cremas, maquillaje, perfumes con fotos atractivas. Tus productos brillan en pantalla.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-comment-dots"></i></div>
+                    <h3>Testimonios visibles</h3>
+                    <p>Los comentarios de tus clientas felices quedan publicados. La mejor publicidad es la recomendación real.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-share-alt"></i></div>
+                    <h3>Compartible al instante</h3>
+                    <p>Tu web se comparte por WhatsApp, Instagram o Facebook. Cada clienta puede traer más clientas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparativa visual -->
+        <section class="container">
+            <h2 class="section-title">Con web vs. Sin web</h2>
+            <p class="section-subtitle">La diferencia es clara para tu negocio</p>
+            <div class="compare-grid">
+                <div class="compare-card without">
+                    <h3>❌ Sin página web</h3>
+                    <ul class="compare-list">
+                        <li><i class="fas fa-times"></i> Solo ventas en local físico</li>
+                        <li><i class="fas fa-times"></i> Dependes del boca a boca</li>
+                        <li><i class="fas fa-times"></i> No apareces en búsquedas</li>
+                        <li><i class="fas fa-times"></i> Imagen menos profesional</li>
+                        <li><i class="fas fa-times"></i> Clientes no te encuentran fácil</li>
+                    </ul>
+                </div>
+                <div class="compare-card with">
+                    <h3>✅ Con página web</h3>
+                    <ul class="compare-list">
+                        <li><i class="fas fa-check"></i> Catálogo visible todo el día</li>
+                        <li><i class="fas fa-check"></i> +50% de alcance potencial</li>
+                        <li><i class="fas fa-check"></i> Apareces en Google y redes</li>
+                        <li><i class="fas fa-check"></i> Marca profesional y confiable</li>
+                        <li><i class="fas fa-check"></i> Contacto directo por WhatsApp</li>
+                    </ul>
+                    <p style="font-weight:700; margin-top:12px; color:#3b2619;">✨ Mailan, esto es posible para ti</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cómo se vería su web -->
+        <section class="container">
+            <h2 class="section-title">Así podría verse tu tienda online</h2>
+            <p class="section-subtitle">Un vistazo a lo que tendrías con Mailan Morales</p>
+            <div class="mockup-box">
+                <div class="mockup-text">
+                    <h3>Tu propia web incluye:</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> <strong>Portada</strong> con tu esencia</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Catálogo</strong> de productos (facial, pelo, maquillaje)</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Galería</strong> de clientas reales</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Comentarios</strong> y reseñas</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Botón de WhatsApp</strong> para contacto inmediato</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Ubicación y horarios</strong> siempre visibles</li>
+                    </ul>
+                </div>
+                <div class="mockup-img">
+                    <!-- Imagen de muestra simulando la web de Mailan Morales -->
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=375&fit=crop&auto=format" alt="Ejemplo de página web para tienda de belleza" loading="lazy">
+                </div>
+            </div>
+            <p style="text-align:center; margin-top:30px; color:#5f4a37; font-style:italic;">
+                <i class="fas fa-paint-brush" style="margin-right:8px;"></i> Diseño personalizado con los colores e identidad de Mailan Morales
+            </p>
+        </section>
+
+        <!-- Testimonios de otras emprendedoras -->
+        <section class="container">
+            <h2 class="section-title">Emprendedoras que ya dieron el paso</h2>
+            <p class="section-subtitle">Historias reales de dueñas de tiendas como la tuya</p>
+            <div class="benefits-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-quote-right"></i></div>
+                    <p style="font-style:italic; margin-bottom:14px;">"Desde que tengo web, recibo consultas todos los días. Muchas clientas llegan diciendo 'vi tu página'. Es mi mejor inversión."</p>
+                    <strong>— Laura, tienda de cosmética natural</strong>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-quote-right"></i></div>
+                    <p style="font-style:italic; margin-bottom:14px;">"Pensé que era complicado, pero me ayudaron con todo. Ahora mis productos se ven hermosos y vendo más que nunca."</p>
+                    <strong>— Patricia, perfumería boutique</strong>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-quote-right"></i></div>
+                    <p style="font-style:italic; margin-bottom:14px;">"La sección de comentarios de mis clientas me ha traído muchísima confianza. La gente ve las reseñas y se anima a comprar."</p>
+                    <strong>— Carmen, salón & tienda de belleza</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Llamado a la acción final -->
+        <section style="background:#fef7ed; border-radius:50px; padding:60px 24px; text-align:center; margin:60px 20px;">
+            <h2 style="font-size:2.2rem; margin-bottom:16px;">Mailan, tu tienda está lista para brillar</h2>
+            <p style="max-width:500px; margin:0 auto 28px; color:#4f3a2a;">Tener presencia en internet ya no es un lujo, es la forma en que tus clientas te encuentran, confían en ti y te eligen todos los días.</p>
+            <a href="https://wa.me/56912345678?text=Hola%2C%20quiero%20mi%20p%C3%A1gina%20web%20para%20Mailan%20Morales" class="btn-primary" target="_blank">
+                <i class="fab fa-whatsapp" style="margin-right:8px;"></i> Quiero mi página web
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-title">Mailan Morales</div>
+        <p>Belleza, cuidado personal y mucho estilo. Ahora también en internet.</p>
+        <div class="contact-info">
+            <p><i class="fas fa-envelope"></i> mailanmorales@tutienda.com</p>
+            <p><i class="fas fa-phone"></i> +56 9 1234 5678</p>
+        </div>
+        <p style="margin-top:30px; font-size:0.8rem;">© 2025 · Página demostrativa para Mailan Morales · Todas las imágenes son de muestra.</p>
+    </footer>
+
+    <a href="https://wa.me/56912345678?text=Hola%2C%20vi%20la%20propuesta%20web%20para%20Mailan%20Morales" class="whatsapp-float" target="_blank" title="Hablemos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+</html>
