@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Yoandy Store | Alimentos y Electrodomésticos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f766e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo span {
+            color: #f59e0b;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .nav-menu a:hover {
+            color: #0f766e;
+        }
+
+        .btn-whatsapp-nav {
+            background: #25D366;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .btn-whatsapp-nav:hover {
+            background: #1ebc5a;
+            color: white !important;
+        }
+
+        /* Hamburguesa */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: #1e293b;
+            border-radius: 10px;
+            transition: 0.3s ease;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: linear-gradient(115deg, #f0fdf4 0%, #ecfdf5 50%, #fffbeb 100%);
+            padding: 60px 0 70px;
+            border-radius: 0 0 60px 60px;
+            margin-bottom: 30px;
+        }
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .hero-text h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: #064e3b;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .hero-text p {
+            font-size: 1.15rem;
+            color: #475569;
+            margin-bottom: 30px;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .btn {
+            padding: 14px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: #0f766e;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #115e59;
+            transform: translateY(-2px);
+        }
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+        .btn-whatsapp:hover {
+            background: #1ebc5a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        .hero-image img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 30px 45px rgba(0,0,0,0.08);
+        }
+
+        /* ========== SECCIONES ========== */
+        section {
+            padding: 70px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 48px auto;
+            font-size: 1.05rem;
+        }
+
+        /* Productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 28px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+        }
+        .product-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+        .product-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .category {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #0d9488;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .product-body h3 {
+            font-size: 1.2rem;
+            font-weight: 650;
+            margin-bottom: 8px;
+        }
+        .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #b45309;
+            margin: 8px 0 14px;
+        }
+        .btn-whatsapp-sm {
+            background: #25D366;
+            color: white;
+            padding: 9px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            align-self: flex-start;
+            margin-top: auto;
+            transition: 0.2s;
+        }
+        .btn-whatsapp-sm:hover {
+            background: #1ebc5a;
+        }
+
+        /* Galería */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 18px;
+        }
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 1 / 1;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.35s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Testimonios */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .testimonial-card {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+        }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .testimonial-header img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .stars {
+            color: #f59e0b;
+            font-size: 0.85rem;
+        }
+        .comment {
+            font-style: italic;
+            color: #334155;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 50px 0 25px;
+            border-radius: 50px 50px 0 0;
+            margin-top: 30px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 35px;
+            margin-bottom: 30px;
+        }
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 14px;
+        }
+        .footer-col a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .footer-col a:hover {
+            color: #facc15;
+        }
+        .whatsapp-footer {
+            background: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        .footer-bottom {
+            border-top: 1px solid #1e293b;
+            padding-top: 18px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Botón flotante WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #1ebc5a;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-image {
+                order: -1;
+            }
+            .btn-group {
+                justify-content: center;
+            }
+
+            /* Menú hamburguesa */
+            .hamburger {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 320px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 30px 40px;
+                gap: 30px;
+                box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+                transition: right 0.35s ease;
+                z-index: 1000;
+            }
+            .nav-menu.active {
+                right: 0;
+            }
+            .nav-menu a {
+                font-size: 1.1rem;
+                width: 100%;
+            }
+            .btn-whatsapp-nav {
+                justify-content: center;
+                width: 100%;
+            }
+
+            /* Animación hamburguesa a X */
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar .container {
+                height: 60px;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-store-alt"></i> Yoandy<span>Store</span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#productos" class="nav-link">Productos</a></li>
+                <li><a href="#galeria" class="nav-link">Galería</a></li>
+                <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+                <li><a href="https://wa.me/5355690017?text=Hola%20Yoandy%2C%20quisiera%20informaci%C3%B3n%20sobre%20sus%20productos" target="_blank" class="btn-whatsapp-nav"><i class="fab fa-whatsapp"></i> Consultar</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero -->
+        <section id="inicio" class="hero">
+            <div class="container">
+                <div class="hero-text">
+                    <h1>Calidad y confianza para tu hogar</h1>
+                    <p>Alimentos frescos, electrodomésticos duraderos y atención personalizada. Pide tu listado de precios por WhatsApp.</p>
+                    <div class="btn-group">
+                        <a href="#productos" class="btn btn-primary"><i class="fas fa-box-open"></i> Ver productos</a>
+                        <a href="https://wa.me/5355690017?text=Hola%20Yoandy%2C%20me%20interesa%20recibir%20el%20listado%20de%20productos%20con%20precios" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Pedir lista de precios</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" alt="Tienda Yoandy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos -->
+        <section id="productos">
+            <div class="container">
+                <h2 class="section-title">Productos destacados</h2>
+                <p class="section-subtitle">Precios actualizados. Contáctanos para más detalles o pedidos.</p>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1610348725531-698119adeba7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Frutas frescas">
+                        <div class="product-body">
+                            <span class="category">Alimentos</span>
+                            <h3>Frutas Orgánicas Mixtas</h3>
+                            <div class="price">$380 CUP</div>
+                            <a href="https://wa.me/5355690017?text=Hola%20Yoandy%2C%20quiero%20información%20sobre%20las%20Frutas%20Orgánicas" target="_blank" class="btn-whatsapp-sm"><i class="fab fa-whatsapp"></i> Consultar</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Licuadora">
+                        <div class="product-body">
+                            <span class="category">Electrodomésticos</span>
+                            <h3>Licuadora Profesional 1200W</h3>
+                            <div class="price">$1,250 CUP</div>
+                            <a href="https://wa.me/5355690017?text=Hola%20Yoandy%2C%20me%20interesa%20la%20Licuadora%20Profesional" target="_blank" class="btn-whatsapp-sm"><i class="fab fa-whatsapp"></i> Consultar</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1583258292688-d0213e6b46b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Granos">
+                        <div class="product-body">
+                            <span class="category">Alimentos</span>
+                            <h3>Arroz y Granos Selectos</h3>
+                            <div class="price">$220 CUP</div>
+                            <a href="https://wa.me/5355690017?text=Hola%20Yoandy%2C%20quisiera%20saber%20el%20precio%20del%20arroz%20y%20granos" target="_blank" class="btn-whatsapp-sm"><i class="fab fa-whatsapp"></i> Consultar</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1525972292986-5b5c7b4b0b24?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Cafetera">
+                        <div class="product-body">
+                            <span class="category">Electrodomésticos</span>
+                            <h3>Cafetera Eléctrica</h3>
+                            <div class="price">$890 CUP</div>
+                            <a href="https://wa.me/5355690017?text=Hola%20Yoandy%2C%20¿me%20puedes%20dar%20info%20de%20la%20cafetera?" target="_blank" class="btn-whatsapp-sm"><i class="fab fa-whatsapp"></i> Consultar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería -->
+        <section id="galeria" style="background: #f1f5f9; border-radius: 50px 50px 0 0;">
+            <div class="container">
+                <h2 class="section-title">Clientes felices</h2>
+                <p class="section-subtitle">Fotos reales de quienes ya disfrutan nuestros productos.</p>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1542596594-649edbc13630?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cliente con frutas">
+                        <div class="gallery-caption">¡Frescas y deliciosas! 🍍</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1603202662747-00e33e7d1464?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cliente licuadora">
+                        <div class="gallery-caption">Mi nueva licuadora 💚</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cliente cocinando">
+                        <div class="gallery-caption">Preparando algo rico 👨‍🍳</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1595587636496-4a2b7b3c6b2e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cafetera en uso">
+                        <div class="gallery-caption">Café perfecto ☕</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonios -->
+        <section id="testimonios">
+            <div class="container">
+                <h2 class="section-title">Comentarios de clientes</h2>
+                <p class="section-subtitle">Opiniones reales que respaldan nuestro compromiso.</p>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="María">
+                            <div>
+                                <strong>María G.</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="comment">"Escribí por WhatsApp y Yoandy me respondió al instante. Los precios son justos y la fruta estaba impecable."</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Carlos">
+                            <div>
+                                <strong>Carlos R.</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="comment">"Compré una olla arrocera, me enviaron foto del producto por WhatsApp antes de enviarlo. ¡Excelente servicio!"</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Ana">
+                            <div>
+                                <strong>Ana L.</strong>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <p class="comment">"Siempre pido mi lista de precios actualizada. Muy recomendable, productos de calidad."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Yoandy Store</h4>
+                    <p>Alimentos y electrodomésticos de confianza. Comunícate sin compromiso.</p>
+                    <a href="https://wa.me/5355690017?text=Hola%20Yoandy%2C%20quisiera%20información%20general" target="_blank" class="whatsapp-footer"><i class="fab fa-whatsapp"></i> +53 55690017</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces rápidos</h4>
+                    <a href="#inicio">Inicio</a>
+                    <a href="#productos">Productos</a>
+                    <a href="#galeria">Galería</a>
+                    <a href="#testimonios">Testimonios</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> La Habana, Cuba</p>
+                    <p><i class="fas fa-phone"></i> 5355690017</p>
+                    <p><i class="fas fa-envelope"></i> yoandy@tienda.cu</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Yoandy Store. Todos los derechos reservados. | Atención personalizada vía WhatsApp</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5355690017?text=Hola%20Yoandy%2C%20me%20gustaría%20recibir%20el%20listado%20de%20productos%20con%20precios" target="_blank" class="whatsapp-float" title="Chatea por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace (solo en móvil)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Scroll suave para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
