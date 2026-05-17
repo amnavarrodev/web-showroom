@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Connect | Intermediarios en Petróleo, Oro, Piedras Preciosas y Oleaginosas</title>
+    <style>
+        :root {
+            --dorado: #b8860b;
+            --dorado-claro: #d4a745;
+            --azul-oscuro: #0a1f33;
+            --azul-medio: #0f2d4a;
+            --blanco: #ffffff;
+            --gris-claro: #f5f5f5;
+            --gris-medio: #e0e0e0;
+            --texto: #2c2c2c;
+            --texto-claro: #555555;
+            --sombra: 0 4px 20px rgba(0, 0, 0, 0.10);
+            --sombra-fuerte: 0 8px 40px rgba(0, 0, 0, 0.15);
+            --borde-radius: 12px;
+            --transicion: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--blanco);
+            color: var(--texto);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 31, 51, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 0 2rem;
+            transition: var(--transicion);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .navbar.scrolled {
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1300px;
+            margin: 0 auto;
+            height: 70px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--blanco);
+            font-weight: 700;
+            font-size: 1.35rem;
+            letter-spacing: -0.3px;
+        }
+        .logo .icono {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--azul-oscuro);
+            font-weight: 900;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transicion);
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--dorado);
+            transition: var(--transicion);
+        }
+        .nav-links a:hover {
+            color: var(--blanco);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .btn-contacto-nav {
+            background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
+            color: var(--azul-oscuro) !important;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 700 !important;
+            transition: var(--transicion);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.2px;
+        }
+        .btn-contacto-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 2.5px;
+            background: var(--blanco);
+            border-radius: 3px;
+            transition: var(--transicion);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(160deg, #060e18 0%, #0a1f33 30%, #0f2d4a 60%, #0a1f33 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 2rem 80px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 167, 69, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(184, 134, 11, 0.2);
+            color: var(--dorado-claro);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(184, 134, 11, 0.3);
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            color: var(--blanco);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            letter-spacing: -1px;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--dorado), #e6c764);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn-primario {
+            background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
+            color: var(--azul-oscuro);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transicion);
+            letter-spacing: 0.2px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primario:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(184, 134, 11, 0.45);
+        }
+        .btn-secundario {
+            background: transparent;
+            color: var(--blanco);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transicion);
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            cursor: pointer;
+        }
+        .btn-secundario:hover {
+            border-color: var(--blanco);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* ========== SECCIONES ========== */
+        section {
+            padding: 90px 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header .badge {
+            display: inline-block;
+            background: rgba(184, 134, 11, 0.1);
+            color: var(--dorado);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .section-header h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--azul-oscuro);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
+        }
+        .section-header p {
+            color: var(--texto-claro);
+            max-width: 550px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+
+        /* ========== PRODUCTOS ========== */
+        #productos {
+            background: var(--gris-claro);
+        }
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+        }
+        .producto-card {
+            background: var(--blanco);
+            border-radius: var(--borde-radius);
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            display: flex;
+            flex-direction: column;
+        }
+        .producto-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-fuerte);
+        }
+        .producto-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .producto-card .card-body {
+            padding: 22px 20px 28px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .producto-card .card-body h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--azul-oscuro);
+            margin-bottom: 6px;
+        }
+        .producto-card .card-body .categoria {
+            font-size: 0.8rem;
+            color: var(--dorado);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .producto-card .card-body p {
+            font-size: 0.9rem;
+            color: var(--texto-claro);
+            flex-grow: 1;
+        }
+
+        /* ========== TESTIMONIOS ========== */
+        #testimonios {
+            background: var(--blanco);
+        }
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .testimonio-card {
+            background: var(--gris-claro);
+            border-radius: var(--borde-radius);
+            padding: 30px 28px;
+            position: relative;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+        }
+        .testimonio-card:hover {
+            box-shadow: var(--sombra-fuerte);
+        }
+        .testimonio-card .comillas {
+            font-size: 3rem;
+            color: var(--dorado);
+            opacity: 0.4;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .testimonio-card .texto {
+            font-style: italic;
+            color: var(--texto);
+            font-size: 1rem;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+        .testimonio-card .autor {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonio-card .autor .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--dorado);
+        }
+        .testimonio-card .autor .info strong {
+            display: block;
+            color: var(--azul-oscuro);
+            font-size: 0.95rem;
+        }
+        .testimonio-card .autor .info span {
+            font-size: 0.8rem;
+            color: var(--texto-claro);
+        }
+        .estrellas {
+            color: #e6b422;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+        }
+
+        /* ========== CONTACTO ========== */
+        #contacto {
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+        }
+        #contacto .section-header h2 {
+            color: var(--blanco);
+        }
+        #contacto .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        #contacto .section-header .badge {
+            background: rgba(212, 167, 69, 0.2);
+            color: var(--dorado-claro);
+        }
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        .contacto-info {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .contacto-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .contacto-item .icono-circulo {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            background: rgba(212, 167, 69, 0.18);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--dorado-claro);
+        }
+        .contacto-item .info strong {
+            display: block;
+            font-size: 1rem;
+            color: var(--blanco);
+        }
+        .contacto-item .info span,
+        .contacto-item .info a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transicion);
+        }
+        .contacto-item .info a:hover {
+            color: var(--dorado-claro);
+        }
+        .formulario-contacto {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: var(--borde-radius);
+            padding: 35px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .formulario-contacto h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--blanco);
+        }
+        .formulario-contacto input,
+        .formulario-contacto textarea {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--blanco);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: var(--transicion);
+            resize: vertical;
+        }
+        .formulario-contacto input::placeholder,
+        .formulario-contacto textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .formulario-contacto input:focus,
+        .formulario-contacto textarea:focus {
+            outline: none;
+            border-color: var(--dorado);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .formulario-contacto button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
+            color: var(--azul-oscuro);
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transicion);
+            letter-spacing: 0.3px;
+        }
+        .formulario-contacto button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.5);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #060e18;
+            color: rgba(255, 255, 255, 0.55);
+            text-align: center;
+            padding: 30px 2rem;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        footer a {
+            color: var(--dorado-claro);
+            text-decoration: none;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .contacto-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 31, 51, 0.98);
+                flex-direction: column;
+                padding: 25px 2rem;
+                gap: 1.5rem;
+                border-bottom: 2px solid var(--dorado);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero {
+                padding: 100px 1.5rem 60px;
+                min-height: auto;
+            }
+            section {
+                padding: 60px 1.2rem;
+            }
+        }
+        @media (max-width: 500px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 0.95rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .btn-primario,
+            .btn-secundario {
+                text-align: center;
+                padding: 13px 24px;
+                font-size: 0.9rem;
+            }
+            .productos-grid {
+                grid-template-columns: 1fr;
+            }
+            .testimonios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="icono">🌐</div>
+                Global Connect
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto" class="btn-contacto-nav">Contacto</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <div class="hero-badge">Intermediarios Globales</div>
+            <h1>Conectamos mercados con <span>excelencia</span> y confianza</h1>
+            <p>
+                Somos un grupo de intermediarios especializados en productos derivados del petróleo, oro,
+                piedras preciosas, oleaginosas y mucho más. Presencia global, resultados reales.
+            </p>
+            <div class="hero-buttons">
+                <a href="#productos" class="btn-primario">Ver Productos</a>
+                <a href="#contacto" class="btn-secundario">Contáctanos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PRODUCTOS ==================== -->
+    <section id="productos">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Nuestra Especialidad</span>
+                <h2>Productos que Intermediamos</h2>
+                <p>Trabajamos con una amplia gama de commodities y productos de alto valor en mercados internacionales.</p>
+            </div>
+            <div class="productos-grid">
+
+                <!-- Producto 1: Petróleo -->
+                <div class="producto-card">
+                    <img src="https://images.unsplash.com/photo-1620283085068-5a9749e0a9c8?w=600&h=400&fit=crop&auto=format"
+                    alt="Derivados del petróleo" loading="lazy">
+                    <div class="card-body">
+                        <span class="categoria">Energía</span>
+                        <h3>Derivados del Petróleo</h3>
+                        <p>Crudo, gasolina, diésel, nafta, fuel oil y otros derivados. Operamos con refinerías y distribuidores en múltiples continentes.</p>
+                    </div>
+                </div>
+
+                <!-- Producto 2: Oro -->
+                <div class="producto-card">
+                    <img src="https://images.unsplash.com/photo-1610375461369-d613b564f4c4?w=600&h=400&fit=crop&auto=format"
+                    alt="Oro" loading="lazy">
+                    <div class="card-body">
+                        <span class="categoria">Metales Preciosos</span>
+                        <h3>Oro</h3>
+                        <p>Lingotes, oro en bruto y refinado. Conexiones directas con minas, refinerías y compradores institucionales.</p>
+                    </div>
+                </div>
+
+                <!-- Producto 3: Piedras Preciosas -->
+                <div class="producto-card">
+                    <img src="https://images.unsplash.com/photo-1515562141607-3b13e20c9f4b?w=600&h=400&fit=crop&auto=format"
+                    alt="Piedras preciosas" loading="lazy">
+                    <div class="card-body">
+                        <span class="categoria">Gemas</span>
+                        <h3>Piedras Preciosas</h3>
+                        <p>Diamantes, esmeraldas, rubíes, zafiros y otras gemas de alta calidad. Tasación y verificación garantizada.</p>
+                    </div>
+                </div>
+
+                <!-- Producto 4: Oleaginosas -->
+                <div class="producto-card">
+                    <img src="https://images.unsplash.com/photo-1597872200989-f98140af8cd1?w=600&h=400&fit=crop&auto=format"
+                    alt="Oleaginosas" loading="lazy">
+                    <div class="card-body">
+                        <span class="categoria">Agrocommodities</span>
+                        <h3>Oleaginosas</h3>
+                        <p>Soja, girasol, canola, aceites vegetales y harinas proteicas. Conectamos productores con mercados de exportación.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIOS ==================== -->
+    <section id="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Lo Que Dicen</span>
+                <h2>Testimonios de Nuestros Clientes</h2>
+                <p>La confianza se construye con resultados. Esto opinan quienes ya trabajan con nosotros.</p>
+            </div>
+            <div class="testimonios-grid">
+
+                <!-- Testimonio 1 -->
+                <div class="testimonio-card">
+                    <div class="comillas">&#8220;</div>
+                    <p class="texto">
+                        "Global Connect facilitó una operación de crudo que llevábamos meses intentando cerrar.
+                        Su red de contactos y profesionalismo marcaron la diferencia. Los recomiendo sin dudar."
+                    </p>
+                    <div class="estrellas">★★★★★</div>
+                    <div class="autor">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&auto=format"
+                        alt="Carlos M." class="avatar" loading="lazy">
+                        <div class="info">
+                            <strong>Carlos Méndez</strong>
+                            <span>Director Comercial — PetroTrade SA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 2 -->
+                <div class="testimonio-card">
+                    <div class="comillas">&#8220;</div>
+                    <p class="texto">
+                        "Increíble la rapidez con la que gestionaron nuestra compra de oro. Transparencia total
+                        en cada paso del proceso. Sin duda, seguiremos trabajando juntos."
+                    </p>
+                    <div class="estrellas">★★★★★</div>
+                    <div class="autor">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&auto=format"
+                        alt="María R." class="avatar" loading="lazy">
+                        <div class="info">
+                            <strong>María Rodríguez</strong>
+                            <span>CEO — Inversiones Aurum</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonio 3 -->
+                <div class="testimonio-card">
+                    <div class="comillas">&#8220;</div>
+                    <p class="texto">
+                        "Buscábamos un intermediario serio para exportar oleaginosas y Global Connect superó
+                        nuestras expectativas. Cumplieron plazos y condiciones exactamente como lo acordado."
+                    </p>
+                    <div class="estrellas">★★★★★</div>
+                    <div class="autor">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&auto=format"
+                        alt="Andrés L." class="avatar" loading="lazy">
+                        <div class="info">
+                            <strong>Andrés López</strong>
+                            <span>Gerente de Exportaciones — AgroGlobal</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACTO ==================== -->
+    <section id="contacto">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Contacto Directo</span>
+                <h2>Estamos Listos para Atenderte</h2>
+                <p>Comunícate con nosotros a través de cualquiera de estos medios. Respondemos en menos de 24 horas.</p>
+            </div>
+            <div class="contacto-grid">
+                <!-- Info de contacto -->
+                <div class="contacto-info">
+                    <div class="contacto-item">
+                        <div class="icono-circulo">📞</div>
+                        <div class="info">
+                            <strong>Teléfono</strong>
+                            <a href="tel:+525512345678">+52 55 1234 5678</a>
+                        </div>
+                    </div>
+                    <div class="contacto-item">
+                        <div class="icono-circulo">✉️</div>
+                        <div class="info">
+                            <strong>Correo Electrónico</strong>
+                            <a href="mailto:contacto@globalconnect.mx">contacto@globalconnect.mx</a>
+                        </div>
+                    </div>
+                    <div class="contacto-item">
+                        <div class="icono-circulo">📍</div>
+                        <div class="info">
+                            <strong>Ubicación</strong>
+                            <span>Ciudad de México, CDMX — Con representación en más de 15 países</span>
+                        </div>
+                    </div>
+                    <div class="contacto-item">
+                        <div class="icono-circulo">🕐</div>
+                        <div class="info">
+                            <strong>Horario de Atención</strong>
+                            <span>Lunes a Viernes: 8:00 AM – 6:00 PM<br>Sábados: 9:00 AM – 1:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Formulario -->
+                <div class="formulario-contacto">
+                    <h3>Envíanos un mensaje</h3>
+                    <form id="formContacto">
+                        <input type="text" placeholder="Tu nombre completo" required>
+                        <input type="email" placeholder="Tu correo electrónico" required>
+                        <input type="tel" placeholder="Tu teléfono (opcional)">
+                        <textarea rows="4" placeholder="Escribe tu mensaje o consulta aquí..." required></textarea>
+                        <button type="submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 <a href="#">Global Connect</a>. Todos los derechos reservados. | Intermediarios en Petróleo, Oro, Piedras Preciosas y Oleaginosas.</p>
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        // Menú hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        // Cerrar menú al hacer click en un enlace
+        document.querySelectorAll('#navLinks a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        // Sombra al hacer scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 30) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        // Envío del formulario (simulación)
+        const form = document.getElementById('formContacto');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('✅ ¡Gracias por tu mensaje! Nos pondremos en contacto contigo en menos de 24 horas.');
+            form.reset();
+        });
+    </script>
+</body>
+</html>
