@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuniel | Albañilería Profesional - Placetas, Villa Clara</title>
+    <meta name="description" content="Servicios profesionales de albañilería, especialista en enchape y acabados interiores en Placetas, Villa Clara, Cuba. Calidad y seriedad garantizada.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --secondary: #2c3e50;
+            --secondary-light: #34495e;
+            --accent: #f39c12;
+            --white: #ffffff;
+            --off-white: #f9f7f4;
+            --light-gray: #ecf0f1;
+            --gray: #7f8c8d;
+            --dark: #1a1a1a;
+            --text: #333333;
+            --text-light: #666666;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 35px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s ease;
+            --max-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            background-color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--secondary);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============ BOTÓN WHATSAPP FLOTANTE ============ */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            background-color: #25D366;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
+            transition: var(--transition);
+            animation: pulse-whatsapp 2s infinite;
+            cursor: pointer;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.6);
+            animation: none;
+        }
+        @keyframes pulse-whatsapp {
+            0%,
+            100% {
+                box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
+            }
+            50% {
+                box-shadow: 0 6px 40px rgba(37, 211, 102, 0.75), 0 0 0 15px rgba(37, 211, 102, 0.1);
+            }
+        }
+
+        /* ============ HEADER / NAV ============ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: var(--transition);
+        }
+        header.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        .logo span {
+            color: var(--primary);
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+        }
+        nav ul li a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 6px 0;
+            white-space: nowrap;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        .btn-nav {
+            background: var(--primary);
+            color: #fff !important;
+            padding: 10px 22px !important;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: var(--transition);
+        }
+        .btn-nav:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.35);
+        }
+        .btn-nav::after {
+            display: none !important;
+        }
+        /* Hamburguesa */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(160deg, #fdfbf7 0%, #f5f0e8 40%, #ede4d5 100%);
+            overflow: hidden;
+            padding-top: 70px;
+        }
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            z-index: 2;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            line-height: 1.15;
+        }
+        .hero-content h1 span {
+            color: var(--primary);
+            position: relative;
+        }
+        .hero-content h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(230, 126, 34, 0.2);
+            border-radius: 4px;
+            z-index: -1;
+        }
+        .hero-content .subtitle {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .hero-content .location-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--secondary);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .hero-content .location-badge i {
+            color: var(--primary);
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 480px;
+            line-height: 1.8;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+            text-align: center;
+            justify-content: center;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hero-image .image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1 / 1.1;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            background: #ddd;
+        }
+        .hero-image .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-image .image-wrapper .placeholder-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e8d5c4 0%, #d4b896 100%);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .hero-image .image-wrapper .placeholder-overlay i {
+            font-size: 4rem;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+        .hero-image .image-wrapper .placeholder-overlay span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .hero-shape {
+            position: absolute;
+            bottom: -60px;
+            right: -80px;
+            width: 400px;
+            height: 400px;
+            background: rgba(230, 126, 34, 0.06);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .hero-shape-2 {
+            position: absolute;
+            top: -40px;
+            left: -60px;
+            width: 250px;
+            height: 250px;
+            background: rgba(44, 62, 80, 0.04);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        /* ============ SECTION STYLES ============ */
+        section {
+            padding: 90px 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+        .section-header .section-tag {
+            display: inline-block;
+            background: rgba(230, 126, 34, 0.1);
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            margin-bottom: 16px;
+        }
+        .section-header h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+        .section-header h2 span {
+            color: var(--primary);
+        }
+        .section-header p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 12px auto 0;
+            font-size: 1.05rem;
+        }
+
+        /* ============ SERVICIOS ============ */
+        #servicios {
+            background: var(--off-white);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 35px 28px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(230, 126, 34, 0.2);
+        }
+        .service-card .icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(230, 126, 34, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        .service-card:hover .icon-circle {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.1);
+        }
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        .service-card .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+
+        /* ============ SOBRE MÍ ============ */
+        #sobre-mi {
+            background: #fff;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-image {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: #e8d5c4;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-image .placeholder-about {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+        }
+        .about-image .placeholder-about i {
+            font-size: 5rem;
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+        .about-image .placeholder-about span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+        .about-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+        .about-content h2 span {
+            color: var(--primary);
+        }
+        .about-content .highlight-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .about-stats {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-item .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+        .stat-item .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============ GALERÍA ============ */
+        #galeria {
+            background: var(--off-white);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            background: #ddd;
+            position: relative;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-hover);
+        }
+        .gallery-item .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #d5c4b1 0%, #c4ad93 100%);
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            transition: var(--transition);
+        }
+        .gallery-item:hover .gallery-placeholder {
+            background: linear-gradient(135deg, #c4ad93 0%, #b3987a 100%);
+        }
+        .gallery-item .gallery-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        .gallery-item .gallery-placeholder span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+        .gallery-note {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--gray);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* ============ TESTIMONIOS ============ */
+        #testimonios {
+            background: #fff;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .testimonial-card {
+            background: var(--off-white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            border-left: 4px solid var(--primary);
+        }
+        .testimonial-card .quote-icon {
+            font-size: 2rem;
+            color: rgba(230, 126, 34, 0.2);
+            margin-bottom: 12px;
+        }
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--text);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+        .testimonial-card .client-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .client-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .client-details strong {
+            display: block;
+            color: var(--secondary);
+        }
+        .client-details span {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* ============ CONTACTO ============ */
+        #contacto {
+            background: var(--secondary);
+            color: #fff;
+        }
+        #contacto .section-header h2 {
+            color: #fff;
+        }
+        #contacto .section-header h2 span {
+            color: var(--accent);
+        }
+        #contacto .section-header p {
+            color: rgba(255, 255, 255, 0.75);
+        }
+        #contacto .section-tag {
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: #fff !important;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        .contact-info-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .contact-info-item .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .contact-info-item .contact-text strong {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+        .contact-info-item .contact-text span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .contact-form {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 35px;
+            color: var(--text);
+            box-shadow: var(--shadow);
+        }
+        .contact-form h3 {
+            margin-bottom: 20px;
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius-sm);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: #fafafa;
+            color: var(--text);
+            resize: vertical;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.08);
+        }
+        .form-group textarea {
+            min-height: 110px;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+        }
+        .btn-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.35);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: #1a1a1a;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9rem;
+        }
+        footer strong {
+            color: #fff;
+        }
+        footer .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+        footer .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            color: #fff;
+        }
+        footer .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+            .hero-content p {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-image {
+                order: -1;
+            }
+            .hero-image .image-wrapper {
+                max-width: 350px;
+                aspect-ratio: 1/1;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-stats {
+                justify-content: center;
+            }
+            .about-image {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header .container {
+                height: 60px;
+            }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #fff;
+                flex-direction: column;
+                justify-content: center;
+                gap: 24px;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+                transition: right 0.4s ease;
+                z-index: 1000;
+                padding: 40px;
+            }
+            nav ul.active {
+                right: 0;
+            }
+            nav ul li a {
+                font-size: 1rem;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            .hero {
+                padding-top: 60px;
+                min-height: auto;
+                padding-bottom: 50px;
+            }
+            .hero-image .image-wrapper {
+                max-width: 280px;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero-content h1 {
+                font-size: 1.7rem;
+            }
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-image .image-wrapper {
+                max-width: 220px;
+            }
+        }
+
+        /* Overlay para menú móvil */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== WHATSAPP FLOTANTE ==================== -->
+    <a href="https://wa.me/5355555555?text=Hola%20Yuniel,%20vi%20tu%20página%20web%20y%20quisiera%20solicitar%20información%20sobre%20tus%20servicios%20de%20albañilería." target="_blank" rel="noopener" class="whatsapp-float" title="Hablar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ==================== OVERLAY MENÚ MÓVIL ==================== -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- ==================== HEADER ==================== -->
+    <header id="header">
+        <div class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-hard-hat"></i> Yuniel<span>.</span>
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#inicio" class="active">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#sobre-mi">Sobre mí</a></li>
+                    <li><a href="#galeria">Galería</a></li>
+                    <li><a href="#contacto" class="btn-nav">Contáctame</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="inicio">
+        <div class="hero-shape"></div>
+        <div class="hero-shape-2"></div>
+        <div class="container">
+            <div class="hero-content">
+                <p class="subtitle">Albañilería de Calidad</p>
+                <h1>Tu obra en <span>manos expertas</span></h1>
+                <div class="location-badge">
+                    <i class="fas fa-map-marker-alt"></i> Placetas, Villa Clara, Cuba
+                </div>
+                <p>
+                    Especialista en <strong>enchape</strong> y <strong>acabados interiores</strong>.
+                    Transformo tus espacios con profesionalismo, seriedad y atención a cada detalle.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Solicitar Presupuesto
+                    </a>
+                    <a href="#servicios" class="btn btn-outline">
+                        <i class="fas fa-tools"></i> Ver Servicios
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-wrapper">
+                    <!-- ⚠️ CAMBIAR: Sustituye el placeholder por la foto real de Yuniel -->
+                    <div class="placeholder-overlay">
+                        <i class="fas fa-user-hard-hat"></i>
+                        <span>Foto de Yuniel<br>en obra</span>
+                    </div>
+                    <!-- Cuando tengas la foto, comenta el div placeholder-overlay y descomenta esto:
+                    <img src="ruta/a/tu-foto.jpg" alt="Yuniel - Albañil profesional en Placetas">
+                    -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICIOS ==================== -->
+    <section id="servicios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Lo que hago</span>
+                <h2>Servicios <span>Profesionales</span></h2>
+                <p>Ofrezco soluciones completas en albañilería, con especialidad en enchape y trabajos interiores de alta calidad.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="badge">⭐ Especialidad</span>
+                    <div class="icon-circle"><i class="fas fa-th"></i></div>
+                    <h3>Enchape de Pisos y Paredes</h3>
+                    <p>Instalación profesional de azulejos, losas, cerámicas y porcelanatos. Acabados precisos, nivelación perfecta y diseño impecable para cualquier superficie.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-paint-roller"></i></div>
+                    <h3>Acabados Interiores</h3>
+                    <p>Repellado, alisado de paredes, pintura, instalación de plafones y todo tipo de terminaciones interiores para dejar tu hogar como nuevo.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-sink"></i></div>
+                    <h3>Remodelación de Baños y Cocinas</h3>
+                    <p>Renovación completa de baños y cocinas: enchape, plomería básica, instalación de sanitarios, lavamanos y fregaderos.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-home"></i></div>
+                    <h3>Construcción y Reparaciones</h3>
+                    <p>Levantamiento de muros, reparación de grietas, impermeabilización, construcción de cisternas y trabajos generales de albañilería.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-border-all"></i></div>
+                    <h3>Diseño de Patrones de Enchape</h3>
+                    <p>Asesoría en la selección y diseño de patrones decorativos para pisos y paredes, logrando ambientes únicos y personalizados.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fas fa-clock"></i></div>
+                    <h3>Trabajos Urgentes</h3>
+                    <p>Respuesta rápida para reparaciones urgentes. Disponibilidad para atender imprevistos en tu hogar o negocio con la misma calidad de siempre.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SOBRE MÍ ==================== -->
+    <section id="sobre-mi">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <!-- ⚠️ CAMBIAR: Sustituye el placeholder por la foto de Yuniel trabajando -->
+                    <div class="placeholder-about">
+                        <i class="fas fa-hard-hat"></i>
+                        <span>Foto de Yuniel en acción</span>
+                    </div>
+                    <!-- Cuando tengas la foto:
+                    <img src="ruta/a/tu-foto-trabajando.jpg" alt="Yuniel trabajando en un enchape">
+                    -->
+                </div>
+                <div class="about-content">
+                    <h2>Sobre <span>Yuniel</span></h2>
+                    <p class="highlight-text">Albañil profesional con más de 10 años de experiencia en Placetas, Villa Clara.</p>
+                    <p>
+                        Soy un trabajador comprometido con la excelencia. Mi especialidad es el <strong>enchape</strong>,
+                        un oficio que realizo con precisión y dedicación. También domino los <strong>acabados interiores</strong>,
+                        desde el repellado hasta la pintura final. Cada proyecto que emprendo lleva mi sello personal
+                        de calidad y responsabilidad.
+                    </p>
+                    <p>
+                        Vivo y trabajo en <strong>Placetas, Villa Clara</strong>, atendiendo a clientes en todo el municipio
+                        y zonas cercanas. Mi objetivo es que cada cliente quede completamente satisfecho con el resultado.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">+10</div>
+                            <div class="stat-label">Años de Experiencia</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">+200</div>
+                            <div class="stat-label">Proyectos Realizados</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Clientes Satisfechos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALERÍA ==================== -->
+    <section id="galeria">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Trabajos Realizados</span>
+                <h2>Galería de <span>Proyectos</span></h2>
+                <p>Estos son algunos ejemplos de mi trabajo. Pronto estaré agregando más fotos de proyectos terminados.</p>
+            </div>
+            <div class="gallery-grid">
+                <!-- ⚠️ CADA ITEM: Sustituir el placeholder por la imagen real -->
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Enchape de piso<br>Proyecto 1</span>
+                    </div>
+                    <!-- <img src="ruta/foto1.jpg" alt="Enchape de piso proyecto 1"> -->
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Baño terminado<br>Proyecto 2</span>
+                    </div>
+                    <!-- <img src="ruta/foto2.jpg" alt="Baño terminado proyecto 2"> -->
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Cocina renovada<br>Proyecto 3</span>
+                    </div>
+                    <!-- <img src="ruta/foto3.jpg" alt="Cocina renovada proyecto 3"> -->
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Pared enchapada<br>Proyecto 4</span>
+                    </div>
+                    <!-- <img src="ruta/foto4.jpg" alt="Pared enchapada proyecto 4"> -->
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Acabado interior<br>Proyecto 5</span>
+                    </div>
+                    <!-- <img src="ruta/foto5.jpg" alt="Acabado interior proyecto 5"> -->
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Piso cerámico<br>Proyecto 6</span>
+                    </div>
+                    <!-- <img src="ruta/foto6.jpg" alt="Piso cerámico proyecto 6"> -->
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Remodelación<br>Proyecto 7</span>
+                    </div>
+                    <!-- <img src="ruta/foto7.jpg" alt="Remodelación proyecto 7"> -->
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Trabajo en progreso<br>Proyecto 8</span>
+                    </div>
+                    <!-- <img src="ruta/foto8.jpg" alt="Trabajo en progreso proyecto 8"> -->
+                </div>
+            </div>
+            <p class="gallery-note">
+                <i class="fas fa-info-circle"></i> Yuniel está preparando las fotos de sus mejores trabajos. ¡Pronto estarán aquí!
+            </p>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIOS ==================== -->
+    <section id="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Opiniones</span>
+                <h2>Lo que dicen <span>mis clientes</span></h2>
+                <p>La satisfacción de quienes han confiado en mi trabajo es mi mejor carta de presentación.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <p>"Yuniel hizo un trabajo excelente en el enchape de mi cocina. Quedó perfecto, muy parejo y limpio. Lo recomiendo sin dudar."</p>
+                    <div class="client-info">
+                        <div class="client-avatar">M</div>
+                        <div class="client-details">
+                            <strong>María G.</strong>
+                            <span>Placetas, Villa Clara</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <p>"Contraté a Yuniel para remodelar el baño y fue la mejor decisión. Cumplió con los plazos, el acabado es de primera y el precio muy justo."</p>
+                    <div class="client-info">
+                        <div class="client-avatar">R</div>
+                        <div class="client-details">
+                            <strong>Roberto L.</strong>
+                            <span>Falcón, Villa Clara</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <p>"Muy profesional y detallista. Hizo el enchape de toda la sala con un diseño que yo misma elegí y el resultado superó mis expectativas."</p>
+                    <div class="client-info">
+                        <div class="client-avatar">A</div>
+                        <div class="client-details">
+                            <strong>Anaís P.</strong>
+                            <span>Placetas, Villa Clara</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACTO ==================== -->
+    <section id="contacto">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Contacto</span>
+                <h2>Solicita tu <span>Presupuesto</span></h2>
+                <p>Cuéntame sobre tu proyecto y te responderé a la brevedad. Presupuestos sin compromiso.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="contact-text">
+                            <strong>Teléfono</strong>
+                            <!-- ⚠️ CAMBIAR: Pon el número real de Yuniel -->
+                            <span>+53 5XXX XXXX</span>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-text">
+                            <strong>WhatsApp</strong>
+                            <!-- ⚠️ CAMBIAR: Pon el número real -->
+                            <span>+53 5XXX XXXX</span>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-text">
+                            <strong>Ubicación</strong>
+                            <span>Placetas, Villa Clara, Cuba</span>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <div class="contact-text">
+                            <strong>Horario</strong>
+                            <span>Lunes a Sábado: 7:00 AM - 5:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Envíame un mensaje</h3>
+                    <form id="contactForm" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+53 5XXX XXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="servicio">Servicio de interés</label>
+                            <select id="servicio" name="servicio">
+                                <option value="">Selecciona una opción</option>
+                                <option value="enchape">Enchape de pisos/paredes</option>
+                                <option value="interiores">Acabados interiores</option>
+                                <option value="banos">Remodelación de baño</option>
+                                <option value="cocinas">Remodelación de cocina</option>
+                                <option value="construccion">Construcción/Reparaciones</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Describe tu proyecto</label>
+                            <textarea id="mensaje" name="mensaje" placeholder="Cuéntame qué necesitas: medidas, tipo de trabajo, ubicación..." rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Enviar Solicitud
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://wa.me/5355555555" target="_blank" rel="noopener" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:+5355555555" title="Llamar"><i class="fas fa-phone-alt"></i></a>
+                <a href="mailto:yuniel@email.com" title="Correo"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2026 <strong>Yuniel</strong> — Albañilería Profesional | Placetas, Villa Clara, Cuba</p>
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        // Menú móvil
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const navLinks = navMenu.querySelectorAll('a');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Formulario de contacto
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const servicio = document.getElementById('servicio').value;
+            const mensaje = document.getElementById('mensaje').value.trim();
+
+            if (!nombre || !telefono) {
+                alert('Por favor, completa al menos tu nombre y teléfono.');
+                return;
+            }
+
+            // Construir mensaje para WhatsApp (opción directa)
+            const textoWhatsApp =
+                `Hola Yuniel, soy ${nombre}.%0A%0A` +
+                `Teléfono: ${telefono}%0A` +
+                `Servicio: ${servicio || 'No especificado'}%0A` +
+                `Mensaje: ${mensaje || 'Quisiera solicitar información.'}%0A%0A` +
+                `(Enviado desde tu página web)`;
+
+            // ⚠️ CAMBIAR: Pon el número real de Yuniel en el enlace (código de Cuba: 53)
+            const numeroWhatsApp = '5355555555';
+            const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${textoWhatsApp}`;
+
+            // Redirigir a WhatsApp
+            window.open(urlWhatsApp, '_blank');
+
+            // Opcional: mostrar confirmación
+            alert('¡Gracias ' + nombre +
+                '! Serás redirigido a WhatsApp para continuar la conversación con Yuniel.');
+            contactForm.reset();
+        });
+
+        // Smooth scroll para enlaces internos (por si acaso)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

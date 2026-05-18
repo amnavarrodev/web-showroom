@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuniel | Albañilería Profesional - Placetas, Villa Clara</title>
+    <meta name="description" content="Servicios profesionales de albañilería, especialista en enchape y acabados interiores. Placetas, Villa Clara, Cuba.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e67e22;
+            --primary-hover: #d35400;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --white: #ffffff;
+            --accent: #f59e0b;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --max-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 800;
+            line-height: 1.25;
+            color: var(--darker);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============ WHATSAPP FLOAT ============ */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            background: #25D366;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
+            transition: var(--transition);
+            animation: pulse-whatsapp 2s infinite;
+            cursor: pointer;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.6);
+            animation: none;
+        }
+        @keyframes pulse-whatsapp {
+            0%,
+            100% {
+                box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
+            }
+            50% {
+                box-shadow: 0 6px 40px rgba(37, 211, 102, 0.75), 0 0 0 15px rgba(37, 211, 102, 0.1);
+            }
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            padding: 0;
+        }
+        header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--darker);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.5px;
+        }
+        .logo i {
+            color: var(--primary);
+            font-size: 1.7rem;
+        }
+        .logo span {
+            color: var(--primary);
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+        nav ul li a {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--dark);
+            position: relative;
+            padding: 6px 0;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--primary);
+        }
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        .btn-nav {
+            background: var(--primary);
+            color: #fff !important;
+            padding: 10px 24px !important;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        .btn-nav:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(230, 126, 34, 0.3);
+        }
+        .btn-nav::after {
+            display: none !important;
+        }
+
+        /* Language Selector */
+        .lang-selector {
+            display: flex;
+            gap: 4px;
+            background: var(--light);
+            border-radius: 50px;
+            padding: 4px;
+            position: relative;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--gray);
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+        }
+        .lang-btn.active {
+            background: var(--white);
+            color: var(--darker);
+            box-shadow: var(--shadow-sm);
+        }
+        .lang-btn:hover:not(.active) {
+            color: var(--primary);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(155deg, #fdfcf9 0%, #f4efe6 50%, #ede4d4 100%);
+            padding-top: 72px;
+            overflow: hidden;
+        }
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            z-index: 2;
+        }
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            line-height: 1.1;
+        }
+        .hero-content h1 span {
+            color: var(--primary);
+            position: relative;
+        }
+        .hero-content h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(230, 126, 34, 0.15);
+            border-radius: 4px;
+            z-index: -1;
+        }
+        .hero-content .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .hero-content .badge i {
+            color: var(--primary);
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 460px;
+            line-height: 1.8;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            text-align: center;
+            justify-content: center;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(230, 126, 34, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(230, 126, 34, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid var(--dark);
+        }
+        .btn-outline:hover {
+            background: var(--dark);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image .image-frame {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            aspect-ratio: 1/1.1;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.18);
+            background: #ddd;
+            border: 6px solid #fff;
+        }
+        .hero-image .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .placeholder-hero {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #d5c3ad 0%, #c4af91 100%);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .placeholder-hero i {
+            font-size: 4.5rem;
+            margin-bottom: 14px;
+            opacity: 0.85;
+        }
+        .placeholder-hero span {
+            font-weight: 600;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .hero-bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+            opacity: 0.06;
+        }
+        .hero-bg-circle.c1 {
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            top: -120px;
+            right: -150px;
+        }
+        .hero-bg-circle.c2 {
+            width: 300px;
+            height: 300px;
+            background: var(--dark);
+            bottom: -80px;
+            left: -80px;
+        }
+
+        /* ============ SECTION ============ */
+        section {
+            padding: 90px 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-tag {
+            display: inline-block;
+            background: rgba(230, 126, 34, 0.1);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            margin-bottom: 16px;
+        }
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+        .section-header h2 span {
+            color: var(--primary);
+        }
+        .section-header p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 12px auto 0;
+            font-size: 1.05rem;
+        }
+
+        /* ============ SERVICIOS ============ */
+        #servicios {
+            background: var(--light);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .service-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(230, 126, 34, 0.25);
+        }
+        .service-card .icon-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(230, 126, 34, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.9rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        .service-card:hover .icon-circle {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.08);
+        }
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        .service-card .special-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ============ SOBRE MÍ ============ */
+        #sobre-mi {
+            background: #fff;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+        .about-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: #d5c3ad;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .placeholder-about {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+        }
+        .placeholder-about i {
+            font-size: 5rem;
+            margin-bottom: 16px;
+            opacity: 0.75;
+        }
+        .placeholder-about span {
+            font-weight: 600;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .about-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+        .about-content h2 span {
+            color: var(--primary);
+        }
+        .about-content .highlight {
+            font-weight: 700;
+            color: var(--primary-hover);
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .about-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .about-stats {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-weight: 900;
+            font-size: 2.4rem;
+            color: var(--primary);
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* ============ GALERÍA ============ */
+        #galeria {
+            background: var(--light);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+        }
+        .gallery-item {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            background: #ddd;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-lg);
+        }
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #cdbba5 0%, #b9a286 100%);
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            transition: var(--transition);
+        }
+        .gallery-item:hover .gallery-placeholder {
+            background: linear-gradient(135deg, #b9a286 0%, #a68d6f 100%);
+        }
+        .gallery-placeholder i {
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+        .gallery-placeholder span {
+            font-weight: 500;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .gallery-note {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* ============ TESTIMONIOS ============ */
+        #testimonios {
+            background: #fff;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+        .testimonial-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .testimonial-card .quote {
+            font-size: 2rem;
+            color: rgba(230, 126, 34, 0.2);
+            margin-bottom: 10px;
+        }
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--dark);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .client-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .client-details strong {
+            display: block;
+            color: var(--darker);
+            font-weight: 600;
+        }
+        .client-details span {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* ============ CONTACTO ============ */
+        #contacto {
+            background: var(--darker);
+            color: #fff;
+        }
+        #contacto .section-header h2 {
+            color: #fff;
+        }
+        #contacto .section-header h2 span {
+            color: var(--accent);
+        }
+        #contacto .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        #contacto .section-tag {
+            background: rgba(255, 255, 255, 0.12) !important;
+            color: #fff !important;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 44px;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+        .contact-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .contact-text strong {
+            display: block;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+        .contact-text span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .contact-form-wrapper {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 36px;
+            color: var(--dark);
+            box-shadow: var(--shadow-lg);
+        }
+        .contact-form-wrapper h3 {
+            margin-bottom: 22px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: #fafbfc;
+            color: var(--dark);
+            resize: vertical;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.07);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-submit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(230, 126, 34, 0.35);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: #0f0f0f;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9rem;
+        }
+        footer strong {
+            color: #fff;
+        }
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+        .footer-social a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            color: #fff;
+        }
+        .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-content h1 {
+                font-size: 2.6rem;
+            }
+            .hero-content p {
+                max-width: 100%;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-image {
+                order: -1;
+            }
+            .hero-image .image-frame {
+                max-width: 340px;
+                aspect-ratio: 1/1;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-image {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .about-stats {
+                justify-content: center;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header .container {
+                height: 64px;
+            }
+            .header-right {
+                gap: 14px;
+            }
+            .lang-selector {
+                gap: 2px;
+            }
+            .lang-btn {
+                padding: 5px 10px;
+                font-size: 0.7rem;
+            }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #fff;
+                flex-direction: column;
+                justify-content: center;
+                gap: 22px;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+                transition: right 0.4s;
+                z-index: 1000;
+                padding: 40px;
+            }
+            nav ul.active {
+                right: 0;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .section-header h2 {
+                font-size: 1.9rem;
+            }
+            .hero {
+                padding-top: 64px;
+                min-height: auto;
+                padding-bottom: 50px;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+                margin: 0 auto;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-image .image-frame {
+                max-width: 250px;
+            }
+            .lang-selector {
+                flex-direction: column;
+                gap: 2px;
+            }
+            .lang-btn {
+                font-size: 0.7rem;
+                padding: 4px 8px;
+            }
+        }
+
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+    </style>
+</head>
+<body>
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/5355555555" target="_blank" rel="noopener" class="whatsapp-float" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-hard-hat"></i> Yuniel<span>.</span>
+            </a>
+            <div class="header-right">
+                <div class="lang-selector" id="langSelector">
+                    <button class="lang-btn active" data-lang="es">🇪🇸 ES</button>
+                    <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+                    <button class="lang-btn" data-lang="pt">🇧🇷 PT</button>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Menú">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav>
+                    <ul id="navMenu">
+                        <li><a href="#inicio" class="active" data-i18n="nav.inicio">Inicio</a></li>
+                        <li><a href="#servicios" data-i18n="nav.servicios">Servicios</a></li>
+                        <li><a href="#sobre-mi" data-i18n="nav.sobre">Sobre mí</a></li>
+                        <li><a href="#galeria" data-i18n="nav.galeria">Galería</a></li>
+                        <li><a href="#contacto" class="btn-nav" data-i18n="nav.contacto">Contáctame</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="inicio">
+        <div class="hero-bg-circle c1"></div>
+        <div class="hero-bg-circle c2"></div>
+        <div class="container">
+            <div class="hero-content">
+                <p class="badge"><i class="fas fa-map-marker-alt"></i> <span data-i18n="hero.badge">Placetas, Villa Clara, Cuba</span></p>
+                <h1><span data-i18n="hero.title1">Tu obra en</span> <span data-i18n="hero.title2">manos expertas</span></h1>
+                <p data-i18n="hero.desc">Especialista en <strong>enchape</strong> y <strong>acabados interiores</strong>. Transformo tus espacios con profesionalismo, seriedad y atención a cada detalle.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn btn-primary"><i class="fas fa-paper-plane"></i> <span data-i18n="hero.btn1">Solicitar Presupuesto</span></a>
+                    <a href="#servicios" class="btn btn-outline"><i class="fas fa-tools"></i> <span data-i18n="hero.btn2">Ver Servicios</span></a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-frame">
+                    <div class="placeholder-hero">
+                        <i class="fas fa-user-hard-hat"></i>
+                        <span data-i18n="hero.foto">Foto de Yuniel en obra</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="servicios.tag">Lo que hago</span>
+                <h2><span data-i18n="servicios.title1">Servicios</span> <span data-i18n="servicios.title2">Profesionales</span></h2>
+                <p data-i18n="servicios.sub">Soluciones completas en albañilería con especialidad en enchape y acabados interiores de alta calidad.</p>
+            </div>
+            <div class="services-grid" id="servicesGrid"></div>
+        </div>
+    </section>
+
+    <!-- Sobre mí -->
+    <section id="sobre-mi">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="placeholder-about">
+                        <i class="fas fa-hard-hat"></i>
+                        <span data-i18n="about.foto">Foto de Yuniel trabajando</span>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <h2><span data-i18n="about.title1">Sobre</span> <span data-i18n="about.title2">Yuniel</span></h2>
+                    <span class="highlight" data-i18n="about.highlight">Albañil profesional con más de 10 años de experiencia en Placetas, Villa Clara.</span>
+                    <p data-i18n="about.p1">Soy un trabajador comprometido con la excelencia. Mi especialidad es el <strong>enchape</strong>, un oficio que realizo con precisión y dedicación. También domino los <strong>acabados interiores</strong>, desde el repellado hasta la pintura final.</p>
+                    <p data-i18n="about.p2">Vivo y trabajo en <strong>Placetas, Villa Clara</strong>, atendiendo a clientes en todo el municipio y zonas cercanas. Mi objetivo es que cada cliente quede completamente satisfecho.</p>
+                    <div class="about-stats">
+                        <div class="stat-item"><div class="stat-number">+10</div><div class="stat-label" data-i18n="about.stat1">Años Exp.</div></div>
+                        <div class="stat-item"><div class="stat-number">+200</div><div class="stat-label" data-i18n="about.stat2">Proyectos</div></div>
+                        <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label" data-i18n="about.stat3">Satisfacción</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería -->
+    <section id="galeria">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="galeria.tag">Trabajos Realizados</span>
+                <h2><span data-i18n="galeria.title1">Galería de</span> <span data-i18n="galeria.title2">Proyectos</span></h2>
+                <p data-i18n="galeria.sub">Ejemplos de mi trabajo. Pronto más fotos de proyectos terminados.</p>
+            </div>
+            <div class="gallery-grid" id="galleryGrid"></div>
+            <p class="gallery-note"><i class="fas fa-info-circle"></i> <span data-i18n="galeria.note">Yuniel está preparando las fotos de sus mejores trabajos.</span></p>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="testimonios.tag">Opiniones</span>
+                <h2><span data-i18n="testimonios.title1">Lo que dicen</span> <span data-i18n="testimonios.title2">mis clientes</span></h2>
+                <p data-i18n="testimonios.sub">La satisfacción de quienes confiaron en mi trabajo.</p>
+            </div>
+            <div class="testimonials-grid" id="testimonialsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" data-i18n="contacto.tag">Contacto</span>
+                <h2><span data-i18n="contacto.title1">Solicita tu</span> <span data-i18n="contacto.title2">Presupuesto</span></h2>
+                <p data-i18n="contacto.sub">Cuéntame sobre tu proyecto y te responderé a la brevedad.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><div class="contact-text"><strong data-i18n="contacto.tel">Teléfono</strong><span>+53 5XXX XXXX</span></div></div>
+                    <div class="contact-card"><div class="contact-icon"><i class="fab fa-whatsapp"></i></div><div class="contact-text"><strong data-i18n="contacto.whats">WhatsApp</strong><span>+53 5XXX XXXX</span></div></div>
+                    <div class="contact-card"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div class="contact-text"><strong data-i18n="contacto.ubi">Ubicación</strong><span>Placetas, Villa Clara, Cuba</span></div></div>
+                    <div class="contact-card"><div class="contact-icon"><i class="fas fa-clock"></i></div><div class="contact-text"><strong data-i18n="contacto.horario">Horario</strong><span data-i18n="contacto.horarioVal">Lunes a Sábado: 7:00 AM - 5:00 PM</span></div></div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <h3 data-i18n="contacto.formTitle">Envíame un mensaje</h3>
+                    <form id="contactForm">
+                        <div class="form-group"><label data-i18n="contacto.formNombre">Nombre completo</label><input type="text" id="nombre" required></div>
+                        <div class="form-group"><label data-i18n="contacto.formTel">Teléfono</label><input type="tel" id="telefono" required></div>
+                        <div class="form-group"><label data-i18n="contacto.formServicio">Servicio de interés</label><select id="servicio"><option value="" data-i18n="contacto.formSel">Selecciona una opción</option><option value="enchape" data-i18n="contacto.opt1">Enchape</option><option value="interiores" data-i18n="contacto.opt2">Acabados interiores</option><option value="banos" data-i18n="contacto.opt3">Remodelación baño</option><option value="cocinas" data-i18n="contacto.opt4">Remodelación cocina</option><option value="otro" data-i18n="contacto.opt5">Otro</option></select></div>
+                        <div class="form-group"><label data-i18n="contacto.formMsg">Describe tu proyecto</label><textarea id="mensaje" rows="3"></textarea></div>
+                        <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> <span data-i18n="contacto.formBtn">Enviar Solicitud</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="https://wa.me/5355555555" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:+5355555555"><i class="fas fa-phone-alt"></i></a>
+                <a href="mailto:yuniel@email.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p data-i18n="footer">© 2026 <strong>Yuniel</strong> — Albañilería Profesional | Placetas, Villa Clara, Cuba</p>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== TRADUCCIONES ====================
+        const translations = {
+            es: {
+                'nav.inicio': 'Inicio',
+                'nav.servicios': 'Servicios',
+                'nav.sobre': 'Sobre mí',
+                'nav.galeria': 'Galería',
+                'nav.contacto': 'Contáctame',
+                'hero.badge': 'Placetas, Villa Clara, Cuba',
+                'hero.title1': 'Tu obra en',
+                'hero.title2': 'manos expertas',
+                'hero.desc': 'Especialista en <strong>enchape</strong> y <strong>acabados interiores</strong>. Transformo tus espacios con profesionalismo, seriedad y atención a cada detalle.',
+                'hero.btn1': 'Solicitar Presupuesto',
+                'hero.btn2': 'Ver Servicios',
+                'hero.foto': 'Foto de Yuniel en obra',
+                'servicios.tag': 'Lo que hago',
+                'servicios.title1': 'Servicios',
+                'servicios.title2': 'Profesionales',
+                'servicios.sub': 'Soluciones completas en albañilería con especialidad en enchape y acabados interiores de alta calidad.',
+                'about.tag': 'Conóceme',
+                'about.title1': 'Sobre',
+                'about.title2': 'Yuniel',
+                'about.highlight': 'Albañil profesional con más de 10 años de experiencia en Placetas, Villa Clara.',
+                'about.p1': 'Soy un trabajador comprometido con la excelencia. Mi especialidad es el <strong>enchape</strong>, un oficio que realizo con precisión y dedicación. También domino los <strong>acabados interiores</strong>, desde el repellado hasta la pintura final.',
+                'about.p2': 'Vivo y trabajo en <strong>Placetas, Villa Clara</strong>, atendiendo a clientes en todo el municipio y zonas cercanas. Mi objetivo es que cada cliente quede completamente satisfecho.',
+                'about.stat1': 'Años Exp.',
+                'about.stat2': 'Proyectos',
+                'about.stat3': 'Satisfacción',
+                'about.foto': 'Foto de Yuniel trabajando',
+                'galeria.tag': 'Trabajos Realizados',
+                'galeria.title1': 'Galería de',
+                'galeria.title2': 'Proyectos',
+                'galeria.sub': 'Ejemplos de mi trabajo. Pronto más fotos de proyectos terminados.',
+                'galeria.note': 'Yuniel está preparando las fotos de sus mejores trabajos.',
+                'testimonios.tag': 'Opiniones',
+                'testimonios.title1': 'Lo que dicen',
+                'testimonios.title2': 'mis clientes',
+                'testimonios.sub': 'La satisfacción de quienes confiaron en mi trabajo.',
+                'contacto.tag': 'Contacto',
+                'contacto.title1': 'Solicita tu',
+                'contacto.title2': 'Presupuesto',
+                'contacto.sub': 'Cuéntame sobre tu proyecto y te responderé a la brevedad.',
+                'contacto.tel': 'Teléfono',
+                'contacto.whats': 'WhatsApp',
+                'contacto.ubi': 'Ubicación',
+                'contacto.horario': 'Horario',
+                'contacto.horarioVal': 'Lunes a Sábado: 7:00 AM - 5:00 PM',
+                'contacto.formTitle': 'Envíame un mensaje',
+                'contacto.formNombre': 'Nombre completo',
+                'contacto.formTel': 'Teléfono',
+                'contacto.formServicio': 'Servicio de interés',
+                'contacto.formSel': 'Selecciona una opción',
+                'contacto.opt1': 'Enchape',
+                'contacto.opt2': 'Acabados interiores',
+                'contacto.opt3': 'Remodelación baño',
+                'contacto.opt4': 'Remodelación cocina',
+                'contacto.opt5': 'Otro',
+                'contacto.formMsg': 'Describe tu proyecto',
+                'contacto.formBtn': 'Enviar Solicitud',
+                'footer': '© 2026 <strong>Yuniel</strong> — Albañilería Profesional | Placetas, Villa Clara, Cuba',
+                'service1_title': 'Enchape de Pisos y Paredes',
+                'service1_desc': 'Instalación profesional de azulejos, losas, cerámicas y porcelanatos. Acabados precisos y diseño impecable.',
+                'service2_title': 'Acabados Interiores',
+                'service2_desc': 'Repellado, alisado de paredes, pintura e instalación de plafones. Tu hogar como nuevo.',
+                'service3_title': 'Remodelación de Baños y Cocinas',
+                'service3_desc': 'Renovación completa: enchape, plomería básica, instalación de sanitarios y fregaderos.',
+                'service4_title': 'Construcción y Reparaciones',
+                'service4_desc': 'Levantamiento de muros, reparación de grietas, impermeabilización y trabajos generales.',
+                'service5_title': 'Diseño de Patrones de Enchape',
+                'service5_desc': 'Asesoría en selección y diseño de patrones decorativos para ambientes únicos.',
+                'service6_title': 'Trabajos Urgentes',
+                'service6_desc': 'Respuesta rápida para reparaciones urgentes. Disponibilidad inmediata.',
+                'badge_especialidad': '⭐ Especialidad',
+                'test1_text': '"Yuniel hizo un trabajo excelente en el enchape de mi cocina. Quedó perfecto, muy parejo y limpio. Lo recomiendo sin dudar."',
+                'test1_name': 'María G.',
+                'test1_place': 'Placetas, Villa Clara',
+                'test2_text': '"Contraté a Yuniel para remodelar el baño y fue la mejor decisión. Cumplió con los plazos, el acabado es de primera."',
+                'test2_name': 'Roberto L.',
+                'test2_place': 'Falcón, Villa Clara',
+                'test3_text': '"Muy profesional y detallista. El enchape de la sala superó mis expectativas. Totalmente recomendado."',
+                'test3_name': 'Anaís P.',
+                'test3_place': 'Placetas, Villa Clara',
+                'galeria_items': ['Enchape de piso', 'Baño terminado', 'Cocina renovada', 'Pared enchapada', 'Acabado interior',
+                    'Piso cerámico', 'Remodelación', 'Trabajo en progreso'
+                ]
+            },
+            en: {
+                'nav.inicio': 'Home',
+                'nav.servicios': 'Services',
+                'nav.sobre': 'About',
+                'nav.galeria': 'Gallery',
+                'nav.contacto': 'Contact',
+                'hero.badge': 'Placetas, Villa Clara, Cuba',
+                'hero.title1': 'Your project in',
+                'hero.title2': 'expert hands',
+                'hero.desc': 'Specialist in <strong>tiling</strong> and <strong>interior finishing</strong>. I transform spaces with professionalism, reliability, and attention to detail.',
+                'hero.btn1': 'Request a Quote',
+                'hero.btn2': 'View Services',
+                'hero.foto': 'Photo of Yuniel at work',
+                'servicios.tag': 'What I Do',
+                'servicios.title1': 'Professional',
+                'servicios.title2': 'Services',
+                'servicios.sub': 'Complete masonry solutions specializing in tiling and high-quality interior finishes.',
+                'about.tag': 'About Me',
+                'about.title1': 'About',
+                'about.title2': 'Yuniel',
+                'about.highlight': 'Professional mason with over 10 years of experience in Placetas, Villa Clara.',
+                'about.p1': 'I am a worker committed to excellence. My specialty is <strong>tiling</strong>, a craft I perform with precision and dedication. I also master <strong>interior finishing</strong>, from plastering to final painting.',
+                'about.p2': 'I live and work in <strong>Placetas, Villa Clara</strong>, serving clients throughout the municipality and nearby areas. My goal is complete customer satisfaction.',
+                'about.stat1': 'Years Exp.',
+                'about.stat2': 'Projects',
+                'about.stat3': 'Satisfaction',
+                'about.foto': 'Photo of Yuniel working',
+                'galeria.tag': 'Past Work',
+                'galeria.title1': 'Project',
+                'galeria.title2': 'Gallery',
+                'galeria.sub': 'Examples of my work. More photos coming soon.',
+                'galeria.note': 'Yuniel is preparing photos of his best projects.',
+                'testimonios.tag': 'Testimonials',
+                'testimonios.title1': 'What my',
+                'testimonios.title2': 'clients say',
+                'testimonios.sub': 'The satisfaction of those who trusted my work.',
+                'contacto.tag': 'Contact',
+                'contacto.title1': 'Request your',
+                'contacto.title2': 'Quote',
+                'contacto.sub': 'Tell me about your project and I will respond shortly.',
+                'contacto.tel': 'Phone',
+                'contacto.whats': 'WhatsApp',
+                'contacto.ubi': 'Location',
+                'contacto.horario': 'Hours',
+                'contacto.horarioVal': 'Mon - Sat: 7:00 AM - 5:00 PM',
+                'contacto.formTitle': 'Send me a message',
+                'contacto.formNombre': 'Full Name',
+                'contacto.formTel': 'Phone',
+                'contacto.formServicio': 'Service of interest',
+                'contacto.formSel': 'Select an option',
+                'contacto.opt1': 'Tiling',
+                'contacto.opt2': 'Interior Finishing',
+                'contacto.opt3': 'Bathroom Remodel',
+                'contacto.opt4': 'Kitchen Remodel',
+                'contacto.opt5': 'Other',
+                'contacto.formMsg': 'Describe your project',
+                'contacto.formBtn': 'Send Request',
+                'footer': '© 2026 <strong>Yuniel</strong> — Professional Masonry | Placetas, Villa Clara, Cuba',
+                'service1_title': 'Floor and Wall Tiling',
+                'service1_desc': 'Professional installation of tiles, ceramics, and porcelain. Precise finishes and flawless design.',
+                'service2_title': 'Interior Finishing',
+                'service2_desc': 'Plastering, wall smoothing, painting, and ceiling installation. Like-new home.',
+                'service3_title': 'Bathroom & Kitchen Remodeling',
+                'service3_desc': 'Complete renovation: tiling, basic plumbing, installation of toilets and sinks.',
+                'service4_title': 'Construction & Repairs',
+                'service4_desc': 'Wall construction, crack repair, waterproofing, and general masonry work.',
+                'service5_title': 'Tile Pattern Design',
+                'service5_desc': 'Advice on selection and design of decorative patterns for unique spaces.',
+                'service6_title': 'Urgent Repairs',
+                'service6_desc': 'Fast response for urgent repairs. Immediate availability.',
+                'badge_especialidad': '⭐ Specialty',
+                'test1_text': '"Yuniel did an excellent job tiling my kitchen. It was perfect, very even and clean. I highly recommend him."',
+                'test1_name': 'María G.',
+                'test1_place': 'Placetas, Villa Clara',
+                'test2_text': '"I hired Yuniel to remodel the bathroom and it was the best decision. He met deadlines, top-quality finish."',
+                'test2_name': 'Roberto L.',
+                'test2_place': 'Falcón, Villa Clara',
+                'test3_text': '"Very professional and detail-oriented. The living room tiling exceeded my expectations. Highly recommended."',
+                'test3_name': 'Anaís P.',
+                'test3_place': 'Placetas, Villa Clara',
+                'galeria_items': ['Floor tiling', 'Finished bathroom', 'Renovated kitchen', 'Tiled wall', 'Interior finish',
+                    'Ceramic floor', 'Remodeling', 'Work in progress'
+                ]
+            },
+            pt: {
+                'nav.inicio': 'Início',
+                'nav.servicios': 'Serviços',
+                'nav.sobre': 'Sobre',
+                'nav.galeria': 'Galeria',
+                'nav.contacto': 'Contato',
+                'hero.badge': 'Placetas, Villa Clara, Cuba',
+                'hero.title1': 'Sua obra em',
+                'hero.title2': 'mãos experientes',
+                'hero.desc': 'Especialista em <strong>azulejos</strong> e <strong>acabamentos internos</strong>. Transformo espaços com profissionalismo, seriedade e atenção a cada detalhe.',
+                'hero.btn1': 'Solicitar Orçamento',
+                'hero.btn2': 'Ver Serviços',
+                'hero.foto': 'Foto de Yuniel em obra',
+                'servicios.tag': 'O que faço',
+                'servicios.title1': 'Serviços',
+                'servicios.title2': 'Profissionais',
+                'servicios.sub': 'Soluções completas em alvenaria com especialidade em azulejos e acabamentos internos de alta qualidade.',
+                'about.tag': 'Conheça-me',
+                'about.title1': 'Sobre',
+                'about.title2': 'Yuniel',
+                'about.highlight': 'Pedreiro profissional com mais de 10 anos de experiência em Placetas, Villa Clara.',
+                'about.p1': 'Sou um trabalhador comprometido com a excelência. Minha especialidade é o <strong>azulejo</strong>, um ofício que realizo com precisão e dedicação. Também domino os <strong>acabamentos internos</strong>, do reboco à pintura final.',
+                'about.p2': 'Vivo e trabalho em <strong>Placetas, Villa Clara</strong>, atendendo clientes em todo o município e áreas próximas. Meu objetivo é a total satisfação de cada cliente.',
+                'about.stat1': 'Anos Exp.',
+                'about.stat2': 'Projetos',
+                'about.stat3': 'Satisfação',
+                'about.foto': 'Foto de Yuniel trabalhando',
+                'galeria.tag': 'Trabalhos Realizados',
+                'galeria.title1': 'Galeria de',
+                'galeria.title2': 'Projetos',
+                'galeria.sub': 'Exemplos do meu trabalho. Em breve mais fotos de projetos concluídos.',
+                'galeria.note': 'Yuniel está preparando as fotos de seus melhores trabalhos.',
+                'testimonios.tag': 'Depoimentos',
+                'testimonios.title1': 'O que dizem',
+                'testimonios.title2': 'meus clientes',
+                'testimonios.sub': 'A satisfação de quem confiou no meu trabalho.',
+                'contacto.tag': 'Contato',
+                'contacto.title1': 'Solicite seu',
+                'contacto.title2': 'Orçamento',
+                'contacto.sub': 'Conte-me sobre seu projeto e responderei em breve.',
+                'contacto.tel': 'Telefone',
+                'contacto.whats': 'WhatsApp',
+                'contacto.ubi': 'Localização',
+                'contacto.horario': 'Horário',
+                'contacto.horarioVal': 'Seg a Sáb: 7:00 - 17:00',
+                'contacto.formTitle': 'Envie-me uma mensagem',
+                'contacto.formNombre': 'Nome completo',
+                'contacto.formTel': 'Telefone',
+                'contacto.formServicio': 'Serviço de interesse',
+                'contacto.formSel': 'Selecione uma opção',
+                'contacto.opt1': 'Azulejos',
+                'contacto.opt2': 'Acabamentos internos',
+                'contacto.opt3': 'Reforma de banheiro',
+                'contacto.opt4': 'Reforma de cozinha',
+                'contacto.opt5': 'Outro',
+                'contacto.formMsg': 'Descreva seu projeto',
+                'contacto.formBtn': 'Enviar Solicitação',
+                'footer': '© 2026 <strong>Yuniel</strong> — Alvenaria Profissional | Placetas, Villa Clara, Cuba',
+                'service1_title': 'Azulejos de Pisos e Paredes',
+                'service1_desc': 'Instalação profissional de azulejos, cerâmicas e porcelanatos. Acabamentos precisos e design impecável.',
+                'service2_title': 'Acabamentos Internos',
+                'service2_desc': 'Reboco, alisamento de paredes, pintura e instalação de tetos. Sua casa como nova.',
+                'service3_title': 'Reforma de Banheiros e Cozinhas',
+                'service3_desc': 'Renovação completa: azulejos, encanamento básico, instalação de vasos e pias.',
+                'service4_title': 'Construção e Reparos',
+                'service4_desc': 'Levantamento de paredes, reparo de rachaduras, impermeabilização e trabalhos gerais.',
+                'service5_title': 'Design de Padrões de Azulejos',
+                'service5_desc': 'Assessoria na seleção e design de padrões decorativos para ambientes únicos.',
+                'service6_title': 'Reparos Urgentes',
+                'service6_desc': 'Resposta rápida para reparos urgentes. Disponibilidade imediata.',
+                'badge_especialidad': '⭐ Especialidade',
+                'test1_text': '"Yuniel fez um excelente trabalho no azulejo da minha cozinha. Ficou perfeito, muito uniforme e limpo. Recomendo sem dúvidas."',
+                'test1_name': 'María G.',
+                'test1_place': 'Placetas, Villa Clara',
+                'test2_text': '"Contratei Yuniel para reformar o banheiro e foi a melhor decisão. Cumpriu os prazos, acabamento de primeira."',
+                'test2_name': 'Roberto L.',
+                'test2_place': 'Falcón, Villa Clara',
+                'test3_text': '"Muito profissional e detalhista. O azulejo da sala superou minhas expectativas. Totalmente recomendado."',
+                'test3_name': 'Anaís P.',
+                'test3_place': 'Placetas, Villa Clara',
+                'galeria_items': ['Azulejo de piso', 'Banheiro pronto', 'Cozinha renovada', 'Parede azulejada', 'Acabamento interno',
+                    'Piso cerâmico', 'Reforma', 'Trabalho em andamento'
+                ]
+            }
+        };
+
+        let currentLang = 'es';
+
+        // ==================== CAMBIO DE IDIOMA ====================
+        function setLanguage(lang) {
+            currentLang = lang;
+            const data = translations[lang];
+
+            // Actualizar elementos con data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (data[key]) {
+                    if (key === 'hero.desc' || key === 'about.p1' || key === 'about.p2' || key === 'footer') {
+                        el.innerHTML = data[key];
+                    } else {
+                        el.textContent = data[key];
+                    }
+                }
+            });
+
+            // Actualizar servicios
+            renderServices();
+            // Actualizar galería
+            renderGallery();
+            // Actualizar testimonios
+            renderTestimonials();
+            // Actualizar placeholder de formulario
+            document.getElementById('nombre').placeholder = data['contacto.formNombre'];
+            document.getElementById('telefono').placeholder = data['contacto.formTel'];
+            document.getElementById('mensaje').placeholder = data['contacto.formMsg'];
+
+            // Actualizar botones de idioma
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+
+            // Actualizar html lang
+            document.documentElement.lang = lang;
+        }
+
+        // ==================== RENDERIZAR SERVICIOS ====================
+        function renderServices() {
+            const data = translations[currentLang];
+            const services = [
+                { icon: 'fa-th', title: data['service1_title'], desc: data['service1_desc'], badge: true },
+                { icon: 'fa-paint-roller', title: data['service2_title'], desc: data['service2_desc'], badge: false },
+                { icon: 'fa-sink', title: data['service3_title'], desc: data['service3_desc'], badge: false },
+                { icon: 'fa-home', title: data['service4_title'], desc: data['service4_desc'], badge: false },
+                { icon: 'fa-border-all', title: data['service5_title'], desc: data['service5_desc'], badge: false },
+                { icon: 'fa-clock', title: data['service6_title'], desc: data['service6_desc'], badge: false },
+            ];
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = services.map(s => `
+            <div class="service-card">
+              ${s.badge ? `<span class="special-badge">${data['badge_especialidad']}</span>` : ''}
+              <div class="icon-circle"><i class="fas ${s.icon}"></i></div>
+              <h3>${s.title}</h3>
+              <p>${s.desc}</p>
+            </div>
+          `).join('');
+        }
+
+        function renderGallery() {
+            const data = translations[currentLang];
+            const items = data['galeria_items'];
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = items.map((item, i) => `
+            <div class="gallery-item">
+              <div class="gallery-placeholder">
+                <i class="fas fa-image"></i>
+                <span>${item}<br>Proyecto ${i+1}</span>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        function renderTestimonials() {
+            const data = translations[currentLang];
+            const testimonials = [
+                { text: data['test1_text'], name: data['test1_name'], place: data['test1_place'], initial: 'M' },
+                { text: data['test2_text'], name: data['test2_name'], place: data['test2_place'], initial: 'R' },
+                { text: data['test3_text'], name: data['test3_name'], place: data['test3_place'], initial: 'A' },
+            ];
+            const grid = document.getElementById('testimonialsGrid');
+            grid.innerHTML = testimonials.map(t => `
+            <div class="testimonial-card">
+              <div class="quote"><i class="fas fa-quote-right"></i></div>
+              <p>${t.text}</p>
+              <div class="client-info">
+                <div class="client-avatar">${t.initial}</div>
+                <div class="client-details">
+                  <strong>${t.name}</strong>
+                  <span>${t.place}</span>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // ==================== EVENTOS ====================
+        document.getElementById('langSelector').addEventListener('click', (e) => {
+            const btn = e.target.closest('.lang-btn');
+            if (!btn) return;
+            const lang = btn.getAttribute('data-lang');
+            if (lang && lang !== currentLang) {
+                setLanguage(lang);
+            }
+        });
+
+        // Inicializar
+        renderServices();
+        renderGallery();
+        renderTestimonials();
+
+        // Menú móvil
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const navLinks = navMenu.querySelectorAll('a');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        }
+        hamburger.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+
+        // Header scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Active nav
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+
+        // Formulario
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const servicio = document.getElementById('servicio').value;
+            const mensaje = document.getElementById('mensaje').value.trim();
+            if (!nombre || !telefono) {
+                alert(currentLang === 'en' ? 'Please fill in your name and phone.' :
+                    currentLang === 'pt' ? 'Por favor, preencha nome e telefone.' :
+                    'Por favor, completa al menos tu nombre y teléfono.');
+                return;
+            }
+            const texto = `Hola Yuniel, soy ${nombre}.%0A%0ATeléfono: ${telefono}%0AServicio: ${servicio || 'No especificado'}%0AMensaje: ${mensaje || 'Quisiera solicitar información.'}%0A%0A(Enviado desde tu página web)`;
+            window.open(`https://wa.me/5355555555?text=${texto}`, '_blank');
+            alert(currentLang === 'en' ? 'Redirecting to WhatsApp...' : currentLang === 'pt' ?
+                'Redirecionando para o WhatsApp...' : '¡Redirigiendo a WhatsApp!');
+            this.reset();
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                const id = this.getAttribute('href');
+                if (id === '#') return;
+                const target = document.querySelector(id);
+                if (target) {
+                    e.preventDefault();
+                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
