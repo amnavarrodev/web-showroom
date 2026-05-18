@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Connect Argentina | Intermediarios en Commodities y Productos de Alto Valor</title>
+    <style>
+        :root {
+            --negro: #1a1a1a;
+            --blanco: #ffffff;
+            --gris-fondo: #f8f9fa;
+            --gris-borde: #e9ecef;
+            --gris-texto: #6c757d;
+            --dorado: #9a7d3a;
+            --dorado-hover: #b8944c;
+            --azul-corporativo: #1e3a5f;
+            --sombra-suave: 0 2px 15px rgba(0, 0, 0, 0.04);
+            --sombra-media: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --transicion: 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--blanco);
+            color: var(--negro);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== TOP BAR ========== */
+        .top-bar {
+            background: var(--negro);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            padding: 8px 0;
+            letter-spacing: 0.3px;
+        }
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .top-bar a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transicion);
+            margin-left: 15px;
+        }
+        .top-bar a:hover {
+            color: var(--dorado-hover);
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--blanco);
+            border-bottom: 1px solid var(--gris-borde);
+            transition: var(--transicion);
+        }
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 75px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo .marca {
+            width: 44px;
+            height: 44px;
+            background: var(--dorado);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--blanco);
+            letter-spacing: -1px;
+        }
+        .logo .texto-logo {
+            display: flex;
+            flex-direction: column;
+        }
+        .logo .texto-logo strong {
+            color: var(--negro);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+        }
+        .logo .texto-logo span {
+            color: var(--gris-texto);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gris-texto);
+            font-weight: 500;
+            font-size: 0.88rem;
+            transition: var(--transicion);
+            position: relative;
+            padding-bottom: 6px;
+            letter-spacing: 0.2px;
+        }
+        .nav-links a:hover {
+            color: var(--negro);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--dorado);
+            transition: var(--transicion);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .btn-nav {
+            background: var(--dorado);
+            color: var(--blanco) !important;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+            letter-spacing: 0.3px;
+            transition: var(--transicion);
+        }
+        .btn-nav:hover {
+            background: var(--dorado-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(154,125,58,0.25);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--negro);
+            border-radius: 2px;
+            transition: var(--transicion);
+        }
+
+        /* ========== CONTAINER ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%);
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(154,125,58,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(154,125,58,0.1);
+            color: var(--dorado);
+            padding: 7px 18px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            font-weight: 800;
+            color: var(--negro);
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 1.2rem;
+        }
+        .hero h1 span {
+            color: var(--dorado);
+            position: relative;
+        }
+        .hero h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(154,125,58,0.15);
+            z-index: -1;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--gris-texto);
+            max-width: 580px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primario {
+            background: var(--dorado);
+            color: var(--blanco);
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transicion);
+            letter-spacing: 0.3px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primario:hover {
+            background: var(--dorado-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(154,125,58,0.3);
+        }
+        .btn-secundario {
+            background: transparent;
+            color: var(--negro);
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transicion);
+            border: 1.5px solid var(--gris-borde);
+            cursor: pointer;
+        }
+        .btn-secundario:hover {
+            border-color: var(--dorado);
+            color: var(--dorado);
+            background: rgba(154,125,58,0.03);
+        }
+
+        /* ========== SECCIONES ========== */
+        section {
+            padding: 90px 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-header .badge {
+            display: inline-block;
+            color: var(--dorado);
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+        .section-header h2 {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.5px;
+        }
+        .section-header p {
+            color: var(--gris-texto);
+            max-width: 520px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+        .section-header .linea {
+            width: 50px;
+            height: 3px;
+            background: var(--dorado);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ========== SERVICIOS ========== */
+        #servicios {
+            background: var(--gris-fondo);
+        }
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+        .servicio-card {
+            background: var(--blanco);
+            border-radius: 8px;
+            padding: 35px 28px;
+            border: 1px solid var(--gris-borde);
+            transition: var(--transicion);
+            position: relative;
+            overflow: hidden;
+        }
+        .servicio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--dorado);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+        .servicio-card:hover::before {
+            transform: scaleX(1);
+        }
+        .servicio-card:hover {
+            box-shadow: var(--sombra-media);
+            transform: translateY(-4px);
+        }
+        .servicio-card .icono {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .servicio-card h3 {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--negro);
+            margin-bottom: 8px;
+        }
+        .servicio-card p {
+            color: var(--gris-texto);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ========== PRODUCTOS ========== */
+        #productos {
+            background: var(--blanco);
+        }
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 28px;
+        }
+        .producto-card {
+            background: var(--blanco);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--gris-borde);
+            transition: var(--transicion);
+        }
+        .producto-card:hover {
+            box-shadow: var(--sombra-media);
+            transform: translateY(-5px);
+        }
+        .producto-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .producto-card .card-body {
+            padding: 22px 20px 24px;
+        }
+        .producto-card .card-body .categoria {
+            font-size: 0.7rem;
+            color: var(--dorado);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .producto-card .card-body h3 {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--negro);
+            margin-bottom: 6px;
+        }
+        .producto-card .card-body p {
+            font-size: 0.88rem;
+            color: var(--gris-texto);
+            line-height: 1.5;
+        }
+
+        /* ========== MERCADOS ========== */
+        #mercados {
+            background: var(--gris-fondo);
+        }
+        .mercados-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            text-align: center;
+        }
+        .mercado-item {
+            background: var(--blanco);
+            padding: 28px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--gris-borde);
+            transition: var(--transicion);
+        }
+        .mercado-item:hover {
+            border-color: var(--dorado);
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-suave);
+        }
+        .mercado-item .bandera {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .mercado-item h4 {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--negro);
+            margin-bottom: 2px;
+        }
+        .mercado-item p {
+            font-size: 0.78rem;
+            color: var(--gris-texto);
+        }
+
+        /* ========== PROCESO ========== */
+        #proceso {
+            background: var(--blanco);
+        }
+        .proceso-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 30px;
+        }
+        .proceso-paso {
+            text-align: center;
+            padding: 25px 20px;
+            position: relative;
+        }
+        .proceso-paso .circulo {
+            width: 60px;
+            height: 60px;
+            background: var(--blanco);
+            border: 2px solid var(--dorado);
+            color: var(--dorado);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin: 0 auto 18px;
+            transition: var(--transicion);
+        }
+        .proceso-paso:hover .circulo {
+            background: var(--dorado);
+            color: var(--blanco);
+        }
+        .proceso-paso h4 {
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .proceso-paso p {
+            color: var(--gris-texto);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* ========== TESTIMONIOS ========== */
+        #testimonios {
+            background: var(--gris-fondo);
+        }
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 28px;
+        }
+        .testimonio-card {
+            background: var(--blanco);
+            border-radius: 8px;
+            padding: 30px 28px;
+            border: 1px solid var(--gris-borde);
+            transition: var(--transicion);
+        }
+        .testimonio-card:hover {
+            box-shadow: var(--sombra-media);
+        }
+        .testimonio-card .estrellas {
+            color: #d4a017;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .testimonio-card .texto {
+            font-style: italic;
+            color: var(--negro);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--dorado);
+        }
+        .testimonio-card .autor {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonio-card .autor .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .testimonio-card .autor .info strong {
+            display: block;
+            color: var(--negro);
+            font-size: 0.9rem;
+        }
+        .testimonio-card .autor .info span {
+            font-size: 0.78rem;
+            color: var(--gris-texto);
+        }
+
+        /* ========== FAQ ========== */
+        #faq {
+            background: var(--blanco);
+        }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .faq-item {
+            background: var(--gris-fondo);
+            border-radius: 8px;
+            padding: 24px;
+            border: 1px solid transparent;
+            transition: var(--transicion);
+        }
+        .faq-item:hover {
+            border-color: var(--dorado);
+        }
+        .faq-item h4 {
+            color: var(--negro);
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .faq-item p {
+            color: var(--gris-texto);
+            font-size: 0.88rem;
+        }
+
+        /* ========== CONTACTO ========== */
+        #contacto {
+            background: var(--negro);
+            color: var(--blanco);
+        }
+        #contacto .section-header h2 {
+            color: var(--blanco);
+        }
+        #contacto .section-header p {
+            color: rgba(255,255,255,0.6);
+        }
+        #contacto .section-header .badge {
+            color: var(--dorado-hover);
+        }
+        #contacto .section-header .linea {
+            background: var(--dorado);
+        }
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        .contacto-info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .contacto-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .contacto-item .icono-box {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--dorado);
+        }
+        .contacto-item .info strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--blanco);
+        }
+        .contacto-item .info span,
+        .contacto-item .info a {
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: var(--transicion);
+        }
+        .contacto-item .info a:hover {
+            color: var(--dorado-hover);
+        }
+        .formulario-contacto {
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 32px 28px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .formulario-contacto h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--blanco);
+            font-weight: 600;
+        }
+        .formulario-contacto input,
+        .formulario-contacto textarea {
+            width: 100%;
+            padding: 13px 16px;
+            margin-bottom: 14px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.04);
+            color: var(--blanco);
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: var(--transicion);
+            resize: vertical;
+        }
+        .formulario-contacto input::placeholder,
+        .formulario-contacto textarea::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        .formulario-contacto input:focus,
+        .formulario-contacto textarea:focus {
+            outline: none;
+            border-color: var(--dorado);
+            background: rgba(255,255,255,0.06);
+        }
+        .formulario-contacto button {
+            width: 100%;
+            padding: 14px;
+            background: var(--dorado);
+            color: var(--blanco);
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transicion);
+            letter-spacing: 0.3px;
+        }
+        .formulario-contacto button:hover {
+            background: var(--dorado-hover);
+            box-shadow: 0 6px 20px rgba(154,125,58,0.35);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #111;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 28px 2rem;
+            font-size: 0.82rem;
+        }
+        footer a {
+            color: var(--dorado-hover);
+            text-decoration: none;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background: var(--blanco);
+                flex-direction: column;
+                padding: 25px 2rem;
+                gap: 1.2rem;
+                border-bottom: 1px solid var(--gris-borde);
+                box-shadow: var(--sombra-media);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .contacto-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .hero {
+                padding: 70px 0 50px;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .container {
+                padding: 0 1.2rem;
+            }
+        }
+        @media (max-width: 500px) {
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .btn-primario,
+            .btn-secundario {
+                text-align: center;
+                padding: 12px 20px;
+                font-size: 0.88rem;
+            }
+            .productos-grid {
+                grid-template-columns: 1fr;
+            }
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== TOP BAR ==================== -->
+    <div class="top-bar">
+        <div class="container">
+            <span>🇦🇷 Buenos Aires, Argentina · Lun-Vie 9:00–18:00 (ART)</span>
+            <span>
+                <a href="tel:+541112345678">📞 +54 11 1234 5678</a>
+                <a href="mailto:contacto@globalconnect.com.ar">✉️ contacto@globalconnect.com.ar</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="marca">GC</div>
+                <div class="texto-logo">
+                    <strong>Global Connect</strong>
+                    <span>Argentina</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#mercados">Mercados</a></li>
+                <li><a href="#proceso">Proceso</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contacto" class="btn-nav">Contacto</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-badge">Intermediarios desde 2010</div>
+            <h1>Conectamos a la <span>Argentina</span> con el mundo</h1>
+            <p>
+                Somos un grupo de intermediarios con presencia global. Especialistas en petróleo, oro,
+                piedras preciosas y oleaginosas. Resultados reales, relaciones duraderas.
+            </p>
+            <div class="hero-buttons">
+                <a href="#productos" class="btn-primario">Explorar Productos</a>
+                <a href="#contacto" class="btn-secundario">Solicitar Consulta</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICIOS ==================== -->
+    <section id="servicios">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Qué Hacemos</span>
+                <h2>Servicios de Intermediación</h2>
+                <p>Soluciones integrales para operaciones comerciales de alto valor.</p>
+                <div class="linea"></div>
+            </div>
+            <div class="servicios-grid">
+                <div class="servicio-card">
+                    <span class="icono">🤝</span>
+                    <h3>Conexión Comercial</h3>
+                    <p>Unimos compradores y vendedores calificados en mercados estratégicos de todo el mundo.</p>
+                </div>
+                <div class="servicio-card">
+                    <span class="icono">📋</span>
+                    <h3>Gestión Documental</h3>
+                    <p>Manejo completo de contratos, certificados y documentación aduanera internacional.</p>
+                </div>
+                <div class="servicio-card">
+                    <span class="icono">🔒</span>
+                    <h3>Verificación y Control</h3>
+                    <p>Due diligence exhaustivo para garantizar la seguridad y legitimidad de cada operación.</p>
+                </div>
+                <div class="servicio-card">
+                    <span class="icono">🚢</span>
+                    <h3>Logística Coordinada</h3>
+                    <p>Organizamos el transporte desde origen hasta destino final, sin complicaciones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PRODUCTOS ==================== -->
+    <section id="productos">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Nuestro Portfolio</span>
+                <h2>Productos que Intermediamos</h2>
+                <p>Commodities y productos de alto valor con demanda global constante.</p>
+                <div class="linea"></div>
+            </div>
+            <div class="productos-grid">
+                <div class="producto-card">
+                    <img src="https://images.unsplash.com/photo-1620283085068-5a9749e0a9c8?w=600&h=400&fit=crop&auto=format" alt="Derivados del petróleo" loading="lazy">
+                    <div class="card-body">
+                        <span class="categoria">Energía</span>
+                        <h3>Derivados del Petróleo</h3>
+                        <p>Crudo, gasolina, diésel, nafta y fuel oil. Operaciones con refinerías argentinas e internacionales.</p>
+                    </div>
+                </div>
+                <div class="producto-card">
+                    <img src="https://images.unsplash.com/photo-1610375461369-d613b564f4c4?w=600&h=400&fit=crop&auto=format" alt="Oro" loading="lazy">
+                    <div class="card-body">
+                        <span class="categoria">Metales Preciosos</span>
+                        <h3>Oro</h3>
+                        <p>Lingotes y oro refinado. Conexiones directas con minas y compradores institucionales.</p>
+                    </div>
+                </div>
+                <div class="producto-card">
+                    <img src="https://images.unsplash.com/photo-1515562141607-3b13e20c9f4b?w=600&h=400&fit=crop&auto=format" alt="Piedras preciosas" loading="lazy">
+                    <div class="card-body">
+                        <span class="categoria">Gemas</span>
+                        <h3>Piedras Preciosas</h3>
+                        <p>Diamantes, esmeraldas, rubíes y zafiros. Tasación profesional y verificación de autenticidad.</p>
+                    </div>
+                </div>
+                <div class="producto-card">
+                    <img src="https://images.unsplash.com/photo-1597872200989-f98140af8cd1?w=600&h=400&fit=crop&auto=format" alt="Oleaginosas" loading="lazy">
+                    <div class="card-body">
+                        <span class="categoria">Agrocommodities</span>
+                        <h3>Oleaginosas</h3>
+                        <p>Soja, girasol y canola. Argentina es líder mundial y nosotros conectamos productores con compradores globales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MERCADOS ==================== -->
+    <section id="mercados">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Presencia Internacional</span>
+                <h2>Mercados donde Operamos</h2>
+                <p>Una red global que abarca los principales centros de comercio del mundo.</p>
+                <div class="linea"></div>
+            </div>
+            <div class="mercados-grid">
+                <div class="mercado-item">
+                    <span class="bandera">🇦🇷</span>
+                    <h4>Argentina</h4>
+                    <p>Oficina Central · CABA</p>
+                </div>
+                <div class="mercado-item">
+                    <span class="bandera">🇧🇷</span>
+                    <h4>Brasil</h4>
+                    <p>São Paulo</p>
+                </div>
+                <div class="mercado-item">
+                    <span class="bandera">🇺🇸</span>
+                    <h4>Estados Unidos</h4>
+                    <p>Houston, TX</p>
+                </div>
+                <div class="mercado-item">
+                    <span class="bandera">🇨🇳</span>
+                    <h4>China</h4>
+                    <p>Shanghái</p>
+                </div>
+                <div class="mercado-item">
+                    <span class="bandera">🇦🇪</span>
+                    <h4>Emiratos Árabes</h4>
+                    <p>Dubái</p>
+                </div>
+                <div class="mercado-item">
+                    <span class="bandera">🇨🇭</span>
+                    <h4>Suiza</h4>
+                    <p>Ginebra</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROCESO ==================== -->
+    <section id="proceso">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Metodología</span>
+                <h2>Nuestro Proceso de Trabajo</h2>
+                <p>Un método claro, transparente y probado para cada operación.</p>
+                <div class="linea"></div>
+            </div>
+            <div class="proceso-grid">
+                <div class="proceso-paso">
+                    <div class="circulo">1</div>
+                    <h4>Consulta Inicial</h4>
+                    <p>Recibimos tu requerimiento y analizamos las mejores opciones disponibles en nuestra red.</p>
+                </div>
+                <div class="proceso-paso">
+                    <div class="circulo">2</div>
+                    <h4>Búsqueda de Contraparte</h4>
+                    <p>Identificamos al comprador o vendedor ideal según el producto, volumen y plazo requerido.</p>
+                </div>
+                <div class="proceso-paso">
+                    <div class="circulo">3</div>
+                    <h4>Verificación y Debida Diligencia</h4>
+                    <p>Confirmamos antecedentes, calidad del producto y documentación legal de todas las partes.</p>
+                </div>
+                <div class="proceso-paso">
+                    <div class="circulo">4</div>
+                    <h4>Cierre y Logística</h4>
+                    <p>Coordinamos la operación completa hasta la entrega exitosa en el destino acordado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIOS ==================== -->
+    <section id="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Testimonios</span>
+                <h2>Lo Que Dicen Nuestros Clientes</h2>
+                <p>La confianza se construye con resultados comprobables.</p>
+                <div class="linea"></div>
+            </div>
+            <div class="testimonios-grid">
+                <div class="testimonio-card">
+                    <div class="estrellas">★★★★★</div>
+                    <p class="texto">
+                        "Global Connect Argentina nos ayudó a exportar oleaginosas a China en tiempo récord. Su conocimiento del mercado local e internacional fue clave."
+                    </p>
+                    <div class="autor">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&auto=format" alt="Carlos M." class="avatar" loading="lazy">
+                        <div class="info">
+                            <strong>Carlos Méndez</strong>
+                            <span>Productor Agropecuario · Rosario</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonio-card">
+                    <div class="estrellas">★★★★★</div>
+                    <p class="texto">
+                        "Increíble la rapidez con la que gestionaron nuestra compra de oro. Transparencia total en cada paso. Sin duda volveremos a trabajar juntos."
+                    </p>
+                    <div class="autor">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&auto=format" alt="María R." class="avatar" loading="lazy">
+                        <div class="info">
+                            <strong>María Rodríguez</strong>
+                            <span>CEO · Inversiones Aurum Argentina</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonio-card">
+                    <div class="estrellas">★★★★★</div>
+                    <p class="texto">
+                        "Buscábamos un intermediario serio para importar derivados del petróleo y Global Connect superó todas nuestras expectativas. Cumplimiento total."
+                    </p>
+                    <div class="autor">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&auto=format" alt="Andrés L." class="avatar" loading="lazy">
+                        <div class="info">
+                            <strong>Andrés López</strong>
+                            <span>Gerente · Combustibles del Sur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">FAQ</span>
+                <h2>Preguntas Frecuentes</h2>
+                <p>Respuestas claras a las dudas más comunes sobre nuestro servicio.</p>
+                <div class="linea"></div>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>📌 ¿Qué productos intermedian?</h4>
+                    <p>Principalmente derivados del petróleo, oro, piedras preciosas y oleaginosas. Consultanos por otros commodities.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>📌 ¿Cómo garantizan la seguridad?</h4>
+                    <p>Realizamos verificación de antecedentes de todas las partes y trabajamos con contratos claros y documentación verificable.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>📌 ¿Tienen oficina en Argentina?</h4>
+                    <p>Sí, nuestra oficina central está en Buenos Aires (CABA), con representantes en Rosario y Córdoba.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>📌 ¿Cuánto demora una operación?</h4>
+                    <p>Depende del producto. Una operación estándar puede cerrarse en 2 a 4 semanas, incluyendo verificación y logística.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>📌 ¿Trabajan con pequeños productores?</h4>
+                    <p>Sí. Nos adaptamos a distintos volúmenes. Si tu producto tiene calidad, podemos encontrar comprador.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>📌 ¿Qué costo tiene el servicio?</h4>
+                    <p>Nuestra comisión varía según producto y volumen. Solicitá una consulta sin cargo y te enviaremos una propuesta detallada.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACTO ==================== -->
+    <section id="contacto">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge">Contacto</span>
+                <h2>Estamos Listos para Escucharte</h2>
+                <p>Comunicate por cualquiera de estos medios. Respondemos en menos de 24 horas.</p>
+                <div class="linea"></div>
+            </div>
+            <div class="contacto-grid">
+                <div class="contacto-info">
+                    <div class="contacto-item">
+                        <div class="icono-box">📞</div>
+                        <div class="info">
+                            <strong>Teléfono</strong>
+                            <a href="tel:+541112345678">+54 11 1234 5678</a>
+                        </div>
+                    </div>
+                    <div class="contacto-item">
+                        <div class="icono-box">✉️</div>
+                        <div class="info">
+                            <strong>Correo Electrónico</strong>
+                            <a href="mailto:contacto@globalconnect.com.ar">contacto@globalconnect.com.ar</a>
+                        </div>
+                    </div>
+                    <div class="contacto-item">
+                        <div class="icono-box">📍</div>
+                        <div class="info">
+                            <strong>Dirección</strong>
+                            <span>Av. Corrientes 1234, Piso 8 · CABA · Buenos Aires</span>
+                        </div>
+                    </div>
+                    <div class="contacto-item">
+                        <div class="icono-box">🕐</div>
+                        <div class="info">
+                            <strong>Horario</strong>
+                            <span>Lunes a Viernes: 9:00 – 18:00 hs (ART)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="formulario-contacto">
+                    <h3>Envíanos tu consulta</h3>
+                    <form id="formContacto">
+                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="tel" placeholder="Teléfono (opcional)">
+                        <textarea rows="4" placeholder="Escribí tu mensaje o consulta aquí..." required></textarea>
+                        <button type="submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 <a href="#">Global Connect Argentina</a>. Todos los derechos reservados. Intermediarios en Petróleo, Oro, Piedras Preciosas y Oleaginosas.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        document.querySelectorAll('#navLinks a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 30) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        const form = document.getElementById('formContacto');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('✅ ¡Gracias por tu mensaje! Te responderemos en menos de 24 horas.');
+            form.reset();
+        });
+    </script>
+</body>
+</html>
