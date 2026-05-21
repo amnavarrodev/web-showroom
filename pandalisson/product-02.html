@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esmeralda - Global Connect Argentina</title>
+    <meta name="description" content="Esmeraldas de alta calidad. Intermediación en compra y venta con certificación garantizada.">
+    
+    <!-- Hoja de estilos (misma del index) -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Estilos específicos para la página de producto -->
+    <style>
+        .producto-detalle {
+            padding: 120px 2rem 80px;
+            background: var(--blanco);
+        }
+        .producto-detalle .container {
+            max-width: 1100px;
+        }
+        .producto-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        .producto-imagen {
+            width: 100%;
+            max-height: 600px;
+            object-fit: contain;
+            border-radius: var(--borde-radius);
+            box-shadow: var(--sombra);
+            background: var(--gris-claro);
+        }
+        .producto-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .producto-info .categoria {
+            color: var(--dorado);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+        .producto-info h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--azul-oscuro);
+            margin: 0;
+        }
+        .producto-info .descripcion {
+            font-size: 1.05rem;
+            color: var(--texto-claro);
+            line-height: 1.7;
+        }
+        .btn-contacto-producto {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
+            color: var(--azul-oscuro);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transicion);
+            margin-top: 15px;
+            text-align: center;
+            width: fit-content;
+        }
+        .btn-contacto-producto:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4);
+        }
+        .btn-volver {
+            display: inline-block;
+            background: transparent;
+            color: var(--dorado);
+            border: 1.5px solid var(--dorado);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transicion);
+            margin-top: 10px;
+            width: fit-content;
+        }
+        .btn-volver:hover {
+            background: var(--dorado);
+            color: var(--blanco);
+        }
+
+        @media (max-width: 768px) {
+            .producto-wrapper {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .producto-imagen {
+                max-height: 400px;
+            }
+            .producto-info h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== NAVBAR (igual que index) ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="icono">🌐</div>
+                <div>
+                    Global Connect
+                    <span>ARGENTINA</span>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#inicio">Inicio</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="index.html#productos">Productos</a></li>
+                <li><a href="index.html#contacto" class="btn-contacto-nav">Contacto</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ==================== DETALLE DEL PRODUCTO ==================== -->
+    <section class="producto-detalle">
+        <div class="container">
+            <div class="producto-wrapper">
+                <!-- Imagen del producto (810x1440 se verá completa gracias a object-fit: contain) -->
+                <img src="img/products/product-02.jpg" alt="Esmeralda" class="producto-imagen" loading="lazy">
+                
+                <div class="producto-info">
+                    <span class="categoria">Piedras Preciosas</span>
+                    <h1>Esmeralda</h1>
+                    <p class="descripcion">
+                        Facilitamos la compra, venta e intermediación de esmeraldas de alta pureza. 
+                        Trabajamos con productores y compradores verificados, garantizando calidad y origen certificado.
+                    </p>
+                    <a href="index.html#contacto" class="btn-contacto-producto">Consultar por este producto</a>
+                    <a href="index.html#productos" class="btn-volver">← Volver a Productos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 <a href="index.html">Global Connect Argentina</a>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
