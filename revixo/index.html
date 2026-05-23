@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revixo - Desarrollo Web & Prototipos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #6c757d;
+            --accent: #6c5ce7;
+            --accent-hover: #5a4bd1;
+            --accent-light: rgba(108, 92, 231, 0.1);
+            --border: #e9ecef;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+            --gradient: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            --gradient-hero: linear-gradient(135deg, #0c0c1d 0%, #1a1a2e 50%, #16213e 100%);
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --info: #74b9ff;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #e8e8f0;
+            --text-secondary: #b0b0c8;
+            --text-muted: #8888a0;
+            --accent: #a29bfe;
+            --accent-hover: #b8b0ff;
+            --accent-light: rgba(162, 155, 254, 0.15);
+            --border: #2a2a4a;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+            --gradient-hero: linear-gradient(135deg, #0a0a15 0%, #1a1a2e 50%, #0f3460 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: var(--transition);
+            padding: 0 1.5rem;
+        }
+
+        .nav.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle, .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .theme-toggle:hover, .lang-select:hover {
+            background: var(--accent-light);
+            border-color: var(--accent);
+        }
+
+        .lang-select {
+            appearance: none;
+            -webkit-appearance: none;
+            padding-right: 2rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+            padding: 100px 1.5rem 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(108, 92, 231, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(162, 155, 254, 0.06) 0%, transparent 50%);
+            animation: heroFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(1deg); }
+            66% { transform: translate(-20px, 20px) rotate(-1deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge i {
+            color: var(--success);
+            font-size: 0.6rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        /* Projects Section */
+        .section {
+            padding: 80px 1.5rem;
+        }
+
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .project-preview {
+            height: 220px;
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-preview-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .project-preview-placeholder i {
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+
+        .project-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-progress {
+            background: rgba(253, 203, 110, 0.2);
+            color: #f0a500;
+            border: 1px solid rgba(253, 203, 110, 0.3);
+        }
+
+        .status-review {
+            background: rgba(116, 185, 255, 0.2);
+            color: #0984e3;
+            border: 1px solid rgba(116, 185, 255, 0.3);
+        }
+
+        .status-completed {
+            background: rgba(0, 184, 148, 0.2);
+            color: #00b894;
+            border: 1px solid rgba(0, 184, 148, 0.3);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .project-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 2px;
+            transition: width 0.6s ease;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .feature-card h3 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient-hero);
+            text-align: center;
+            padding: 80px 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(108, 92, 231, 0.15) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 40px 1.5rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                height: 60px;
+            }
+            .logo {
+                font-size: 1.2rem;
+            }
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            .nav-actions {
+                gap: 0.5rem;
+            }
+            .theme-toggle span, .lang-select {
+                font-size: 0.75rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 80px 1rem 40px;
+            }
+            .section {
+                padding: 60px 1rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .project-preview {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .hero-buttons {
+                flex-direction: column;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-actions {
+                gap: 0.3rem;
+            }
+            .theme-toggle span {
+                display: none;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">R</div>
+                <span data-i18n="brand">Revixo</span>
+            </a>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                    <span data-i18n="theme">Tema</span>
+                </button>
+                <select class="lang-select" id="langSelect" aria-label="Seleccionar idioma">
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="en">🇬🇧 English</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-circle"></i>
+                <span data-i18n="heroBadge">Plataforma de desarrollo activa</span>
+            </div>
+            <h1 data-i18n="heroTitle">
+                Tus proyectos <span>cobran vida</span> aquí
+            </h1>
+            <p data-i18n="heroSubtitle">
+                Visualiza el progreso de tus sitios web en desarrollo. Prototipos, revisiones y entregas en un solo lugar.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fas fa-eye"></i>
+                    <span data-i18n="heroBtn1">Ver proyectos</span>
+                </a>
+                <a href="#features" class="btn btn-outline">
+                    <i class="fas fa-info-circle"></i>
+                    <span data-i18n="heroBtn2">Cómo funciona</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-label" data-i18n="projectsLabel">Portafolio de Desarrollo</span>
+                <h2 data-i18n="projectsTitle">Proyectos en Curso</h2>
+                <p data-i18n="projectsSubtitle">Cada proyecto es único. Aquí puedes seguir el avance de tu sitio web en tiempo real.</p>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card fade-in">
+                    <div class="project-preview">
+                        <div class="project-preview-placeholder">
+                            <i class="fas fa-store"></i>
+                            <span data-i18n="previewComing">Vista previa pronto</span>
+                        </div>
+                        <span class="project-status status-progress" data-i18n="statusProgress">En progreso</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>E-Commerce Dashboard</h3>
+                        <p data-i18n="project1Desc">Panel de administración para tienda online con análisis de ventas.</p>
+                        <div class="project-meta">
+                            <span><i class="fas fa-calendar"></i> <span data-i18n="updated">Actualizado:</span> 2025-11-02</span>
+                            <span><i class="fas fa-code-branch"></i> v2.4.0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card fade-in">
+                    <div class="project-preview">
+                        <div class="project-preview-placeholder">
+                            <i class="fas fa-blog"></i>
+                            <span data-i18n="previewComing">Vista previa pronto</span>
+                        </div>
+                        <span class="project-status status-review" data-i18n="statusReview">En revisión</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>Blog Corporativo</h3>
+                        <p data-i18n="project2Desc">Sitio de contenido con diseño editorial y sistema de suscripción.</p>
+                        <div class="project-meta">
+                            <span><i class="fas fa-calendar"></i> <span data-i18n="updated">Actualizado:</span> 2025-10-28</span>
+                            <span><i class="fas fa-code-branch"></i> v1.8.0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card fade-in">
+                    <div class="project-preview">
+                        <div class="project-preview-placeholder">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span data-i18n="previewComing">Vista previa pronto</span>
+                        </div>
+                        <span class="project-status status-progress" data-i18n="statusProgress">En progreso</span>
+                    </div>
+                    <div class="project-info">
+                        <h3>App Landing Page</h3>
+                        <p data-i18n="project3Desc">Página de aterrizaje para aplicación móvil con descargas integradas.</p>
+                        <div class="project-meta">
+                            <span><i class="fas fa-calendar"></i> <span data-i18n="updated">Actualizado:</span> 2025-11-01</span>
+                            <span><i class="fas fa-code-branch"></i> v1.2.0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: 40%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features" style="background: var(--bg-secondary);">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <span class="section-label" data-i18n="featuresLabel">Ventajas</span>
+                <h2 data-i18n="featuresTitle">¿Por qué trabajar con Revixo?</h2>
+                <p data-i18n="featuresSubtitle">Transparencia total en el proceso de desarrollo de tu sitio web.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3 data-i18n="feature1Title">Actualizaciones en Vivo</h3>
+                    <p data-i18n="feature1Desc">Accede a la versión más reciente de tu proyecto en cualquier momento.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                    <h3 data-i18n="feature2Title">Feedback Directo</h3>
+                    <p data-i18n="feature2Desc">Comunica tus cambios y sugerencias directamente sobre el prototipo.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 data-i18n="feature3Title">Acceso Seguro</h3>
+                    <p data-i18n="feature3Desc">Tus prototipos están protegidos con acceso restringido por proyecto.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                    <h3 data-i18n="feature4Title">Entrega Ágil</h3>
+                    <p data-i18n="feature4Desc">Metodología iterativa para lanzar versiones funcionales rápidamente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 data-i18n="ctaTitle">¿Listo para ver tu proyecto crecer?</h2>
+            <p data-i18n="ctaSubtitle">Solicita acceso a tu panel personalizado y sigue cada paso del desarrollo.</p>
+            <a href="mailto:contacto@revixo.link" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i>
+                <span data-i18n="ctaBtn">Solicitar Acceso</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Revixo.link - <span data-i18n="footerText">Potenciado por LiteSpeed</span></p>
+            <div class="footer-links">
+                <a href="mailto:contacto@revixo.link"><i class="fas fa-envelope"></i> Contacto</a>
+                <a href="#"><i class="fas fa-lock"></i> <span data-i18n="privacy">Privacidad</span></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        function setTheme(theme) {
+            body.setAttribute('data-theme', theme);
+            localStorage.setItem('revixo-theme', theme);
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('revixo-theme') || 'light';
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        // Language system
+        const translations = {
+            es: {
+                brand: 'Revixo',
+                theme: 'Tema',
+                heroBadge: 'Plataforma de desarrollo activa',
+                heroTitle: 'Tus proyectos <span>cobran vida</span> aquí',
+                heroSubtitle: 'Visualiza el progreso de tus sitios web en desarrollo. Prototipos, revisiones y entregas en un solo lugar.',
+                heroBtn1: 'Ver proyectos',
+                heroBtn2: 'Cómo funciona',
+                projectsLabel: 'Portafolio de Desarrollo',
+                projectsTitle: 'Proyectos en Curso',
+                projectsSubtitle: 'Cada proyecto es único. Aquí puedes seguir el avance de tu sitio web en tiempo real.',
+                previewComing: 'Vista previa pronto',
+                statusProgress: 'En progreso',
+                statusReview: 'En revisión',
+                updated: 'Actualizado:',
+                project1Desc: 'Panel de administración para tienda online con análisis de ventas.',
+                project2Desc: 'Sitio de contenido con diseño editorial y sistema de suscripción.',
+                project3Desc: 'Página de aterrizaje para aplicación móvil con descargas integradas.',
+                featuresLabel: 'Ventajas',
+                featuresTitle: '¿Por qué trabajar con Revixo?',
+                featuresSubtitle: 'Transparencia total en el proceso de desarrollo de tu sitio web.',
+                feature1Title: 'Actualizaciones en Vivo',
+                feature1Desc: 'Accede a la versión más reciente de tu proyecto en cualquier momento.',
+                feature2Title: 'Feedback Directo',
+                feature2Desc: 'Comunica tus cambios y sugerencias directamente sobre el prototipo.',
+                feature3Title: 'Acceso Seguro',
+                feature3Desc: 'Tus prototipos están protegidos con acceso restringido por proyecto.',
+                feature4Title: 'Entrega Ágil',
+                feature4Desc: 'Metodología iterativa para lanzar versiones funcionales rápidamente.',
+                ctaTitle: '¿Listo para ver tu proyecto crecer?',
+                ctaSubtitle: 'Solicita acceso a tu panel personalizado y sigue cada paso del desarrollo.',
+                ctaBtn: 'Solicitar Acceso',
+                footerText: 'Potenciado por LiteSpeed',
+                privacy: 'Privacidad'
+            },
+            en: {
+                brand: 'Revixo',
+                theme: 'Theme',
+                heroBadge: 'Active development platform',
+                heroTitle: 'Your projects <span>come to life</span> here',
+                heroSubtitle: 'Track the progress of your websites in development. Prototypes, reviews, and deliveries all in one place.',
+                heroBtn1: 'View projects',
+                heroBtn2: 'How it works',
+                projectsLabel: 'Development Portfolio',
+                projectsTitle: 'Current Projects',
+                projectsSubtitle: 'Each project is unique. Here you can follow your website\'s progress in real time.',
+                previewComing: 'Preview coming soon',
+                statusProgress: 'In progress',
+                statusReview: 'Under review',
+                updated: 'Updated:',
+                project1Desc: 'Admin dashboard for online store with sales analytics.',
+                project2Desc: 'Content site with editorial design and subscription system.',
+                project3Desc: 'Landing page for mobile app with integrated downloads.',
+                featuresLabel: 'Benefits',
+                featuresTitle: 'Why work with Revixo?',
+                featuresSubtitle: 'Complete transparency in your website development process.',
+                feature1Title: 'Live Updates',
+                feature1Desc: 'Access the latest version of your project at any time.',
+                feature2Title: 'Direct Feedback',
+                feature2Desc: 'Communicate changes and suggestions directly on the prototype.',
+                feature3Title: 'Secure Access',
+                feature3Desc: 'Your prototypes are protected with per-project restricted access.',
+                feature4Title: 'Agile Delivery',
+                feature4Desc: 'Iterative methodology to launch functional versions quickly.',
+                ctaTitle: 'Ready to see your project grow?',
+                ctaSubtitle: 'Request access to your personalized dashboard and follow every development step.',
+                ctaBtn: 'Request Access',
+                footerText: 'Powered by LiteSpeed',
+                privacy: 'Privacy'
+            }
+        };
+
+        const langSelect = document.getElementById('langSelect');
+
+        function setLanguage(lang) {
+            localStorage.setItem('revixo-lang', lang);
+            langSelect.value = lang;
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (key === 'heroTitle') {
+                        element.innerHTML = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        // Load saved language
+        const savedLang = localStorage.getItem('revixo-lang') || 'es';
+        setLanguage(savedLang);
+
+        langSelect.addEventListener('change', (e) => {
+            setLanguage(e.target.value);
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
