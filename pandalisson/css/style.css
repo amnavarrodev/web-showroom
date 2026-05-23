@@ -79,6 +79,12 @@ body {
     color: var(--azul-oscuro);
     font-weight: 900;
 }
+.logo .logo-img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 10px;
+}
 .logo span {
     font-size: 0.7rem;
     display: block;
