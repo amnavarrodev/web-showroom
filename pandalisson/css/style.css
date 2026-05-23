@@ -765,3 +765,10 @@ footer a {
         flex: 1 1 100%;
     }
 }
+/* Tarjeta de producto como enlace */
+a.producto-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
