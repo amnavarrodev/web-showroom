@@ -374,7 +374,7 @@ section {
     object-fit: cover;
     object-position: center;
     display: block;
-    background-color: #e2e6ea; /* Color de fondo mientras carga la imagen */
+    background-color: #e2e6ea;
     transition: transform 0.4s ease;
 }
 .producto-card:hover img {
@@ -590,6 +590,8 @@ section {
 #contacto {
     background: var(--azul-oscuro);
     color: var(--blanco);
+    position: relative;
+    overflow: hidden;
 }
 #contacto .section-header h2 {
     color: var(--blanco);
@@ -601,6 +603,39 @@ section {
     background: rgba(212, 167, 69, 0.2);
     color: var(--dorado-claro);
 }
+
+/* Asegurar que el contenido esté por encima de la decoración */
+#contacto .section-header,
+#contacto .contacto-grid {
+    position: relative;
+    z-index: 1;
+}
+
+/* ========== CÍRCULO DECORATIVO DORADO ========== */
+.contacto-decoracion {
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(184, 134, 11, 0.15) 0%, rgba(184, 134, 11, 0.03) 50%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Segundo círculo más pequeño abajo a la izquierda */
+.contacto-decoracion::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(212, 167, 69, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
 .contacto-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -650,6 +685,22 @@ section {
     padding: 35px 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* ========== LOGO EN FORMULARIO ========== */
+.form-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.logo-form {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: var(--blanco);
+    padding: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
 .formulario-contacto h3 {
     font-size: 1.3rem;
     margin-bottom: 20px;
@@ -717,6 +768,12 @@ footer a {
         grid-template-columns: 1fr;
         gap: 35px;
     }
+    .contacto-decoracion {
+        width: 300px;
+        height: 300px;
+        top: -80px;
+        right: -80px;
+    }
     .nav-links {
         display: none;
         position: absolute;
@@ -744,6 +801,12 @@ footer a {
     }
 }
 @media (max-width: 500px) {
+    .contacto-decoracion {
+        width: 200px;
+        height: 200px;
+        top: -60px;
+        right: -60px;
+    }
     .hero h1 {
         font-size: 1.8rem;
     }
@@ -771,6 +834,7 @@ footer a {
         flex: 1 1 100%;
     }
 }
+
 /* Tarjeta de producto como enlace */
 a.producto-card {
     text-decoration: none;
