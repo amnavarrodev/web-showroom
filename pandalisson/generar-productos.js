@@ -3,7 +3,9 @@
  * Uso: node generar-productos.js
  * 
  * Genera archivos product-02.html hasta product-13.html
- * basados en la plantilla product-template.html
+ * basados en los datos del array de productos.
+ * 
+ * Versión 2.0 - Incluye logo real
  */
 
 const fs = require('fs');
@@ -131,7 +133,7 @@ function generarHTML(producto) {
     <meta property="og:locale" content="es_AR">
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
+    <link rel="icon" href="img/logo-nav.png" type="image/png">
     
     <!-- Hoja de estilos principal -->
     <link rel="stylesheet" href="css/style.css">
@@ -243,7 +245,7 @@ function generarHTML(producto) {
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="logo">
-                <div class="icono">🌐</div>
+                <img src="img/logo-nav.png" alt="Global Connect Argentina" class="logo-img">
                 <div>
                     Global Connect
                     <span>ARGENTINA</span>
@@ -297,7 +299,7 @@ function generarHTML(producto) {
 
 // ========== GENERAR ARCHIVOS ==========
 
-console.log('🚀 Generando páginas de productos...\n');
+console.log('🚀 Generando páginas de productos con logo real...\n');
 
 let generados = 0;
 
@@ -316,4 +318,4 @@ productos.forEach(producto => {
 
 console.log(`\n📊 Total de archivos generados: ${generados}/12`);
 console.log('🎉 ¡Proceso completado!\n');
-console.log('📝 Podés editar las descripciones en el array "productos" del script y volver a ejecutarlo.');
+console.log('💡 Tip: Asegurate de tener img/logo-nav.png en tu carpeta de imágenes.');
