@@ -1,17 +1,10 @@
 /**
  * Script para generar páginas HTML de productos
  * Uso: node generar-productos.js
- * 
- * Genera archivos product-02.html hasta product-13.html
- * basados en los datos del array de productos.
- * 
- * Versión 2.0 - Incluye logo real
  */
 
 const fs = require('fs');
 const path = require('path');
-
-// ========== CONFIGURACIÓN: EDITÁ SOLO ESTA SECCIÓN ==========
 
 const productos = [
     {
@@ -27,7 +20,7 @@ const productos = [
         nombre: 'Diamante',
         categoria: 'Piedras Preciosas',
         imagen: 'img/products/product-03.jpg',
-        descripcion: 'Intermediamos en la adquisición de diamantes en bruto y tallados, conectando minas internacionales con joyerías e inversores privados. Transparencia y control en cada operación.',
+        descripcion: 'Intermediamos en la adquisición de diamantes en bruto y tallados, conectando minas internacionales con joyerías e inversores privados.',
         alt: 'Diamante en bruto y tallado'
     },
     {
@@ -35,7 +28,7 @@ const productos = [
         nombre: 'Mina de Oro',
         categoria: 'Metales Preciosos',
         imagen: 'img/products/product-04.jpg',
-        descripcion: 'Inversión en explotaciones auríferas. Gestionamos la compra, venta y asociación en minas de oro, con estudios de viabilidad y documentación asegurada. Oportunidades reales de inversión.',
+        descripcion: 'Inversión en explotaciones auríferas. Gestionamos la compra, venta y asociación en minas de oro, con estudios de viabilidad y documentación asegurada.',
         alt: 'Mina de oro en explotación'
     },
     {
@@ -43,7 +36,7 @@ const productos = [
         nombre: 'Mina de Piedra Preciosa',
         categoria: 'Minería',
         imagen: 'img/products/product-05.jpg',
-        descripcion: 'Acceda a oportunidades en minas de piedras preciosas. Somos intermediarios entre propietarios e inversores, verificando reservas comprobadas y situación legal de cada explotación.',
+        descripcion: 'Acceda a oportunidades en minas de piedras preciosas. Somos intermediarios entre propietarios e inversores, verificando reservas comprobadas.',
         alt: 'Mina de piedras preciosas'
     },
     {
@@ -51,7 +44,7 @@ const productos = [
         nombre: 'Mina de Petróleo',
         categoria: 'Energía',
         imagen: 'img/products/product-06.jpg',
-        descripcion: 'Intermediación en la adquisición y venta de yacimientos petrolíferos. Conectamos compradores y vendedores de minas de petróleo con total confidencialidad, estudios técnicos y rigor documental.',
+        descripcion: 'Intermediación en la adquisición y venta de yacimientos petrolíferos. Conectamos compradores y vendedores con total confidencialidad.',
         alt: 'Mina de petróleo'
     },
     {
@@ -59,7 +52,7 @@ const productos = [
         nombre: 'Oleaginosas (Soja)',
         categoria: 'Agrocommodities',
         imagen: 'img/products/product-07.jpg',
-        descripcion: 'Soja y derivados para exportación. Argentina es líder mundial en producción. Unimos productores locales con compradores de Asia, Europa y América, asegurando logística eficiente y contratos seguros.',
+        descripcion: 'Soja y derivados para exportación. Argentina es líder mundial. Unimos productores locales con compradores de Asia, Europa y América.',
         alt: 'Soja argentina para exportación'
     },
     {
@@ -67,7 +60,7 @@ const productos = [
         nombre: 'Maíz',
         categoria: 'Agrocommodities',
         imagen: 'img/products/product-08.jpg',
-        descripcion: 'Comercialización internacional de maíz argentino de alta calidad. Gestionamos operaciones de gran escala con trazabilidad completa y cumplimiento de estándares sanitarios internacionales.',
+        descripcion: 'Comercialización internacional de maíz argentino de alta calidad. Gestionamos operaciones con trazabilidad completa.',
         alt: 'Maíz argentino'
     },
     {
@@ -75,7 +68,7 @@ const productos = [
         nombre: 'Girasol',
         categoria: 'Agrocommodities',
         imagen: 'img/products/product-09.jpg',
-        descripcion: 'Aceite de girasol y subproductos de la industria oleaginosa. Conectamos a los productores argentinos con mercados globales, ofreciendo precios competitivos y entregas programadas.',
+        descripcion: 'Aceite de girasol y subproductos. Conectamos a los productores argentinos con mercados globales.',
         alt: 'Girasol y aceite de girasol'
     },
     {
@@ -83,7 +76,7 @@ const productos = [
         nombre: 'Derivados del Petróleo',
         categoria: 'Energía',
         imagen: 'img/products/product-10.jpg',
-        descripcion: 'Crudo, gasolina, diésel, nafta, fuel oil y otros derivados. Operamos directamente con refinerías y distribuidores para abastecer el mercado interno argentino y la exportación regional.',
+        descripcion: 'Crudo, gasolina, diésel, nafta, fuel oil y otros derivados. Operamos con refinerías y distribuidores.',
         alt: 'Derivados del petróleo'
     },
     {
@@ -91,7 +84,7 @@ const productos = [
         nombre: 'Urea',
         categoria: 'Fertilizantes',
         imagen: 'img/products/product-11.jpg',
-        descripcion: 'Fertilizante nitrogenado de grado agrícola esencial para la producción. Proveemos urea a productores y cooperativas argentinas, gestionando importación y distribución eficiente.',
+        descripcion: 'Fertilizante nitrogenado de grado agrícola. Proveemos urea a productores y cooperativas argentinas.',
         alt: 'Urea fertilizante'
     },
     {
@@ -99,7 +92,7 @@ const productos = [
         nombre: 'Jet1',
         categoria: 'Combustibles',
         imagen: 'img/products/product-12.jpg',
-        descripcion: 'Combustible de aviación Jet A-1 para aeronaves comerciales y privadas. Suministramos a aerolíneas y operadores con certificación de calidad internacional y continuidad de abastecimiento.',
+        descripcion: 'Combustible de aviación Jet A-1. Suministramos a aerolíneas con certificación de calidad internacional.',
         alt: 'Combustible Jet A-1'
     },
     {
@@ -107,12 +100,10 @@ const productos = [
         nombre: 'Diésel',
         categoria: 'Combustibles',
         imagen: 'img/products/product-13.jpg',
-        descripcion: 'Gasóleo de alto rendimiento para transporte, maquinaria agrícola e industrial. Intermediamos entre refinerías y grandes consumidores, asegurando precio competitivo y disponibilidad garantizada.',
+        descripcion: 'Gasóleo de alto rendimiento para transporte, maquinaria e industria. Aseguramos precio y disponibilidad.',
         alt: 'Diésel para transporte e industria'
     }
 ];
-
-// ========== PLANTILLA HTML ==========
 
 function generarHTML(producto) {
     return `<!DOCTYPE html>
@@ -122,23 +113,11 @@ function generarHTML(producto) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${producto.nombre} - Global Connect Argentina</title>
     <meta name="description" content="${producto.descripcion.substring(0, 150)}">
-    <meta name="keywords" content="${producto.nombre.toLowerCase()}, ${producto.categoria.toLowerCase()}, intermediarios, commodities, Argentina, Global Connect">
-    <meta name="author" content="Global Connect Argentina">
     <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph -->
     <meta property="og:title" content="${producto.nombre} - Global Connect Argentina">
     <meta property="og:description" content="${producto.descripcion.substring(0, 150)}">
-    <meta property="og:type" content="product">
-    <meta property="og:locale" content="es_AR">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="img/logo-nav.png" type="image/png">
-    
-    <!-- Hoja de estilos principal -->
+    <link rel="icon" href="img/logo-nav.jpg" type="image/jpeg">
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Estilos específicos para la página de producto -->
     <style>
         .producto-detalle {
             padding: 120px 2rem 80px;
@@ -185,7 +164,7 @@ function generarHTML(producto) {
             color: var(--texto-claro);
             line-height: 1.7;
         }
-        .producto-info .btn-contacto-producto {
+        .btn-contacto-producto {
             display: inline-block;
             background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
             color: var(--azul-oscuro);
@@ -196,14 +175,13 @@ function generarHTML(producto) {
             font-size: 1rem;
             transition: var(--transicion);
             margin-top: 15px;
-            text-align: center;
             width: fit-content;
         }
-        .producto-info .btn-contacto-producto:hover {
+        .btn-contacto-producto:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4);
         }
-        .producto-info .btn-volver {
+        .btn-volver {
             display: inline-block;
             background: transparent;
             color: var(--dorado);
@@ -217,11 +195,10 @@ function generarHTML(producto) {
             margin-top: 10px;
             width: fit-content;
         }
-        .producto-info .btn-volver:hover {
+        .btn-volver:hover {
             background: var(--dorado);
             color: var(--blanco);
         }
-
         @media (max-width: 768px) {
             .producto-wrapper {
                 grid-template-columns: 1fr;
@@ -240,12 +217,10 @@ function generarHTML(producto) {
     </style>
 </head>
 <body>
-
-    <!-- ==================== NAVBAR ==================== -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="logo">
-                <img src="img/logo-nav.png" alt="Global Connect Argentina" class="logo-img">
+                <img src="img/logo-nav.jpg" alt="Global Connect Argentina" class="logo-img">
                 <div>
                     Global Connect
                     <span>ARGENTINA</span>
@@ -263,17 +238,10 @@ function generarHTML(producto) {
         </div>
     </nav>
 
-    <!-- ==================== DETALLE DEL PRODUCTO ==================== -->
     <section class="producto-detalle">
         <div class="container">
             <div class="producto-wrapper">
-                <img src="${producto.imagen}" 
-                     alt="${producto.alt}" 
-                     class="producto-imagen" 
-                     loading="lazy"
-                     width="810"
-                     height="1440">
-                
+                <img src="${producto.imagen}" alt="${producto.alt}" class="producto-imagen" loading="lazy" width="810" height="1440">
                 <div class="producto-info">
                     <span class="categoria">${producto.categoria}</span>
                     <h1>${producto.nombre}</h1>
@@ -285,7 +253,6 @@ function generarHTML(producto) {
         </div>
     </section>
 
-    <!-- ==================== FOOTER ==================== -->
     <footer>
         <div class="container">
             <p>&copy; 2026 <a href="index.html">Global Connect Argentina</a>. Todos los derechos reservados. | Buenos Aires, Argentina.</p>
@@ -297,25 +264,20 @@ function generarHTML(producto) {
 </html>`;
 }
 
-// ========== GENERAR ARCHIVOS ==========
-
-console.log('🚀 Generando páginas de productos con logo real...\n');
-
+// Generar archivos
+console.log('🚀 Generando páginas de productos...\n');
 let generados = 0;
 
 productos.forEach(producto => {
     const nombreArchivo = `product-${producto.id}.html`;
-    const rutaArchivo = path.join(__dirname, nombreArchivo);
-    
     try {
-        fs.writeFileSync(rutaArchivo, generarHTML(producto), 'utf8');
+        fs.writeFileSync(path.join(__dirname, nombreArchivo), generarHTML(producto), 'utf8');
         console.log(`✅ Creado: ${nombreArchivo} → ${producto.nombre}`);
         generados++;
     } catch (error) {
-        console.error(`❌ Error al crear ${nombreArchivo}: ${error.message}`);
+        console.error(`❌ Error: ${nombreArchivo}: ${error.message}`);
     }
 });
 
-console.log(`\n📊 Total de archivos generados: ${generados}/12`);
-console.log('🎉 ¡Proceso completado!\n');
-console.log('💡 Tip: Asegurate de tener img/logo-nav.png en tu carpeta de imágenes.');
+console.log(`\n📊 Archivos generados: ${generados}/12`);
+console.log('🎉 ¡Listo!\n');
