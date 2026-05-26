@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐄 Granja de Vacas Lecheras</title>
+    <style>
+        :root {
+            --bg: #f2f7f2;
+            --card: #ffffff;
+            --primary: #2d5a27;
+            --secondary: #6b8f5e;
+            --accent: #c4a35a;
+            --text: #3a3a2e;
+            --border: #d0d8c0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+        .container { width: 100%; max-width: 700px; }
+        header {
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+        }
+        header h1 { font-size: 2.4rem; color: var(--primary); }
+        .subtitle { color: #5a6b4b; font-style: italic; }
+        .card {
+            background: var(--card);
+            border-radius: 1.2rem;
+            padding: 1.8rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .label { font-weight: 600; color: #5a6b4b; }
+        .value { font-size: 1.6rem; font-weight: 700; }
+        .btn {
+            background: var(--secondary);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.4rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn:hover { background: #567a48; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-primary { background: var(--primary); }
+        .btn-primary:hover { background: #1e401a; }
+        input {
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid var(--border);
+            font-size: 1rem;
+            outline: none;
+            width: 120px;
+            text-align: center;
+        }
+        input:focus { border-color: var(--secondary); }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.2rem;
+        }
+        .status-item {
+            background: #f5f7f2;
+            padding: 1rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .icon { font-size: 2rem; }
+        hr { border: 0; border-top: 1px solid var(--border); margin: 1.2rem 0; }
+        .tx-link { font-size: 0.85rem; color: #4a6b38; word-break: break-all; }
+        .notice { background: #fef9e7; border-radius: 0.8rem; padding: 0.8rem; margin: 1rem 0; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🐄 Granja de Vacas Lecheras</h1>
+        <p class="subtitle">Contrato educativo · Red local EVM</p>
+    </header>
+
+    <!-- Conexión -->
+    <div class="card">
+        <div class="row">
+            <div>
+                <span class="label">Cartera:</span>
+                <span id="walletAddress">No conectada</span>
+            </div>
+            <button id="connectBtn" class="btn btn-primary">🔌 Conectar MetaMask</button>
+        </div>
+        <div class="row" style="margin-top: 0.8rem;">
+            <span class="label">💰 Pienso (BNB test):</span>
+            <span id="balanceBNB" class="value">0.00</span>
+        </div>
+    </div>
+
+    <!-- Estado de la granja -->
+    <div class="card">
+        <h3>📊 Mi Establo</h3>
+        <div class="status-grid">
+            <div class="status-item">
+                <div class="icon">🐄</div>
+                <div class="label">Mis Vacas</div>
+                <div id="minerCount" class="value">0</div>
+            </div>
+            <div class="status-item">
+                <div class="icon">🥛</div>
+                <div class="label">Leche acumulada</div>
+                <div id="eggCount" class="value">0</div>
+            </div>
+            <div class="status-item">
+                <div class="icon">🏪</div>
+                <div class="label">Mercado de Leche</div>
+                <div id="marketEggs" class="value">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="card">
+        <h3>⚡ Acciones</h3>
+
+        <div class="row" style="margin-bottom: 1rem;">
+            <div style="flex:1">
+                <span class="label">1. Comprar Vaca con Pienso</span>
+                <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                    <input type="number" id="buyAmount" value="0.1" step="0.01" min="0.01">
+                    <button id="buyBtn" class="btn">🛒 Comprar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 1rem;">
+            <div style="flex:1">
+                <span class="label">2. Criar más Vacas (usando Leche)</span>
+                <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                    <input type="text" id="referralInput" placeholder="Referido (0x...)" style="width:180px;">
+                    <button id="hatchBtn" class="btn">🐄 Criar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div style="flex:1">
+                <span class="label">3. Vender Leche por Pienso</span>
+                <button id="sellBtn" class="btn btn-primary" style="margin-top:0.4rem;">💸 Vender Leche</button>
+            </div>
+        </div>
+        <hr>
+        <div class="notice" id="initNotice" style="display:none;">
+            ⚠️ La granja aún no ha sido inaugurada. Cualquiera puede hacerlo.
+            <button id="seedBtn" class="btn" style="margin-left:1rem;">🌱 Inaugurar Granja</button>
+        </div>
+    </div>
+
+    <!-- Registro de transacciones -->
+    <div class="card" id="txLog" style="display:none;">
+        <h4>📋 Última transacción</h4>
+        <p id="txHash" class="tx-link"></p>
+    </div>
+</div>
+
+<!-- Ethers.js desde CDN -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script>
+    // ==================== CONSTANTES (MODIFICA SEGÚN TU DESPLIEGUE) ====================
+    const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3'; // ← CAMBIAR
+    // ABI mínimo necesario (extraído del contrato original)
+    const CONTRACT_ABI = [
+        "function hatchEggs(address ref) public",
+        "function sellEggs() public",
+        "function buyEggs(address ref) public payable",
+        "function seedMarket() public payable",
+        "function getMyEggs() public view returns (uint256)",
+        "function hatcheryMiners(address) public view returns (uint256)",
+        "function marketEggs() public view returns (uint256)",
+        "function initialized() public view returns (bool)",
+        "function calculateEggSell(uint256 eggs) public view returns (uint256)",
+        "function calculateEggBuySimple(uint256 eth) public view returns (uint256)"
+    ];
+
+    // ==================== VARIABLES GLOBALES ====================
+    let provider, signer, contract, userAddress, pollingInterval;
+
+    // ==================== ELEMENTOS DOM ====================
+    const connectBtn = document.getElementById('connectBtn');
+    const walletSpan = document.getElementById('walletAddress');
+    const balanceSpan = document.getElementById('balanceBNB');
+    const minerCountSpan = document.getElementById('minerCount');
+    const eggCountSpan = document.getElementById('eggCount');
+    const marketEggsSpan = document.getElementById('marketEggs');
+    const buyBtn = document.getElementById('buyBtn');
+    const buyAmount = document.getElementById('buyAmount');
+    const hatchBtn = document.getElementById('hatchBtn');
+    const referralInput = document.getElementById('referralInput');
+    const sellBtn = document.getElementById('sellBtn');
+    const seedBtn = document.getElementById('seedBtn');
+    const initNotice = document.getElementById('initNotice');
+    const txLog = document.getElementById('txLog');
+    const txHashP = document.getElementById('txHash');
+
+    // ==================== FUNCIONES AUXILIARES ====================
+    async function refreshData() {
+        if (!contract || !userAddress) return;
+
+        try {
+            // Datos del usuario
+            const miners = await contract.hatcheryMiners(userAddress);
+            const eggs = await contract.getMyEggs();
+            minerCountSpan.textContent = miners.toString();
+            eggCountSpan.textContent = ethers.utils.formatUnits(eggs, 0);
+
+            // Datos globales
+            const mEggs = await contract.marketEggs();
+            marketEggsSpan.textContent = ethers.utils.formatUnits(mEggs, 0);
+
+            // Saldo de BNB del usuario
+            const balance = await provider.getBalance(userAddress);
+            balanceSpan.textContent = parseFloat(ethers.utils.formatEther(balance)).toFixed(4);
+
+            // Verificar inicialización
+            const init = await contract.initialized();
+            if (!init) {
+                initNotice.style.display = 'block';
+            } else {
+                initNotice.style.display = 'none';
+            }
+        } catch (e) {
+            console.error('Error al actualizar datos:', e);
+        }
+    }
+
+    function showTx(hash) {
+        txLog.style.display = 'block';
+        txHashP.textContent = `Transacción: ${hash}`;
+    }
+
+    // ==================== CONEXIÓN DE WALLET ====================
+    async function connectWallet() {
+        if (!window.ethereum) {
+            alert('Por favor instala MetaMask y configura tu red local.');
+            return;
+        }
+        try {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            signer = provider.getSigner();
+            userAddress = await signer.getAddress();
+            walletSpan.textContent = `${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
+            contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+            if (pollingInterval) clearInterval(pollingInterval);
+            refreshData();
+            pollingInterval = setInterval(refreshData, 5000);
+
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    walletSpan.textContent = 'No conectada';
+                    userAddress = null;
+                    contract = null;
+                } else {
+                    userAddress = accounts[0];
+                    walletSpan.textContent = `${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`;
+                    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    refreshData();
+                }
+            });
+
+        } catch (err) {
+            console.error('Error conectando:', err);
+            alert('Error al conectar la wallet.');
+        }
+    }
+
+    // ==================== ACCIONES DEL CONTRATO ====================
+    async function buyEggsAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        const amountEth = buyAmount.value;
+        if (isNaN(amountEth) || amountEth <= 0) return alert('Cantidad inválida.');
+        try {
+            const ref = '0x0000000000000000000000000000000000000000';
+            const tx = await contract.buyEggs(ref, { value: ethers.utils.parseEther(amountEth) });
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error en la transacción. ¿Tienes suficiente Pienso?');
+        }
+    }
+
+    async function hatchEggsAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        let ref = referralInput.value.trim();
+        if (!ethers.utils.isAddress(ref)) {
+            ref = '0x0000000000000000000000000000000000000000';
+        }
+        try {
+            const tx = await contract.hatchEggs(ref);
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error al criar vacas. ¿Tienes Leche suficiente?');
+        }
+    }
+
+    async function sellEggsAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        try {
+            const tx = await contract.sellEggs();
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error al vender leche.');
+        }
+    }
+
+    async function seedMarketAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        try {
+            const tx = await contract.seedMarket();
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error al inaugurar la granja. ¿Ya está inicializada?');
+        }
+    }
+
+    // ==================== EVENTOS ====================
+    connectBtn.addEventListener('click', connectWallet);
+    buyBtn.addEventListener('click', buyEggsAction);
+    hatchBtn.addEventListener('click', hatchEggsAction);
+    sellBtn.addEventListener('click', sellEggsAction);
+    seedBtn.addEventListener('click', seedMarketAction);
+
+    window.addEventListener('load', async () => {
+        if (window.ethereum) {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length > 0) {
+                await connectWallet();
+            }
+        }
+    });
+</script>
+</body>
+</html>
