@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥩 Staking DeFi Educativo</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --accent: #a78bfa;
+            --text: #e2e8f0;
+            --subtext: #94a3b8;
+            --border: #334155;
+            --positive: #34d399;
+            --warning: #fbbf24;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+        .container { width: 100%; max-width: 720px; }
+        header {
+            text-align: center;
+            margin: 2.5rem 0 2rem;
+        }
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle { color: var(--subtext); font-size: 0.95rem; margin-top: 0.3rem; }
+        .card {
+            background: var(--card);
+            border-radius: 1.2rem;
+            padding: 1.6rem 1.8rem;
+            margin: 1.2rem 0;
+            border: 1px solid var(--border);
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .label { font-weight: 600; color: var(--subtext); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .value { font-size: 1.6rem; font-weight: 700; }
+        .value-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn {
+            background: var(--primary);
+            border: none;
+            color: #0f172a;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover { background: rgba(56,189,248,0.1); }
+        .btn-accent { background: var(--secondary); }
+        .btn-accent:hover { opacity: 0.85; }
+        input {
+            padding: 0.65rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid var(--border);
+            background: #0f172a;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            width: 130px;
+            text-align: center;
+        }
+        input:focus { border-color: var(--primary); }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+        .stat-card {
+            background: #0f172a;
+            padding: 1.2rem 1rem;
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .stat-icon { font-size: 1.6rem; margin-bottom: 0.3rem; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; }
+        .stat-label { font-size: 0.8rem; color: var(--subtext); margin-top: 0.2rem; text-transform: uppercase; }
+        hr { border: 0; border-top: 1px solid var(--border); margin: 1.2rem 0; }
+        .tx-link { font-size: 0.85rem; color: var(--primary); word-break: break-all; }
+        .notice { background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); border-radius: 0.8rem; padding: 0.8rem 1rem; margin: 1rem 0; font-size: 0.9rem; color: var(--warning); }
+        .badge {
+            display: inline-block;
+            background: rgba(52,211,153,0.15);
+            color: var(--positive);
+            padding: 0.2rem 0.7rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .apy-box {
+            background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(129,140,248,0.1));
+            border: 1px solid rgba(56,189,248,0.3);
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🥩 Staking DeFi · BNB Miner CORE</h1>
+        <p class="subtitle">Contrato educativo · Red local EVM · Sin valor real</p>
+    </header>
+
+    <!-- Conexión -->
+    <div class="card">
+        <div class="row">
+            <div>
+                <span class="label">🔗 Wallet conectada</span>
+                <span id="walletAddress" style="display:block; font-size:0.9rem; color: var(--subtext);">No conectada</span>
+            </div>
+            <button id="connectBtn" class="btn">🔌 Conectar MetaMask</button>
+        </div>
+        <div class="row" style="margin-top: 1rem;">
+            <span class="label">💰 Balance (BNB test)</span>
+            <span id="balanceBNB" class="value">0.00</span>
+        </div>
+    </div>
+
+    <!-- Métricas de Staking -->
+    <div class="card">
+        <div class="apy-box">
+            <span style="font-size: 1.1rem; font-weight: 700;">📈 APY Dinámico</span>
+            <span style="color: var(--subtext); font-size: 0.8rem; display: block;">Basado en curva de bonding</span>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">💎</div>
+                <div class="stat-value value-gradient" id="minerCount">0</div>
+                <div class="stat-label">Staked (Miners)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-value value-gradient" id="eggCount">0</div>
+                <div class="stat-label">Rewards (Eggs)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏦</div>
+                <div class="stat-value value-gradient" id="marketEggs">-</div>
+                <div class="stat-label">Pool (MarketEggs)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones DeFi -->
+    <div class="card">
+        <h3 style="margin-bottom: 1.2rem;">⚙️ Acciones de Staking</h3>
+
+        <!-- Stake / Deposit -->
+        <div style="background: #0f172a; border-radius: 1rem; padding: 1.2rem; margin-bottom: 1rem;">
+            <div class="row" style="margin-bottom: 0.8rem;">
+                <span class="label">📥 Stake (buyEggs)</span>
+                <span class="badge">Depositar</span>
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+                <input type="number" id="buyAmount" value="0.1" step="0.01" min="0.01" placeholder="BNB">
+                <button id="buyBtn" class="btn">💎 Stake</button>
+            </div>
+        </div>
+
+        <!-- Reinvestir / Compound -->
+        <div style="background: #0f172a; border-radius: 1rem; padding: 1.2rem; margin-bottom: 1rem;">
+            <div class="row" style="margin-bottom: 0.8rem;">
+                <span class="label">🔄 Reinvertir (hatchEggs)</span>
+                <span class="badge">Compound</span>
+            </div>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+                <input type="text" id="referralInput" placeholder="Referido (0x...)" style="width:180px;">
+                <button id="hatchBtn" class="btn btn-accent">⚡ Compound</button>
+            </div>
+        </div>
+
+        <!-- Claim / Retirar -->
+        <div style="background: #0f172a; border-radius: 1rem; padding: 1.2rem; margin-bottom: 0.5rem;">
+            <div class="row" style="margin-bottom: 0.8rem;">
+                <span class="label">📤 Claim Rewards (sellEggs)</span>
+                <span class="badge">Retirar</span>
+            </div>
+            <button id="sellBtn" class="btn btn-outline" style="width:100%; justify-content:center;">💰 Claim Rewards</button>
+        </div>
+
+        <hr>
+        <div class="notice" id="initNotice" style="display:none;">
+            ⚠️ El contrato aún no está inicializado.
+            <button id="seedBtn" class="btn btn-outline" style="margin-left:1rem; padding:0.4rem 1.2rem; font-size:0.85rem;">🚀 seedMarket()</button>
+        </div>
+    </div>
+
+    <!-- TVL y datos del contrato -->
+    <div class="card">
+        <div class="row">
+            <span class="label">📊 Total Value Locked (TVL)</span>
+            <span id="tvlValue" class="value">0.00 BNB</span>
+        </div>
+        <div class="row" style="margin-top: 0.6rem;">
+            <span class="label">🔗 Dirección del contrato</span>
+            <span id="contractAddr" style="font-size:0.8rem; color: var(--primary);"></span>
+        </div>
+    </div>
+
+    <!-- Registro de transacciones -->
+    <div class="card" id="txLog" style="display:none;">
+        <h4 style="margin-bottom: 0.5rem;">📋 Última transacción</h4>
+        <p id="txHash" class="tx-link"></p>
+    </div>
+
+    <!-- Disclaimer educativo -->
+    <div class="notice" style="margin-top: 2rem; text-align: center;">
+        🎓 <strong>Entorno educativo sin valor real.</strong><br>
+        Este contrato replica el funcionamiento de BNB Miner en una red local.<br>
+        Su mecánica económica es insostenible sin entrada constante de nuevos depósitos.
+    </div>
+</div>
+
+<!-- Ethers.js -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script>
+    // ==================== CONFIGURACIÓN ====================
+    const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3'; // ← CAMBIAR por la dirección de tu despliegue
+
+    const CONTRACT_ABI = [
+        "function hatchEggs(address ref) public",
+        "function sellEggs() public",
+        "function buyEggs(address ref) public payable",
+        "function seedMarket() public payable",
+        "function getMyEggs() public view returns (uint256)",
+        "function hatcheryMiners(address) public view returns (uint256)",
+        "function marketEggs() public view returns (uint256)",
+        "function initialized() public view returns (bool)",
+        "function calculateEggSell(uint256 eggs) public view returns (uint256)",
+        "function calculateEggBuySimple(uint256 eth) public view returns (uint256)"
+    ];
+
+    // ==================== ESTADO GLOBAL ====================
+    let provider, signer, contract, userAddress, pollingInterval;
+
+    // ==================== ELEMENTOS DOM ====================
+    const connectBtn         = document.getElementById('connectBtn');
+    const walletSpan         = document.getElementById('walletAddress');
+    const balanceSpan        = document.getElementById('balanceBNB');
+    const minerCountSpan     = document.getElementById('minerCount');
+    const eggCountSpan       = document.getElementById('eggCount');
+    const marketEggsSpan     = document.getElementById('marketEggs');
+    const buyBtn             = document.getElementById('buyBtn');
+    const buyAmount          = document.getElementById('buyAmount');
+    const hatchBtn           = document.getElementById('hatchBtn');
+    const referralInput      = document.getElementById('referralInput');
+    const sellBtn            = document.getElementById('sellBtn');
+    const seedBtn            = document.getElementById('seedBtn');
+    const initNotice         = document.getElementById('initNotice');
+    const txLog              = document.getElementById('txLog');
+    const txHashP            = document.getElementById('txHash');
+    const tvlValue           = document.getElementById('tvlValue');
+    const contractAddr       = document.getElementById('contractAddr');
+
+    contractAddr.textContent = CONTRACT_ADDRESS;
+
+    // ==================== ACTUALIZACIÓN DE DATOS ====================
+    async function refreshData() {
+        if (!contract || !userAddress) return;
+
+        try {
+            // Datos del usuario
+            const miners = await contract.hatcheryMiners(userAddress);
+            const eggs   = await contract.getMyEggs();
+            minerCountSpan.textContent = ethers.utils.formatUnits(miners, 0);
+            eggCountSpan.textContent   = ethers.utils.formatUnits(eggs, 0);
+
+            // Pool (marketEggs)
+            const mEggs = await contract.marketEggs();
+            marketEggsSpan.textContent = ethers.utils.commify(ethers.utils.formatUnits(mEggs, 0));
+
+            // Saldo de BNB del usuario
+            const balance = await provider.getBalance(userAddress);
+            balanceSpan.textContent = parseFloat(ethers.utils.formatEther(balance)).toFixed(4);
+
+            // TVL (saldo del contrato)
+            const contractBalance = await provider.getBalance(CONTRACT_ADDRESS);
+            tvlValue.textContent = parseFloat(ethers.utils.formatEther(contractBalance)).toFixed(4) + ' BNB';
+
+            // Inicialización
+            const init = await contract.initialized();
+            initNotice.style.display = init ? 'none' : 'block';
+        } catch (e) {
+            console.error('Error refrescando datos:', e);
+        }
+    }
+
+    function showTx(hash) {
+        txLog.style.display = 'block';
+        txHashP.textContent = `Transacción: ${hash}`;
+    }
+
+    // ==================== CONEXIÓN DE WALLET ====================
+    async function connectWallet() {
+        if (!window.ethereum) {
+            alert('Por favor instala MetaMask y configura tu red local.');
+            return;
+        }
+        try {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            signer = provider.getSigner();
+            userAddress = await signer.getAddress();
+            walletSpan.textContent = `${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
+
+            contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+            if (pollingInterval) clearInterval(pollingInterval);
+            refreshData();
+            pollingInterval = setInterval(refreshData, 5000);
+
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    walletSpan.textContent = 'No conectada';
+                    userAddress = null;
+                    contract = null;
+                } else {
+                    userAddress = accounts[0];
+                    walletSpan.textContent = `${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`;
+                    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    refreshData();
+                }
+            });
+        } catch (err) {
+            console.error('Error conectando:', err);
+            alert('Error al conectar la wallet.');
+        }
+    }
+
+    // ==================== ACCIONES DEL CONTRATO ====================
+    async function stakeAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        const amountEth = buyAmount.value;
+        if (isNaN(amountEth) || amountEth <= 0) return alert('Cantidad inválida.');
+        try {
+            const ref = '0x0000000000000000000000000000000000000000';
+            const tx = await contract.buyEggs(ref, { value: ethers.utils.parseEther(amountEth) });
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error al hacer stake. ¿Tienes suficiente BNB de test?');
+        }
+    }
+
+    async function compoundAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        let ref = referralInput.value.trim();
+        if (!ethers.utils.isAddress(ref)) {
+            ref = '0x0000000000000000000000000000000000000000';
+        }
+        try {
+            const tx = await contract.hatchEggs(ref);
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error al hacer compound. ¿Tienes Rewards (eggs) acumulados?');
+        }
+    }
+
+    async function claimAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        try {
+            const tx = await contract.sellEggs();
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error al reclamar rewards.');
+        }
+    }
+
+    async function seedMarketAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        try {
+            const tx = await contract.seedMarket();
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error al inicializar. ¿Ya está inicializado?');
+        }
+    }
+
+    // ==================== EVENTOS ====================
+    connectBtn.addEventListener('click', connectWallet);
+    buyBtn.addEventListener('click', stakeAction);
+    hatchBtn.addEventListener('click', compoundAction);
+    sellBtn.addEventListener('click', claimAction);
+    seedBtn.addEventListener('click', seedMarketAction);
+
+    window.addEventListener('load', async () => {
+        if (window.ethereum) {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length > 0) {
+                await connectWallet();
+            }
+        }
+    });
+</script>
+</body>
+</html>
