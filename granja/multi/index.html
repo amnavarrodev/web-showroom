@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐾 Granja Educativa Unificada</title>
+    <style>
+        :root {
+            --bg: #fdfcf8;
+            --card: #ffffff;
+            --primary: #8B5A2B;
+            --secondary: #D4A373;
+            --accent: #E9C46A;
+            --text: #4B3B2B;
+            --border: #E6D5B8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container { width: 100%; max-width: 700px; }
+        header {
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+        }
+        header h1 { font-size: 2.4rem; color: var(--primary); }
+        .subtitle { color: #7a6e62; font-style: italic; }
+        .card {
+            background: var(--card);
+            border-radius: 1.2rem;
+            padding: 1.8rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .label { font-weight: 600; color: #7a6e62; }
+        .value { font-size: 1.6rem; font-weight: 700; }
+        .btn {
+            background: var(--secondary);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.4rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-primary { background: var(--primary); }
+        .btn-primary:hover { opacity: 0.9; }
+        input, select {
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid var(--border);
+            font-size: 1rem;
+            outline: none;
+            background: white;
+        }
+        input { width: 120px; text-align: center; }
+        select { cursor: pointer; }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.2rem;
+        }
+        .status-item {
+            background: #faf8f4;
+            padding: 1rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .icon { font-size: 2rem; }
+        hr { border: 0; border-top: 1px solid var(--border); margin: 1.2rem 0; }
+        .tx-link { font-size: 0.85rem; color: var(--primary); word-break: break-all; }
+        .notice { background: #fef9e7; border-radius: 0.8rem; padding: 0.8rem; margin: 1rem 0; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 id="mainTitle">🐾 Granja Educativa</h1>
+        <p class="subtitle">Selecciona tu animal y gestiona tu granja</p>
+        <select id="animalSelect" style="margin-top: 1rem; font-size: 1.1rem; padding: 0.5rem 1.5rem;">
+            <option value="gallinas">🐔 Gallinas (Huevos)</option>
+            <option value="vacas">🐄 Vacas (Leche)</option>
+            <option value="ovejas">🐑 Ovejas (Lana)</option>
+            <option value="abejas">🐝 Abejas (Miel)</option>
+            <option value="cerdos">🐖 Cerdos (Trufas)</option>
+        </select>
+    </header>
+
+    <!-- Conexión -->
+    <div class="card">
+        <div class="row">
+            <div>
+                <span class="label">Cartera:</span>
+                <span id="walletAddress">No conectada</span>
+            </div>
+            <button id="connectBtn" class="btn btn-primary">🔌 Conectar MetaMask</button>
+        </div>
+        <div class="row" style="margin-top: 0.8rem;">
+            <span class="label">💰 Pienso (BNB test):</span>
+            <span id="balanceBNB" class="value">0.00</span>
+        </div>
+    </div>
+
+    <!-- Estado de la granja -->
+    <div class="card">
+        <h3 id="sectionTitle">📊 Mi Granja</h3>
+        <div class="status-grid">
+            <div class="status-item">
+                <div class="icon" id="animalIcon">🐔</div>
+                <div class="label" id="animalLabel">Mis Gallinas</div>
+                <div id="minerCount" class="value">0</div>
+            </div>
+            <div class="status-item">
+                <div class="icon" id="productIcon">🥚</div>
+                <div class="label" id="productLabel">Huevos acumulados</div>
+                <div id="eggCount" class="value">0</div>
+            </div>
+            <div class="status-item">
+                <div class="icon">🏪</div>
+                <div class="label" id="marketLabel">Mercado de Huevos</div>
+                <div id="marketEggs" class="value">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="card">
+        <h3>⚡ Acciones</h3>
+
+        <div class="row" style="margin-bottom: 1rem;">
+            <div style="flex:1">
+                <span class="label" id="buyLabel">1. Comprar Gallina con Pienso</span>
+                <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                    <input type="number" id="buyAmount" value="0.1" step="0.01" min="0.01">
+                    <button id="buyBtn" class="btn">🛒 Comprar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 1rem;">
+            <div style="flex:1">
+                <span class="label" id="hatchLabel">2. Criar más Gallinas (usando Huevos)</span>
+                <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                    <input type="text" id="referralInput" placeholder="Referido (0x...)" style="width:180px;">
+                    <button id="hatchBtn" class="btn">🐣 Criar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div style="flex:1">
+                <span class="label" id="sellLabel">3. Vender Huevos por Pienso</span>
+                <button id="sellBtn" class="btn btn-primary" style="margin-top:0.4rem;">💸 Vender</button>
+            </div>
+        </div>
+        <hr>
+        <div class="notice" id="initNotice" style="display:none;">
+            ⚠️ La granja aún no ha sido inaugurada. Cualquiera puede hacerlo.
+            <button id="seedBtn" class="btn" style="margin-left:1rem;">🌱 Inaugurar Granja</button>
+        </div>
+    </div>
+
+    <!-- Registro de transacciones -->
+    <div class="card" id="txLog" style="display:none;">
+        <h4>📋 Última transacción</h4>
+        <p id="txHash" class="tx-link"></p>
+    </div>
+</div>
+
+<!-- Ethers.js -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script>
+    // ==================== CONFIGURACIÓN DE ANIMALES Y CONTRATOS ====================
+    const ANIMALS = {
+        gallinas: {
+            address: '0x5FbDB2315678afecb367f032d93F642f64180aa3', // ← CAMBIAR
+            name: 'Gallinas',
+            product: 'Huevos',
+            icon: '🐔',
+            productIcon: '🥚',
+            section: 'Mi Gallinero',
+            primary: '#8B5A2B',
+            secondary: '#D4A373',
+            bg: '#fef9e7'
+        },
+        vacas: {
+            address: '0x5FbDB2315678afecb367f032d93F642f64180aa3', // ← CAMBIAR
+            name: 'Vacas',
+            product: 'Leche',
+            icon: '🐄',
+            productIcon: '🥛',
+            section: 'Mi Establo',
+            primary: '#2d5a27',
+            secondary: '#6b8f5e',
+            bg: '#f2f7f2'
+        },
+        ovejas: {
+            address: '0x5FbDB2315678afecb367f032d93F642f64180aa3', // ← CAMBIAR
+            name: 'Ovejas',
+            product: 'Lana',
+            icon: '🐑',
+            productIcon: '🧶',
+            section: 'Mi Rebaño',
+            primary: '#8b7d6b',
+            secondary: '#b8a590',
+            bg: '#fdfcf8'
+        },
+        abejas: {
+            address: '0x5FbDB2315678afecb367f032d93F642f64180aa3', // ← CAMBIAR
+            name: 'Abejas',
+            product: 'Miel',
+            icon: '🐝',
+            productIcon: '🍯',
+            section: 'Mi Colmenar',
+            primary: '#d4a017',
+            secondary: '#e8b830',
+            bg: '#fffdf5'
+        },
+        cerdos: {
+            address: '0x5FbDB2315678afecb367f032d93F642f64180aa3', // ← CAMBIAR
+            name: 'Cerdos',
+            product: 'Trufas',
+            icon: '🐖',
+            productIcon: '🍄',
+            section: 'Mi Piara',
+            primary: '#6b4c3b',
+            secondary: '#8b6b5a',
+            bg: '#fdf9f4'
+        }
+    };
+
+    const CONTRACT_ABI = [
+        "function hatchEggs(address ref) public",
+        "function sellEggs() public",
+        "function buyEggs(address ref) public payable",
+        "function seedMarket() public payable",
+        "function getMyEggs() public view returns (uint256)",
+        "function hatcheryMiners(address) public view returns (uint256)",
+        "function marketEggs() public view returns (uint256)",
+        "function initialized() public view returns (bool)",
+        "function calculateEggSell(uint256 eggs) public view returns (uint256)",
+        "function calculateEggBuySimple(uint256 eth) public view returns (uint256)"
+    ];
+
+    // ==================== ESTADO GLOBAL ====================
+    let provider, signer, userAddress, pollingInterval;
+    let currentAnimal = 'gallinas';
+    let contract;
+
+    // ==================== ELEMENTOS DOM ====================
+    const animalSelect = document.getElementById('animalSelect');
+    const mainTitle = document.getElementById('mainTitle');
+    const sectionTitle = document.getElementById('sectionTitle');
+    const animalIcon = document.getElementById('animalIcon');
+    const animalLabel = document.getElementById('animalLabel');
+    const productIcon = document.getElementById('productIcon');
+    const productLabel = document.getElementById('productLabel');
+    const marketLabel = document.getElementById('marketLabel');
+    const buyLabel = document.getElementById('buyLabel');
+    const hatchLabel = document.getElementById('hatchLabel');
+    const sellLabel = document.getElementById('sellLabel');
+    const connectBtn = document.getElementById('connectBtn');
+    const walletSpan = document.getElementById('walletAddress');
+    const balanceSpan = document.getElementById('balanceBNB');
+    const minerCountSpan = document.getElementById('minerCount');
+    const eggCountSpan = document.getElementById('eggCount');
+    const marketEggsSpan = document.getElementById('marketEggs');
+    const buyBtn = document.getElementById('buyBtn');
+    const buyAmount = document.getElementById('buyAmount');
+    const hatchBtn = document.getElementById('hatchBtn');
+    const referralInput = document.getElementById('referralInput');
+    const sellBtn = document.getElementById('sellBtn');
+    const seedBtn = document.getElementById('seedBtn');
+    const initNotice = document.getElementById('initNotice');
+    const txLog = document.getElementById('txLog');
+    const txHashP = document.getElementById('txHash');
+    const root = document.documentElement;
+
+    // ==================== CAMBIO DE ANIMAL ====================
+    function applyAnimalTheme(animalKey) {
+        const cfg = ANIMALS[animalKey];
+        // Cambiar variables CSS
+        root.style.setProperty('--primary', cfg.primary);
+        root.style.setProperty('--secondary', cfg.secondary);
+        root.style.setProperty('--bg', cfg.bg);
+        // Actualizar textos
+        mainTitle.innerHTML = `${cfg.icon} Granja de ${cfg.name}`;
+        sectionTitle.innerHTML = `📊 ${cfg.section}`;
+        animalIcon.textContent = cfg.icon;
+        animalLabel.textContent = `Mis ${cfg.name}`;
+        productIcon.textContent = cfg.productIcon;
+        productLabel.textContent = `${cfg.product} acumulados`;
+        marketLabel.textContent = `Mercado de ${cfg.product}`;
+        buyLabel.textContent = `1. Comprar ${cfg.name.slice(0, -1)} con Pienso`;
+        hatchLabel.textContent = `2. Criar más ${cfg.name} (usando ${cfg.product})`;
+        sellLabel.textContent = `3. Vender ${cfg.product} por Pienso`;
+        // Actualizar botones con iconos
+        buyBtn.innerHTML = `🛒 Comprar`;
+        hatchBtn.innerHTML = `${cfg.icon} Criar`;
+        sellBtn.innerHTML = `💸 Vender ${cfg.product}`;
+        // Cambiar contrato
+        if (provider && signer) {
+            contract = new ethers.Contract(cfg.address, CONTRACT_ABI, signer);
+            refreshData();
+        }
+    }
+
+    animalSelect.addEventListener('change', (e) => {
+        currentAnimal = e.target.value;
+        applyAnimalTheme(currentAnimal);
+    });
+
+    // ==================== ACTUALIZACIÓN DE DATOS ====================
+    async function refreshData() {
+        if (!contract || !userAddress) return;
+        try {
+            const miners = await contract.hatcheryMiners(userAddress);
+            const eggs = await contract.getMyEggs();
+            minerCountSpan.textContent = miners.toString();
+            eggCountSpan.textContent = ethers.utils.formatUnits(eggs, 0);
+
+            const mEggs = await contract.marketEggs();
+            marketEggsSpan.textContent = ethers.utils.formatUnits(mEggs, 0);
+
+            const balance = await provider.getBalance(userAddress);
+            balanceSpan.textContent = parseFloat(ethers.utils.formatEther(balance)).toFixed(4);
+
+            const init = await contract.initialized();
+            initNotice.style.display = init ? 'none' : 'block';
+        } catch (e) {
+            console.error('Error al actualizar datos:', e);
+        }
+    }
+
+    function showTx(hash) {
+        txLog.style.display = 'block';
+        txHashP.textContent = `Transacción: ${hash}`;
+    }
+
+    // ==================== CONEXIÓN DE WALLET ====================
+    async function connectWallet() {
+        if (!window.ethereum) {
+            alert('Por favor instala MetaMask y configura tu red local.');
+            return;
+        }
+        try {
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            signer = provider.getSigner();
+            userAddress = await signer.getAddress();
+            walletSpan.textContent = `${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
+
+            // Crear contrato con la dirección del animal actual
+            contract = new ethers.Contract(ANIMALS[currentAnimal].address, CONTRACT_ABI, signer);
+
+            if (pollingInterval) clearInterval(pollingInterval);
+            refreshData();
+            pollingInterval = setInterval(refreshData, 5000);
+
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    walletSpan.textContent = 'No conectada';
+                    userAddress = null;
+                    contract = null;
+                } else {
+                    userAddress = accounts[0];
+                    walletSpan.textContent = `${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`;
+                    contract = new ethers.Contract(ANIMALS[currentAnimal].address, CONTRACT_ABI, signer);
+                    refreshData();
+                }
+            });
+        } catch (err) {
+            console.error('Error conectando:', err);
+            alert('Error al conectar la wallet.');
+        }
+    }
+
+    // ==================== ACCIONES DEL CONTRATO ====================
+    async function buyEggsAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        const amountEth = buyAmount.value;
+        if (isNaN(amountEth) || amountEth <= 0) return alert('Cantidad inválida.');
+        try {
+            const ref = '0x0000000000000000000000000000000000000000';
+            const tx = await contract.buyEggs(ref, { value: ethers.utils.parseEther(amountEth) });
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error en la transacción. ¿Tienes suficiente Pienso?');
+        }
+    }
+
+    async function hatchEggsAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        let ref = referralInput.value.trim();
+        if (!ethers.utils.isAddress(ref)) {
+            ref = '0x0000000000000000000000000000000000000000';
+        }
+        try {
+            const tx = await contract.hatchEggs(ref);
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert(`Error al criar ${ANIMALS[currentAnimal].name.toLowerCase()}. ¿Tienes ${ANIMALS[currentAnimal].product} suficiente?`);
+        }
+    }
+
+    async function sellEggsAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        try {
+            const tx = await contract.sellEggs();
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert(`Error al vender ${ANIMALS[currentAnimal].product.toLowerCase()}.`);
+        }
+    }
+
+    async function seedMarketAction() {
+        if (!contract) return alert('Conecta tu wallet primero.');
+        try {
+            const tx = await contract.seedMarket();
+            showTx(tx.hash);
+            await tx.wait();
+            refreshData();
+        } catch (e) {
+            console.error(e);
+            alert('Error al inaugurar la granja. ¿Ya está inicializada?');
+        }
+    }
+
+    // ==================== EVENTOS ====================
+    connectBtn.addEventListener('click', connectWallet);
+    buyBtn.addEventListener('click', buyEggsAction);
+    hatchBtn.addEventListener('click', hatchEggsAction);
+    sellBtn.addEventListener('click', sellEggsAction);
+    seedBtn.addEventListener('click', seedMarketAction);
+
+    // Inicializar con el tema por defecto
+    applyAnimalTheme('gallinas');
+
+    window.addEventListener('load', async () => {
+        if (window.ethereum) {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length > 0) {
+                await connectWallet();
+            }
+        }
+    });
+</script>
+</body>
+</html>
