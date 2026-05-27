@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>GoldMiner Finance · Minería DeFi en BSC</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --text: #1a1a2e;
+      --text-secondary: #555;
+      --gold: #d4a017;
+      --gold-light: #f0c75e;
+      --accent: #b8860b;
+      --border: #e0e0e0;
+      --shadow: 0 8px 30px rgba(0,0,0,0.05);
+      --card-bg: #ffffff;
+      --hero-gradient: linear-gradient(135deg, #f8f9fa 0%, #fff3e0 100%);
+      --btn-text: #fff;
+    }
+
+    body.dark {
+      --bg: #0f0f1a;
+      --surface: #1a1a2e;
+      --text: #e0e0e0;
+      --text-secondary: #aaa;
+      --gold: #f0c75e;
+      --gold-light: #ffd966;
+      --accent: #d4a017;
+      --border: #2a2a3a;
+      --shadow: 0 8px 30px rgba(0,0,0,0.4);
+      --card-bg: #1e1e32;
+      --hero-gradient: linear-gradient(135deg, #0f0f1a 0%, #2a1f00 100%);
+      --btn-text: #0f0f1a;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .logo span {
+      background: var(--gold);
+      color: #0f0f1a;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    button, .btn {
+      background: var(--gold);
+      color: var(--btn-text);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    button:hover, .btn:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    button.outline {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+    }
+
+    button.outline:hover {
+      background: var(--gold);
+      color: var(--btn-text);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    select {
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      font-size: 1.4rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.3rem;
+    }
+
+    .hero {
+      background: var(--hero-gradient);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      margin: 0.5rem;
+    }
+
+    section {
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--gold);
+    }
+
+    .features-grid, .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--gold);
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .dashboard {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-around;
+      margin: 2rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      padding: 1.2rem;
+      cursor: pointer;
+      border: 1px solid var(--border);
+    }
+
+    .faq-item h4 {
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .deposit-box {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .deposit-box input {
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 1rem;
+      width: 150px;
+    }
+
+    .tx-status {
+      margin-top: 1rem;
+      padding: 0.7rem;
+      border-radius: 8px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .tx-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .tx-success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .tx-error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      background: var(--surface);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #wallet-address {
+      font-family: monospace;
+      background: var(--surface);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="location.reload()">⛏️ GoldMiner <span>Finance</span></div>
+    <div class="controls">
+      <select id="lang-switcher">
+        <option value="es">🇪🇸 Español</option>
+        <option value="en">🇬🇧 English</option>
+      </select>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
+      <button id="connect-btn" class="btn">🔌 Conectar Wallet</button>
+      <span id="wallet-address" class="hidden"></span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 id="hero-title">Minería DeFi Transparente en BSC</h1>
+    <p id="hero-desc">GoldMiner Finance es la dApp de minería virtual con contrato inmutable y verificado. Tú tienes el control total, sin intermediarios.</p>
+    <div>
+      <span class="badge">🔒 Contrato Verificado</span>
+      <span class="badge">⚡ 3% diario</span>
+      <span class="badge">👥 Comunidad real</span>
+    </div>
+    <div style="margin-top:2rem;">
+      <button class="btn" id="start-mining-btn" style="font-size:1.1rem; padding:0.7rem 2rem;">⛏️ Empezar a Minar</button>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section>
+    <h2 class="section-title" id="features-title">¿Por qué GoldMiner?</h2>
+    <div class="features-grid">
+      <div class="card">
+        <div class="icon">🔒</div>
+        <h3 id="feat1-title">Contrato Inmutable</h3>
+        <p id="feat1-desc">Nuestro contrato inteligente está verificado públicamente. Nadie puede modificar las reglas ni acceder a los fondos. El código es ley.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔑</div>
+        <h3 id="feat2-title">Control Total de tus Fondos</h3>
+        <p id="feat2-desc">Tus BNB van directo al contrato. Solo tú puedes retirar tus recompensas. Sin custodia, sin terceros.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📜</div>
+        <h3 id="feat3-title">Transparencia Radical</h3>
+        <p id="feat3-desc">Cada línea de código es visible. Cada transacción es rastreable. Lo que ves en la blockchain es la verdad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <h2 class="section-title" id="how-title">Cómo Funciona</h2>
+    <div class="steps-grid">
+      <div class="card">
+        <div class="icon">1️⃣</div>
+        <h3 id="step1-title">Conecta tu Wallet</h3>
+        <p id="step1-desc">Usa MetaMask o cualquier wallet compatible con BNB Smart Chain.</p>
+      </div>
+      <div class="card">
+        <div class="icon">2️⃣</div>
+        <h3 id="step2-title">Adquiere Mineros</h3>
+        <p id="step2-desc">Deposita BNB para contratar mineros virtuales que generan recompensas 24/7.</p>
+      </div>
+      <div class="card">
+        <div class="icon">3️⃣</div>
+        <h3 id="step3-title">Gana y Reinvierte</h3>
+        <p id="step3-desc">Obtén un 3% diario. Reinvierte para multiplicar tus mineros o retira cuando quieras.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD CON CONTRATO REAL -->
+  <section id="dashboard-section" class="hidden">
+    <h2 class="section-title">⚙️ Tu Panel de Minería</h2>
+    <div class="dashboard">
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-value" id="user-miners">0</div>
+          <div class="stat-label" id="stat-miners">Mineros Contratados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="user-rewards">0.0000</div>
+          <div class="stat-label" id="stat-rewards">Recompensas Pendientes (EGGS)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="tvl-global">0.00 BNB</div>
+          <div class="stat-label" id="stat-tvl">Valor Total Bloqueado (TVL)</div>
+        </div>
+      </div>
+      <div class="deposit-box" style="justify-content:center; margin-bottom:1rem;">
+        <input type="number" id="deposit-amount" placeholder="0.01" step="0.01" min="0.01" value="0.01">
+        <span style="color:var(--gold); font-weight:600;">BNB</span>
+      </div>
+      <div class="actions">
+        <button class="btn" id="deposit-btn">💰 Adquirir Mineros</button>
+        <button class="btn" id="compound-btn">🔄 Reinvertir</button>
+        <button class="btn outline" id="withdraw-btn">💸 Retirar Ganancias</button>
+      </div>
+      <div id="tx-status" class="tx-status hidden"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <h2 class="section-title" id="faq-title">Preguntas Frecuentes</h2>
+    <div class="faq-item">
+      <h4 id="faq1-q">¿Es seguro GoldMiner Finance?</h4>
+      <p id="faq1-a">El contrato inteligente es inmutable y está verificado. Nadie puede modificar las reglas ni retirar tus fondos.</p>
+    </div>
+    <div class="faq-item">
+      <h4 id="faq2-q">¿Cómo se generan las recompensas?</h4>
+      <p id="faq2-a">Las recompensas provienen del Valor Total Bloqueado (TVL) en el contrato, con una tasa base del 3% diario.</p>
+    </div>
+    <div class="faq-item">
+      <h4 id="faq3-q">¿Puedo retirar en cualquier momento?</h4>
+      <p id="faq3-a">Sí. Tú tienes el control total. Puedes retirar tus recompensas cuando lo desees, sin penalizaciones.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 GoldMiner Finance. Proyecto descentralizado en BNB Smart Chain.</p>
+    <p style="font-size:0.8rem; margin-top:0.5rem;">⚠️ La minería virtual conlleva alto riesgo. Solo invierte lo que estés dispuesto a perder. Haz tu propia investigación.</p>
+  </footer>
+
+  <script>
+    // ========== CONFIGURACIÓN DEL CONTRATO ==========
+    const CONTRACT_ADDRESS = '0xce93f9827813761665ce348e33768cb1875a9704';
+
+    const CONTRACT_ABI = [
+      {
+        "constant": true,
+        "inputs": [{"name": "","type": "address"}],
+        "name": "hatcheryMiners",
+        "outputs": [{"name": "","type": "uint256"}],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{"name": "","type": "address"}],
+        "name": "claimedEggs",
+        "outputs": [{"name": "","type": "uint256"}],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{"name": "","type": "address"}],
+        "name": "lastHatch",
+        "outputs": [{"name": "","type": "uint256"}],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "marketEggs",
+        "outputs": [{"name": "","type": "uint256"}],
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{"name": "ref","type": "address"}],
+        "name": "buyEggs",
+        "outputs": [],
+        "type": "function",
+        "payable": true
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "sellEggs",
+        "outputs": [],
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{"name": "ref","type": "address"}],
+        "name": "hatchEggs",
+        "outputs": [],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{"name": "eggs","type": "uint256"}],
+        "name": "calculateEggSell",
+        "outputs": [{"name": "","type": "uint256"}],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{"name": "eth","type": "uint256"},{"name": "contractBalance","type": "uint256"}],
+        "name": "calculateEggBuy",
+        "outputs": [{"name": "","type": "uint256"}],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "EGGS_TO_HATCH_1MINERS",
+        "outputs": [{"name": "","type": "uint256"}],
+        "type": "function"
+      }
+    ];
+
+    // ========== TRADUCCIONES ==========
+    const translations = {
+      es: {
+        heroTitle: "Minería DeFi Transparente en BSC",
+        heroDesc: "GoldMiner Finance es la dApp de minería virtual con contrato inmutable y verificado. Tú tienes el control total, sin intermediarios.",
+        featuresTitle: "¿Por qué GoldMiner?",
+        feat1Title: "Contrato Inmutable",
+        feat1Desc: "Nuestro contrato inteligente está verificado públicamente. Nadie puede modificar las reglas ni acceder a los fondos. El código es ley.",
+        feat2Title: "Control Total de tus Fondos",
+        feat2Desc: "Tus BNB van directo al contrato. Solo tú puedes retirar tus recompensas. Sin custodia, sin terceros.",
+        feat3Title: "Transparencia Radical",
+        feat3Desc: "Cada línea de código es visible. Cada transacción es rastreable. Lo que ves en la blockchain es la verdad.",
+        howTitle: "Cómo Funciona",
+        step1Title: "Conecta tu Wallet",
+        step1Desc: "Usa MetaMask o cualquier wallet compatible con BNB Smart Chain.",
+        step2Title: "Adquiere Mineros",
+        step2Desc: "Deposita BNB para contratar mineros virtuales que generan recompensas 24/7.",
+        step3Title: "Gana y Reinvierte",
+        step3Desc: "Obtén un 3% diario. Reinvierte para multiplicar tus mineros o retira cuando quieras.",
+        faqTitle: "Preguntas Frecuentes",
+        faq1Q: "¿Es seguro GoldMiner Finance?",
+        faq1A: "El contrato inteligente es inmutable y está verificado. Nadie puede modificar las reglas ni retirar tus fondos.",
+        faq2Q: "¿Cómo se generan las recompensas?",
+        faq2A: "Las recompensas provienen del Valor Total Bloqueado (TVL) en el contrato, con una tasa base del 3% diario.",
+        faq3Q: "¿Puedo retirar en cualquier momento?",
+        faq3A: "Sí. Tú tienes el control total. Puedes retirar tus recompensas cuando lo desees, sin penalizaciones.",
+        connectBtn: "🔌 Conectar Wallet",
+        startMining: "⛏️ Empezar a Minar",
+        statMiners: "Mineros Contratados",
+        statRewards: "Recompensas Pendientes (EGGS)",
+        statTvl: "Valor Total Bloqueado (TVL)",
+        deposit: "💰 Adquirir Mineros",
+        compound: "🔄 Reinvertir",
+        withdraw: "💸 Retirar Ganancias",
+        txPending: "Transacción en proceso... Espera la confirmación en MetaMask.",
+        txSuccess: "✅ ¡Transacción completada con éxito!",
+        txError: "❌ Error en la transacción. Inténtalo de nuevo.",
+        connectFirst: "Conecta tu wallet primero.",
+        enterAmount: "Ingresa una cantidad válida de BNB.",
+        noRewards: "No tienes recompensas pendientes."
+      },
+      en: {
+        heroTitle: "Transparent DeFi Mining on BSC",
+        heroDesc: "GoldMiner Finance is the virtual mining dApp with an immutable and verified contract. You have full control, no intermediaries.",
+        featuresTitle: "Why GoldMiner?",
+        feat1Title: "Immutable Contract",
+        feat1Desc: "Our smart contract is publicly verified. No one can change the rules or access the funds. Code is law.",
+        feat2Title: "Full Control of Your Funds",
+        feat2Desc: "Your BNB goes directly to the contract. Only you can withdraw your rewards. No custody, no third parties.",
+        feat3Title: "Radical Transparency",
+        feat3Desc: "Every line of code is visible. Every transaction is traceable. What you see on the blockchain is the truth.",
+        howTitle: "How It Works",
+        step1Title: "Connect Your Wallet",
+        step1Desc: "Use MetaMask or any wallet compatible with BNB Smart Chain.",
+        step2Title: "Hire Miners",
+        step2Desc: "Deposit BNB to hire virtual miners that generate rewards 24/7.",
+        step3Title: "Earn and Reinvest",
+        step3Desc: "Earn 3% daily. Reinvest to multiply your miners or withdraw anytime.",
+        faqTitle: "Frequently Asked Questions",
+        faq1Q: "Is GoldMiner Finance safe?",
+        faq1A: "The smart contract is immutable and verified. No one can modify the rules or withdraw your funds.",
+        faq2Q: "How are rewards generated?",
+        faq2A: "Rewards come from the Total Value Locked (TVL) in the contract, with a base rate of 3% daily.",
+        faq3Q: "Can I withdraw anytime?",
+        faq3A: "Yes. You have full control. You can withdraw your rewards whenever you want, without penalties.",
+        connectBtn: "🔌 Connect Wallet",
+        startMining: "⛏️ Start Mining",
+        statMiners: "Hired Miners",
+        statRewards: "Pending Rewards (EGGS)",
+        statTvl: "Total Value Locked (TVL)",
+        deposit: "💰 Hire Miners",
+        compound: "🔄 Reinvest",
+        withdraw: "💸 Withdraw Rewards",
+        txPending: "Transaction in progress... Confirm in MetaMask.",
+        txSuccess: "✅ Transaction completed successfully!",
+        txError: "❌ Transaction error. Try again.",
+        connectFirst: "Connect your wallet first.",
+        enterAmount: "Enter a valid BNB amount.",
+        noRewards: "No pending rewards."
+      }
+    };
+
+    let currentLang = 'es';
+    let darkMode = false;
+    let walletConnected = false;
+    let userAddress = '';
+    let signer = null;
+    let contract = null;
+    let provider = null;
+
+    // Elementos del DOM
+    const langSwitcher = document.getElementById('lang-switcher');
+    const themeToggle = document.getElementById('theme-toggle');
+    const connectBtn = document.getElementById('connect-btn');
+    const walletAddressSpan = document.getElementById('wallet-address');
+    const dashboardSection = document.getElementById('dashboard-section');
+    const startMiningBtn = document.getElementById('start-mining-btn');
+    const depositBtn = document.getElementById('deposit-btn');
+    const compoundBtn = document.getElementById('compound-btn');
+    const withdrawBtn = document.getElementById('withdraw-btn');
+    const depositAmountInput = document.getElementById('deposit-amount');
+    const txStatusDiv = document.getElementById('tx-status');
+    const userMinersEl = document.getElementById('user-miners');
+    const userRewardsEl = document.getElementById('user-rewards');
+    const tvlGlobalEl = document.getElementById('tvl-global');
+
+    function applyTranslations(lang) {
+      const t = translations[lang];
+      document.getElementById('hero-title').textContent = t.heroTitle;
+      document.getElementById('hero-desc').textContent = t.heroDesc;
+      document.getElementById('features-title').textContent = t.featuresTitle;
+      document.getElementById('feat1-title').textContent = t.feat1Title;
+      document.getElementById('feat1-desc').textContent = t.feat1Desc;
+      document.getElementById('feat2-title').textContent = t.feat2Title;
+      document.getElementById('feat2-desc').textContent = t.feat2Desc;
+      document.getElementById('feat3-title').textContent = t.feat3Title;
+      document.getElementById('feat3-desc').textContent = t.feat3Desc;
+      document.getElementById('how-title').textContent = t.howTitle;
+      document.getElementById('step1-title').textContent = t.step1Title;
+      document.getElementById('step1-desc').textContent = t.step1Desc;
+      document.getElementById('step2-title').textContent = t.step2Title;
+      document.getElementById('step2-desc').textContent = t.step2Desc;
+      document.getElementById('step3-title').textContent = t.step3Title;
+      document.getElementById('step3-desc').textContent = t.step3Desc;
+      document.getElementById('faq-title').textContent = t.faqTitle;
+      document.getElementById('faq1-q').textContent = t.faq1Q;
+      document.getElementById('faq1-a').textContent = t.faq1A;
+      document.getElementById('faq2-q').textContent = t.faq2Q;
+      document.getElementById('faq2-a').textContent = t.faq2A;
+      document.getElementById('faq3-q').textContent = t.faq3Q;
+      document.getElementById('faq3-a').textContent = t.faq3A;
+      document.getElementById('stat-miners').textContent = t.statMiners;
+      document.getElementById('stat-rewards').textContent = t.statRewards;
+      document.getElementById('stat-tvl').textContent = t.statTvl;
+      depositBtn.textContent = t.deposit;
+      compoundBtn.textContent = t.compound;
+      withdrawBtn.textContent = t.withdraw;
+      if (!walletConnected) {
+        connectBtn.textContent = t.connectBtn;
+        startMiningBtn.textContent = t.startMining;
+      }
+    }
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      document.body.classList.toggle('dark', darkMode);
+      themeToggle.textContent = darkMode ? '☀️' : '🌙';
+    }
+
+    function showTxStatus(type, message) {
+      txStatusDiv.textContent = message;
+      txStatusDiv.className = `tx-status tx-${type}`;
+      txStatusDiv.classList.remove('hidden');
+      if (type === 'success' || type === 'error') {
+        setTimeout(() => txStatusDiv.classList.add('hidden'), 6000);
+      }
+    }
+
+    async function updateDashboard() {
+      if (!walletConnected || !contract || !userAddress) return;
+      try {
+        const miners = await contract.hatcheryMiners(userAddress);
+        const eggs = await contract.claimedEggs(userAddress);
+        const balance = await provider.getBalance(CONTRACT_ADDRESS);
+        const tvl = ethers.utils.formatEther(balance);
+
+        const EGGS_TO_HATCH = await contract.EGGS_TO_HATCH_1MINERS();
+        const displayMiners = miners.div(EGGS_TO_HATCH).toNumber();
+
+        userMinersEl.textContent = displayMiners;
+        userRewardsEl.textContent = ethers.utils.formatEther(eggs);
+        tvlGlobalEl.textContent = parseFloat(tvl).toFixed(2) + ' BNB';
+      } catch (err) {
+        console.error('Error al actualizar dashboard:', err);
+      }
+    }
+
+    async function connectWallet() {
+      if (typeof window.ethereum === 'undefined') {
+        alert('MetaMask no detectado. Instálalo para continuar.');
+        return;
+      }
+      try {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await provider.send("eth_requestAccounts", []);
+        if (accounts.length > 0) {
+          userAddress = accounts[0];
+          walletConnected = true;
+          signer = provider.getSigner();
+          contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+          const shortAddress = userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
+          walletAddressSpan.textContent = shortAddress;
+          walletAddressSpan.classList.remove('hidden');
+          connectBtn.textContent = '✅ Conectado';
+          dashboardSection.classList.remove('hidden');
+
+          await updateDashboard();
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error al conectar wallet.');
+      }
+    }
+
+    async function buyMiners() {
+      if (!walletConnected) {
+        alert(translations[currentLang].connectFirst);
+        return;
+      }
+      const amount = depositAmountInput.value;
+      if (!amount || parseFloat(amount) <= 0) {
+        alert(translations[currentLang].enterAmount);
+        return;
+      }
+      try {
+        showTxStatus('pending', translations[currentLang].txPending);
+        depositBtn.disabled = true;
+        const tx = await contract.buyEggs('0x0000000000000000000000000000000000000000', {
+          value: ethers.utils.parseEther(amount)
+        });
+        await tx.wait();
+        showTxStatus('success', translations[currentLang].txSuccess);
+        await updateDashboard();
+      } catch (err) {
+        console.error(err);
+        showTxStatus('error', translations[currentLang].txError);
+      } finally {
+        depositBtn.disabled = false;
+      }
+    }
+
+    async function reinvest() {
+      if (!walletConnected) {
+        alert(translations[currentLang].connectFirst);
+        return;
+      }
+      try {
+        const eggs = await contract.claimedEggs(userAddress);
+        if (eggs.isZero()) {
+          alert(translations[currentLang].noRewards);
+          return;
+        }
+        showTxStatus('pending', translations[currentLang].txPending);
+        compoundBtn.disabled = true;
+        const tx = await contract.hatchEggs('0x0000000000000000000000000000000000000000');
+        await tx.wait();
+        showTxStatus('success', translations[currentLang].txSuccess);
+        await updateDashboard();
+      } catch (err) {
+        console.error(err);
+        showTxStatus('error', translations[currentLang].txError);
+      } finally {
+        compoundBtn.disabled = false;
+      }
+    }
+
+    async function withdrawRewards() {
+      if (!walletConnected) {
+        alert(translations[currentLang].connectFirst);
+        return;
+      }
+      try {
+        const eggs = await contract.claimedEggs(userAddress);
+        if (eggs.isZero()) {
+          alert(translations[currentLang].noRewards);
+          return;
+        }
+        showTxStatus('pending', translations[currentLang].txPending);
+        withdrawBtn.disabled = true;
+        const tx = await contract.sellEggs();
+        await tx.wait();
+        showTxStatus('success', translations[currentLang].txSuccess);
+        await updateDashboard();
+      } catch (err) {
+        console.error(err);
+        showTxStatus('error', translations[currentLang].txError);
+      } finally {
+        withdrawBtn.disabled = false;
+      }
+    }
+
+    // Event listeners
+    langSwitcher.addEventListener('change', (e) => {
+      currentLang = e.target.value;
+      applyTranslations(currentLang);
+    });
+
+    themeToggle.addEventListener('click', toggleTheme);
+
+    connectBtn.addEventListener('click', connectWallet);
+
+    startMiningBtn.addEventListener('click', () => {
+      if (!walletConnected) {
+        connectWallet();
+      } else {
+        dashboardSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    depositBtn.addEventListener('click', buyMiners);
+    compoundBtn.addEventListener('click', reinvest);
+    withdrawBtn.addEventListener('click', withdrawRewards);
+
+    // Escuchar cambios de cuenta en MetaMask
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length === 0) {
+          walletConnected = false;
+          userAddress = '';
+          signer = null;
+          contract = null;
+          walletAddressSpan.classList.add('hidden');
+          connectBtn.textContent = translations[currentLang].connectBtn;
+          dashboardSection.classList.add('hidden');
+        } else if (accounts[0] !== userAddress) {
+          userAddress = accounts[0];
+          signer = provider.getSigner();
+          contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+          walletAddressSpan.textContent = userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
+          updateDashboard();
+        }
+      });
+    }
+
+    // Inicialización
+    applyTranslations('es');
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      toggleTheme();
+    }
+  </script>
+</body>
+</html>
