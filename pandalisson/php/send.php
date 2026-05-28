@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($enviado) {
         // Redirigir a página de agradecimiento
-        header("Location: ../gracias.html");
+        header("Location: ../thanks.html");
         exit;
     } else {
         // Error al enviar
