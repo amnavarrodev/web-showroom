@@ -2,13 +2,14 @@
 /**
  * Global Connect Argentina - Procesador de formulario de contacto
  * 
- * CONFIGURACIÓN: Ya está configurado con tus datos reales
+ * Envía el mensaje al cliente Y una copia a tu correo para monitoreo
  */
 
-// ========== CONFIGURACIÓN (YA CONFIGURADO) ==========
-$destinatario = "amnavarro.cu@gmail.com";         // Tu correo personal donde recibirás los mensajes
-$from = "email@revixo.link";                      // Cuenta de correo creada en cPanel (REMITENTE)
-// =====================================================
+// ========== CONFIGURACIÓN ==========
+$destinatario = "grupointermediariosfraterndidad@gmail.com";  // Cliente (destinatario principal)
+$copia = "amnavarro.cu@gmail.com";                             // Tu correo (copia para chequear)
+$from = "email@revixo.link";                                   // Remitente (debe ser de tu dominio)
+// ===================================
 
 // Verificar que el formulario fue enviado por POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -71,9 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // ========== PREPARAR EL CORREO ==========
     $asunto = "Nueva consulta web - $nombre";
     
-    // Cabeceras del correo
+    // Cabeceras del correo (con CC para tu copia)
     $cabeceras = "From: $from\r\n";
     $cabeceras .= "Reply-To: $email\r\n";
+    $cabeceras .= "Cc: $copia\r\n";                    // ← COPIA A TU CORREO
     $cabeceras .= "MIME-Version: 1.0\r\n";
     $cabeceras .= "Content-Type: text/plain; charset=UTF-8\r\n";
     $cabeceras .= "X-Mailer: PHP/" . phpversion();
