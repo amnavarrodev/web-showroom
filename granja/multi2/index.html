@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐾 Granja Educativa Unificada</title>
+    <title>🐾 Granja Educativa · BSC Testnet</title>
     <style>
         :root {
             --bg: #fdfcf8;
@@ -26,13 +26,33 @@
             padding: 1rem;
             transition: background 0.3s, color 0.3s;
         }
-        .container { width: 100%; max-width: 700px; }
+        .container { width: 100%; max-width: 720px; }
         header {
             text-align: center;
             margin: 2rem 0 1.5rem;
         }
         header h1 { font-size: 2.4rem; color: var(--primary); }
         .subtitle { color: #7a6e62; font-style: italic; }
+        .testnet-badge {
+            display: inline-block;
+            background: #f0b90b;
+            color: #000;
+            padding: 0.3rem 1rem;
+            border-radius: 1rem;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        .network-warning {
+            background: #fff3cd;
+            border: 2px solid #f0b90b;
+            border-radius: 0.8rem;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: 600;
+            color: #856404;
+        }
         .card {
             background: var(--card);
             border-radius: 1.2rem;
@@ -69,8 +89,16 @@
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-primary { background: var(--primary); }
         .btn-primary:hover { opacity: 0.9; }
+        .btn-referral { background: #e67e22; }
+        .btn-referral:hover { background: #d35400; }
+        .btn-copy { background: #27ae60; }
+        .btn-copy:hover { background: #219a52; }
         .btn-admin { background: #6c5ce7; }
         .btn-admin:hover { background: #5a4bd1; }
+        .btn-faucet { background: #f0b90b; color: #000; }
+        .btn-faucet:hover { background: #d4a30a; }
+        .btn-explorer { background: #3498db; }
+        .btn-explorer:hover { background: #2980b9; }
         input, select {
             padding: 0.6rem 1rem;
             border-radius: 2rem;
@@ -96,7 +124,56 @@
         .icon { font-size: 2rem; }
         hr { border: 0; border-top: 1px solid var(--border); margin: 1.2rem 0; }
         .tx-link { font-size: 0.85rem; color: var(--primary); word-break: break-all; }
+        .tx-link a { color: #3498db; text-decoration: none; }
+        .tx-link a:hover { text-decoration: underline; }
         .notice { background: #fef9e7; border-radius: 0.8rem; padding: 0.8rem; margin: 1rem 0; font-size: 0.9rem; }
+        .referral-notice {
+            background: #fff3e0;
+            border: 2px solid #e67e22;
+            border-radius: 0.8rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .referral-notice .ref-address {
+            font-weight: bold;
+            color: #e67e22;
+            word-break: break-all;
+        }
+        .referral-box {
+            background: #faf8f4;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .referral-link {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.6rem;
+            font-size: 0.8rem;
+            word-break: break-all;
+            color: #666;
+            margin: 0.5rem 0;
+            user-select: all;
+        }
+        .copied-toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #27ae60;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .copied-toast.show { opacity: 1; }
         .admin-panel {
             border: 2px dashed #6c5ce7;
             background: #f8f7ff;
@@ -114,6 +191,16 @@
             word-break: break-all;
             margin-top: 0.3rem;
         }
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -121,6 +208,7 @@
     <header>
         <h1 id="mainTitle">🐾 Granja Educativa</h1>
         <p class="subtitle">Selecciona tu animal y gestiona tu granja</p>
+        <span class="testnet-badge">🔶 BNB Smart Chain Testnet</span>
         <select id="animalSelect" style="margin-top: 1rem; font-size: 1.1rem; padding: 0.5rem 1.5rem;">
             <option value="gallinas">🐔 Gallinas (Huevos)</option>
             <option value="vacas">🐄 Vacas (Leche)</option>
@@ -130,18 +218,41 @@
         </select>
     </header>
 
+    <!-- Aviso de red -->
+    <div class="network-warning" id="networkWarning" style="display:none;">
+        ⚠️ Red incorrecta. Por favor cambia a <strong>BNB Smart Chain Testnet</strong> en MetaMask.
+        <br><button id="switchNetworkBtn" class="btn btn-faucet" style="margin-top:0.5rem;">🔶 Cambiar a BSC Testnet</button>
+    </div>
+
+    <!-- Notificación de referido por URL -->
+    <div class="referral-notice" id="referralNotice">
+        🎁 Has sido invitado por: <span class="ref-address" id="referralNoticeAddress"></span>
+        <br><small>Al hacer tu primera compra, esta persona recibirá el 10% de tus huevos en cada reinversión.</small>
+        <button id="clearReferralBtn" class="btn" style="margin-top:0.5rem; font-size:0.8rem; padding:0.4rem 1rem;">❌ Ignorar invitación</button>
+    </div>
+
     <!-- Conexión -->
     <div class="card">
         <div class="row">
             <div>
-                <span class="label">Cartera:</span>
-                <span id="walletAddress">No conectada</span>
+                <span class="label">🔗 Red:</span>
+                <span id="networkName" style="font-weight:600;">-</span>
             </div>
             <button id="connectBtn" class="btn btn-primary">🔌 Conectar MetaMask</button>
         </div>
         <div class="row" style="margin-top: 0.8rem;">
-            <span class="label">💰 Pienso (BNB test):</span>
+            <div>
+                <span class="label">Cartera:</span>
+                <span id="walletAddress">No conectada</span>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 0.8rem;">
+            <span class="label">💰 Pienso (tBNB):</span>
             <span id="balanceBNB" class="value">0.00</span>
+        </div>
+        <div class="row" style="margin-top: 0.5rem;">
+            <a href="https://www.bnbchain.org/en/testnet-faucet" target="_blank" class="btn btn-faucet" style="font-size:0.85rem; padding:0.4rem 1rem;">🚰 Obtener tBNB (Faucet)</a>
+            <span style="font-size:0.75rem; color:#999;">Sin valor real</span>
         </div>
     </div>
 
@@ -175,7 +286,7 @@
             <div style="flex:1">
                 <span class="label" id="buyLabel">1. Comprar Gallina con Pienso</span>
                 <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
-                    <input type="number" id="buyAmount" value="0.1" step="0.01" min="0.01">
+                    <input type="number" id="buyAmount" value="0.01" step="0.001" min="0.001">
                     <button id="buyBtn" class="btn">🛒 Comprar</button>
                 </div>
             </div>
@@ -198,6 +309,18 @@
             </div>
         </div>
         <hr>
+
+        <!-- Sección de Referidos -->
+        <div class="referral-box" id="referralBox" style="display:none;">
+            <h4 style="margin-bottom: 0.8rem;">🔗 Tu enlace de referido (<span id="referralAnimalName">Gallinas</span>)</h4>
+            <p style="font-size:0.85rem; color:#666; margin-bottom:0.5rem;">
+                Comparte este enlace. Por cada persona que compre con tu enlace, recibirás el <strong>10%</strong> de sus huevos cuando críen.
+            </p>
+            <div class="referral-link" id="referralLink">-</div>
+            <button id="copyReferralBtn" class="btn btn-copy" style="margin-top:0.5rem;">📋 Copiar enlace</button>
+        </div>
+
+        <hr>
         <div class="notice" id="initNotice" style="display:none;">
             ⚠️ La granja aún no ha sido inaugurada. Cualquiera puede hacerlo.
             <button id="seedBtn" class="btn" style="margin-left:1rem;">🌱 Inaugurar Granja</button>
@@ -209,13 +332,11 @@
         <h3 class="admin-title">👑 Panel de Administración (CEO)</h3>
         <p style="font-size:0.85rem; color:#666; margin-bottom:1rem;">Solo visible para la dirección CEO del contrato.</p>
 
-        <!-- Dirección CEO actual -->
         <div style="margin-bottom: 1.2rem;">
             <span class="label">👤 Dirección CEO actual:</span>
             <div class="address-display" id="currentCEO">-</div>
         </div>
 
-        <!-- Cambiar CEO -->
         <div style="background: white; border-radius: 0.8rem; padding: 1rem; margin-bottom: 1rem;">
             <span class="label">🔄 Cambiar dirección del CEO</span>
             <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem; flex-wrap: wrap;">
@@ -224,13 +345,11 @@
             </div>
         </div>
 
-        <!-- Dirección Team actual -->
         <div style="margin-bottom: 1.2rem;">
             <span class="label">👥 Dirección Team actual:</span>
             <div class="address-display" id="currentTeam">-</div>
         </div>
 
-        <!-- Cambiar Team -->
         <div style="background: white; border-radius: 0.8rem; padding: 1rem; margin-bottom: 1rem;">
             <span class="label">🔄 Cambiar dirección del Team</span>
             <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem; flex-wrap: wrap;">
@@ -249,12 +368,36 @@
     <div class="card" id="txLog" style="display:none;">
         <h4>📋 Última transacción</h4>
         <p id="txHash" class="tx-link"></p>
+        <p style="font-size:0.75rem; color:#999; margin-top:0.3rem;">
+            🔍 Ver en <a id="explorerLink" href="#" target="_blank">BscScan Testnet</a>
+        </p>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="notice" style="text-align:center; margin-top:2rem;">
+        🎓 <strong>Entorno educativo sin valor económico real.</strong><br>
+        Desplegado en BNB Smart Chain <strong>Testnet</strong>.<br>
+        Los tBNB no tienen valor y se obtienen gratis del Faucet oficial.
     </div>
 </div>
+
+<!-- Toast de copiado -->
+<div class="copied-toast" id="copiedToast">✅ ¡Enlace copiado!</div>
 
 <!-- Ethers.js -->
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 <script>
+    // ==================== CONFIGURACIÓN DE RED ====================
+    const BSC_TESTNET = {
+        chainId: '0x61', // 97 en decimal
+        chainName: 'BNB Smart Chain Testnet',
+        rpcUrls: ['https://data-seed-prebsc-1-s1.bnbchain.org:8545'],
+        nativeCurrency: { name: 'tBNB', symbol: 'tBNB', decimals: 18 },
+        blockExplorerUrls: ['https://testnet.bscscan.com']
+    };
+
+    const EXPLORER_URL = 'https://testnet.bscscan.com';
+
     // ==================== CONFIGURACIÓN DE ANIMALES Y CONTRATOS ====================
     const ANIMALS = {
         gallinas: {
@@ -328,7 +471,8 @@
         "function ceoAddress() public view returns (address)",
         "function teamAddress() public view returns (address)",
         "function setCEOAddress(address _newCEOAddress) public",
-        "function setTeamAddress(address _newTeamAddress) public"
+        "function setTeamAddress(address _newTeamAddress) public",
+        "function getBalance() public view returns (uint256)"
     ];
 
     // ==================== ESTADO GLOBAL ====================
@@ -336,6 +480,9 @@
     let currentAnimal = 'gallinas';
     let contract;
     let isCEO = false;
+    let urlReferrer = '0x0000000000000000000000000000000000000000';
+    let referralCleared = false;
+    let isCorrectNetwork = false;
 
     // ==================== ELEMENTOS DOM ====================
     const animalSelect = document.getElementById('animalSelect');
@@ -352,6 +499,9 @@
     const connectBtn = document.getElementById('connectBtn');
     const walletSpan = document.getElementById('walletAddress');
     const balanceSpan = document.getElementById('balanceBNB');
+    const networkName = document.getElementById('networkName');
+    const networkWarning = document.getElementById('networkWarning');
+    const switchNetworkBtn = document.getElementById('switchNetworkBtn');
     const minerCountSpan = document.getElementById('minerCount');
     const eggCountSpan = document.getElementById('eggCount');
     const marketEggsSpan = document.getElementById('marketEggs');
@@ -364,6 +514,15 @@
     const initNotice = document.getElementById('initNotice');
     const txLog = document.getElementById('txLog');
     const txHashP = document.getElementById('txHash');
+    const explorerLink = document.getElementById('explorerLink');
+    const referralBox = document.getElementById('referralBox');
+    const referralLink = document.getElementById('referralLink');
+    const referralAnimalName = document.getElementById('referralAnimalName');
+    const copyReferralBtn = document.getElementById('copyReferralBtn');
+    const referralNotice = document.getElementById('referralNotice');
+    const referralNoticeAddress = document.getElementById('referralNoticeAddress');
+    const clearReferralBtn = document.getElementById('clearReferralBtn');
+    const copiedToast = document.getElementById('copiedToast');
     const adminPanel = document.getElementById('adminPanel');
     const currentCEO = document.getElementById('currentCEO');
     const currentTeam = document.getElementById('currentTeam');
@@ -374,6 +533,86 @@
     const adminTxLog = document.getElementById('adminTxLog');
     const adminTxHash = document.getElementById('adminTxHash');
     const root = document.documentElement;
+
+    // ==================== FUNCIONES DE RED ====================
+    async function checkNetwork() {
+        if (!window.ethereum) return false;
+        try {
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            isCorrectNetwork = (chainId === BSC_TESTNET.chainId);
+            networkName.textContent = isCorrectNetwork ? '🔶 BSC Testnet' : '❌ Red incorrecta';
+            networkWarning.style.display = isCorrectNetwork ? 'none' : 'block';
+            return isCorrectNetwork;
+        } catch (e) {
+            console.error('Error verificando red:', e);
+            return false;
+        }
+    }
+
+    async function switchToBSCTestnet() {
+        if (!window.ethereum) return;
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: BSC_TESTNET.chainId }]
+            });
+        } catch (switchError) {
+            // Si la red no está añadida a MetaMask, añadirla
+            if (switchError.code === 4902) {
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [BSC_TESTNET]
+                    });
+                } catch (addError) {
+                    console.error('Error añadiendo red:', addError);
+                    alert('No se pudo añadir BSC Testnet. Añádela manualmente en MetaMask.');
+                }
+            }
+        }
+    }
+
+    // ==================== DETECCIÓN DE REFERIDO POR URL ====================
+    function getReferrerFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref');
+        if (ref && ethers.utils.isAddress(ref)) {
+            return ref;
+        }
+        return '0x0000000000000000000000000000000000000000';
+    }
+
+    function updateReferralNotice() {
+        if (urlReferrer !== '0x0000000000000000000000000000000000000000' && !referralCleared && userAddress) {
+            if (urlReferrer.toLowerCase() === userAddress.toLowerCase()) {
+                referralNotice.style.display = 'none';
+                return;
+            }
+            referralNotice.style.display = 'block';
+            referralNoticeAddress.textContent = `${urlReferrer.substring(0, 10)}...${urlReferrer.substring(38)}`;
+            referralInput.value = urlReferrer;
+        } else {
+            referralNotice.style.display = 'none';
+        }
+    }
+
+    function generateReferralLink() {
+        if (!userAddress) return '';
+        const baseUrl = window.location.origin + window.location.pathname;
+        const animalParam = `?animal=${currentAnimal}&ref=${userAddress}`;
+        return baseUrl + animalParam;
+    }
+
+    function updateReferralBox() {
+        if (!userAddress) {
+            referralBox.style.display = 'none';
+            return;
+        }
+        referralBox.style.display = 'block';
+        const cfg = ANIMALS[currentAnimal];
+        referralAnimalName.textContent = cfg.name;
+        referralLink.textContent = generateReferralLink();
+    }
 
     // ==================== CAMBIO DE ANIMAL ====================
     function applyAnimalTheme(animalKey) {
@@ -394,8 +633,15 @@
         buyBtn.innerHTML = `🛒 Comprar`;
         hatchBtn.innerHTML = `${cfg.icon} Criar`;
         sellBtn.innerHTML = `💸 Vender ${cfg.product}`;
-        if (provider && signer) {
+        
+        const url = new URL(window.location);
+        url.searchParams.set('animal', animalKey);
+        window.history.replaceState({}, '', url);
+
+        if (provider && signer && isCorrectNetwork) {
             contract = new ethers.Contract(cfg.address, CONTRACT_ABI, signer);
+            updateReferralBox();
+            updateReferralNotice();
             refreshData();
         }
     }
@@ -407,16 +653,15 @@
 
     // ==================== ACTUALIZACIÓN DE DATOS ====================
     async function refreshData() {
-        if (!contract || !userAddress) return;
+        if (!contract || !userAddress || !isCorrectNetwork) return;
         try {
-            // Datos de usuario
             const miners = await contract.hatcheryMiners(userAddress);
             const eggs = await contract.getMyEggs();
             minerCountSpan.textContent = miners.toString();
             eggCountSpan.textContent = ethers.utils.formatUnits(eggs, 0);
 
             const mEggs = await contract.marketEggs();
-            marketEggsSpan.textContent = ethers.utils.formatUnits(mEggs, 0);
+            marketEggsSpan.textContent = ethers.utils.commify(ethers.utils.formatUnits(mEggs, 0));
 
             const balance = await provider.getBalance(userAddress);
             balanceSpan.textContent = parseFloat(ethers.utils.formatEther(balance)).toFixed(4);
@@ -424,8 +669,9 @@
             const init = await contract.initialized();
             initNotice.style.display = init ? 'none' : 'block';
 
-            // Verificar si el usuario es CEO
             await checkCEOStatus();
+            updateReferralBox();
+            updateReferralNotice();
         } catch (e) {
             console.error('Error al actualizar datos:', e);
         }
@@ -437,11 +683,7 @@
             const contractCEO = await contract.ceoAddress();
             const contractTeam = await contract.teamAddress();
             isCEO = (userAddress.toLowerCase() === contractCEO.toLowerCase());
-            
-            // Mostrar/ocultar panel de admin
             adminPanel.style.display = isCEO ? 'block' : 'none';
-            
-            // Actualizar direcciones en el panel
             currentCEO.textContent = contractCEO;
             currentTeam.textContent = contractTeam;
         } catch (e) {
@@ -453,33 +695,49 @@
 
     function showTx(hash) {
         txLog.style.display = 'block';
-        txHashP.textContent = `Transacción: ${hash}`;
+        txHashP.innerHTML = `Transacción: <strong>${hash.substring(0, 20)}...</strong>`;
+        explorerLink.href = `${EXPLORER_URL}/tx/${hash}`;
     }
 
     function showAdminTx(hash) {
         adminTxLog.style.display = 'block';
-        adminTxHash.textContent = hash;
+        adminTxHash.innerHTML = `<a href="${EXPLORER_URL}/tx/${hash}" target="_blank" style="color:#3498db;">${hash.substring(0, 20)}...</a>`;
+    }
+
+    function showCopiedToast() {
+        copiedToast.classList.add('show');
+        setTimeout(() => copiedToast.classList.remove('show'), 2000);
     }
 
     // ==================== CONEXIÓN DE WALLET ====================
     async function connectWallet() {
         if (!window.ethereum) {
-            alert('Por favor instala MetaMask y configura tu red local.');
+            alert('Por favor instala MetaMask.');
             return;
         }
         try {
+            // Verificar red primero
+            const networkOk = await checkNetwork();
+            if (!networkOk) {
+                await switchToBSCTestnet();
+                await checkNetwork();
+            }
+
             await window.ethereum.request({ method: 'eth_requestAccounts' });
             provider = new ethers.providers.Web3Provider(window.ethereum);
             signer = provider.getSigner();
             userAddress = await signer.getAddress();
             walletSpan.textContent = `${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
 
-            contract = new ethers.Contract(ANIMALS[currentAnimal].address, CONTRACT_ABI, signer);
+            if (isCorrectNetwork) {
+                contract = new ethers.Contract(ANIMALS[currentAnimal].address, CONTRACT_ABI, signer);
+            }
 
             if (pollingInterval) clearInterval(pollingInterval);
             refreshData();
-            pollingInterval = setInterval(refreshData, 5000);
+            pollingInterval = setInterval(refreshData, 8000); // Más lento en testnet
 
+            // Escuchar cambios de cuenta
             window.ethereum.on('accountsChanged', (accounts) => {
                 if (accounts.length === 0) {
                     walletSpan.textContent = 'No conectada';
@@ -487,13 +745,28 @@
                     contract = null;
                     isCEO = false;
                     adminPanel.style.display = 'none';
+                    referralBox.style.display = 'none';
+                    referralNotice.style.display = 'none';
                 } else {
                     userAddress = accounts[0];
                     walletSpan.textContent = `${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`;
-                    contract = new ethers.Contract(ANIMALS[currentAnimal].address, CONTRACT_ABI, signer);
+                    if (isCorrectNetwork) {
+                        contract = new ethers.Contract(ANIMALS[currentAnimal].address, CONTRACT_ABI, signer);
+                    }
                     refreshData();
                 }
             });
+
+            // Escuchar cambios de red
+            window.ethereum.on('chainChanged', () => {
+                checkNetwork().then(() => {
+                    if (isCorrectNetwork && signer) {
+                        contract = new ethers.Contract(ANIMALS[currentAnimal].address, CONTRACT_ABI, signer);
+                    }
+                    refreshData();
+                });
+            });
+
         } catch (err) {
             console.error('Error conectando:', err);
             alert('Error al conectar la wallet.');
@@ -501,54 +774,83 @@
     }
 
     // ==================== ACCIONES DEL CONTRATO ====================
+    function getEffectiveReferrer() {
+        const manualRef = referralInput.value.trim();
+        if (manualRef && ethers.utils.isAddress(manualRef)) {
+            return manualRef;
+        }
+        if (!referralCleared && urlReferrer !== '0x0000000000000000000000000000000000000000') {
+            return urlReferrer;
+        }
+        return '0x0000000000000000000000000000000000000000';
+    }
+
     async function buyEggsAction() {
-        if (!contract) return alert('Conecta tu wallet primero.');
+        if (!contract) return alert('Conecta tu wallet en BSC Testnet primero.');
+        if (!isCorrectNetwork) return alert('Cambia a BSC Testnet.');
         const amountEth = buyAmount.value;
         if (isNaN(amountEth) || amountEth <= 0) return alert('Cantidad inválida.');
         try {
-            const ref = '0x0000000000000000000000000000000000000000';
+            const ref = getEffectiveReferrer();
             const tx = await contract.buyEggs(ref, { value: ethers.utils.parseEther(amountEth) });
             showTx(tx.hash);
+            buyBtn.disabled = true;
+            buyBtn.innerHTML = '<span class="spinner"></span> Procesando...';
             await tx.wait();
+            buyBtn.disabled = false;
+            applyAnimalTheme(currentAnimal); // Restaurar botón
             refreshData();
         } catch (e) {
             console.error(e);
-            alert('Error en la transacción. ¿Tienes suficiente Pienso?');
+            buyBtn.disabled = false;
+            applyAnimalTheme(currentAnimal);
+            alert('Error en la transacción. ¿Tienes suficiente tBNB?');
         }
     }
 
     async function hatchEggsAction() {
-        if (!contract) return alert('Conecta tu wallet primero.');
-        let ref = referralInput.value.trim();
-        if (!ethers.utils.isAddress(ref)) {
-            ref = '0x0000000000000000000000000000000000000000';
-        }
+        if (!contract) return alert('Conecta tu wallet en BSC Testnet primero.');
+        if (!isCorrectNetwork) return alert('Cambia a BSC Testnet.');
+        const ref = getEffectiveReferrer();
         try {
             const tx = await contract.hatchEggs(ref);
             showTx(tx.hash);
+            hatchBtn.disabled = true;
+            hatchBtn.innerHTML = '<span class="spinner"></span> Procesando...';
             await tx.wait();
+            hatchBtn.disabled = false;
+            applyAnimalTheme(currentAnimal);
             refreshData();
         } catch (e) {
             console.error(e);
+            hatchBtn.disabled = false;
+            applyAnimalTheme(currentAnimal);
             alert(`Error al criar ${ANIMALS[currentAnimal].name.toLowerCase()}. ¿Tienes ${ANIMALS[currentAnimal].product} suficiente?`);
         }
     }
 
     async function sellEggsAction() {
-        if (!contract) return alert('Conecta tu wallet primero.');
+        if (!contract) return alert('Conecta tu wallet en BSC Testnet primero.');
+        if (!isCorrectNetwork) return alert('Cambia a BSC Testnet.');
         try {
             const tx = await contract.sellEggs();
             showTx(tx.hash);
+            sellBtn.disabled = true;
+            sellBtn.innerHTML = '<span class="spinner"></span> Procesando...';
             await tx.wait();
+            sellBtn.disabled = false;
+            applyAnimalTheme(currentAnimal);
             refreshData();
         } catch (e) {
             console.error(e);
+            sellBtn.disabled = false;
+            applyAnimalTheme(currentAnimal);
             alert(`Error al vender ${ANIMALS[currentAnimal].product.toLowerCase()}.`);
         }
     }
 
     async function seedMarketAction() {
-        if (!contract) return alert('Conecta tu wallet primero.');
+        if (!contract) return alert('Conecta tu wallet en BSC Testnet primero.');
         try {
             const tx = await contract.seedMarket();
             showTx(tx.hash);
@@ -558,6 +860,28 @@
             console.error(e);
             alert('Error al inaugurar la granja. ¿Ya está inicializada?');
         }
+    }
+
+    // ==================== ACCIONES DE REFERIDO ====================
+    function copyReferralLink() {
+        const link = generateReferralLink();
+        navigator.clipboard.writeText(link).then(() => {
+            showCopiedToast();
+        }).catch(() => {
+            const textArea = document.createElement('textarea');
+            textArea.value = link;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showCopiedToast();
+        });
+    }
+
+    function clearReferral() {
+        referralCleared = true;
+        referralInput.value = '';
+        referralNotice.style.display = 'none';
     }
 
     // ==================== ACCIONES DE ADMINISTRACIÓN ====================
@@ -595,20 +919,36 @@
         }
     }
 
+    // ==================== INICIALIZACIÓN ====================
+    function initFromURL() {
+        urlReferrer = getReferrerFromURL();
+        const urlParams = new URLSearchParams(window.location.search);
+        const animalFromURL = urlParams.get('animal');
+        if (animalFromURL && ANIMALS[animalFromURL]) {
+            currentAnimal = animalFromURL;
+            animalSelect.value = animalFromURL;
+        }
+    }
+
     // ==================== EVENTOS ====================
     connectBtn.addEventListener('click', connectWallet);
     buyBtn.addEventListener('click', buyEggsAction);
     hatchBtn.addEventListener('click', hatchEggsAction);
     sellBtn.addEventListener('click', sellEggsAction);
     seedBtn.addEventListener('click', seedMarketAction);
+    copyReferralBtn.addEventListener('click', copyReferralLink);
+    clearReferralBtn.addEventListener('click', clearReferral);
     setCeoBtn.addEventListener('click', setCEOAddressAction);
     setTeamBtn.addEventListener('click', setTeamAddressAction);
+    switchNetworkBtn.addEventListener('click', switchToBSCTestnet);
 
-    // Inicializar con el tema por defecto
-    applyAnimalTheme('gallinas');
+    // Inicializar
+    initFromURL();
+    applyAnimalTheme(currentAnimal);
 
     window.addEventListener('load', async () => {
         if (window.ethereum) {
+            await checkNetwork();
             const accounts = await window.ethereum.request({ method: 'eth_accounts' });
             if (accounts.length > 0) {
                 await connectWallet();
