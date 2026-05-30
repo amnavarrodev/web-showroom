@@ -68,7 +68,6 @@
         }
         .label { font-weight: 600; color: #7a6e62; }
         .value { font-size: 1.6rem; font-weight: 700; }
-        .value-small { font-size: 1rem; font-weight: 600; color: #27ae60; }
         .btn {
             background: var(--secondary);
             border: none;
@@ -222,10 +221,10 @@
             color: #27ae60;
         }
         .unit-hint {
-            font-size: 0.7rem;
-            color: #999;
+            font-size: 0.75rem;
+            color: #888;
             display: block;
-            margin-top: 0.1rem;
+            margin-top: 0.2rem;
         }
         .spinner {
             display: inline-block;
@@ -247,13 +246,11 @@
         <span class="testnet-badge">🔶 BNB Smart Chain Testnet</span>
     </header>
 
-    <!-- Aviso de red -->
     <div class="network-warning" id="networkWarning" style="display:none;">
         ⚠️ Red incorrecta. Cambia a <strong>BNB Smart Chain Testnet</strong> en MetaMask.
         <br><button id="switchNetworkBtn" class="btn btn-faucet" style="margin-top:0.5rem;">🔶 Cambiar a BSC Testnet</button>
     </div>
 
-    <!-- Notificación de referido por URL -->
     <div class="referral-notice" id="referralNotice">
         🎁 Has sido invitado por: <span class="ref-address" id="referralNoticeAddress"></span>
         <button id="clearReferralBtn" class="btn" style="margin-left:1rem; font-size:0.8rem; padding:0.4rem 1rem;">❌ Ignorar</button>
@@ -282,7 +279,7 @@
         </div>
     </div>
 
-    <!-- Selector de animal por pestañas -->
+    <!-- Selector de animal -->
     <div class="card">
         <h3>🐾 Selecciona tu animal</h3>
         <div class="animal-tabs" id="animalTabs">
@@ -294,7 +291,7 @@
         </div>
     </div>
 
-    <!-- Estado de la granja -->
+    <!-- Estado -->
     <div class="card">
         <h3 id="sectionTitle">📊 Mi Granja</h3>
         <div class="status-grid">
@@ -302,7 +299,7 @@
                 <div class="icon" id="animalIcon">🐔</div>
                 <div class="label" id="animalLabel">Mis Gallinas</div>
                 <div id="minerCount" class="value">0</div>
-                <span id="productionHint" class="unit-hint">1 gallina = 1 huevo/min</span>
+                <span id="productionHint" class="unit-hint">Cargando...</span>
             </div>
             <div class="status-item">
                 <div class="icon" id="productIcon">🥚</div>
@@ -351,11 +348,10 @@
         </div>
         <hr>
 
-        <!-- Sección de Referidos -->
         <div class="referral-box" id="referralBox" style="display:none;">
             <h4 style="margin-bottom: 0.8rem;">🔗 Tu enlace de referido (<span id="referralAnimalName">Gallinas</span>)</h4>
             <p style="font-size:0.85rem; color:#666; margin-bottom:0.5rem;">
-                Comparte este enlace. Por cada persona que compre, recibirás el <strong>10%</strong> de sus productos cuando críen.
+                Comparte este enlace. Recibirás el <strong>10%</strong> de los productos cuando tus referidos críen.
             </p>
             <div class="referral-link" id="referralLink">-</div>
             <button id="copyReferralBtn" class="btn btn-copy" style="margin-top:0.5rem;">📋 Copiar enlace</button>
@@ -368,39 +364,39 @@
         </div>
     </div>
 
-    <!-- Panel de Administración -->
+    <!-- Admin -->
     <div class="card admin-panel" id="adminPanel" style="display:none;">
         <h3 class="admin-title">👑 Panel de Administración (CEO)</h3>
         <p style="font-size:0.85rem; color:#666; margin-bottom:1rem;">Solo visible para la dirección CEO del contrato.</p>
         <div style="margin-bottom: 1.2rem;">
-            <span class="label">👤 Dirección CEO actual:</span>
+            <span class="label">👤 CEO actual:</span>
             <div class="address-display" id="currentCEO">-</div>
         </div>
         <div style="background: white; border-radius: 0.8rem; padding: 1rem; margin-bottom: 1rem;">
-            <span class="label">🔄 Cambiar dirección del CEO</span>
+            <span class="label">🔄 Cambiar CEO</span>
             <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem; flex-wrap: wrap;">
                 <input type="text" id="newCEOAddress" placeholder="0x..." style="flex:1; min-width: 250px;">
-                <button id="setCeoBtn" class="btn btn-admin">👑 Actualizar CEO</button>
+                <button id="setCeoBtn" class="btn btn-admin">👑 Actualizar</button>
             </div>
         </div>
         <div style="margin-bottom: 1.2rem;">
-            <span class="label">👥 Dirección Team actual:</span>
+            <span class="label">👥 Team actual:</span>
             <div class="address-display" id="currentTeam">-</div>
         </div>
         <div style="background: white; border-radius: 0.8rem; padding: 1rem; margin-bottom: 1rem;">
-            <span class="label">🔄 Cambiar dirección del Team</span>
+            <span class="label">🔄 Cambiar Team</span>
             <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem; flex-wrap: wrap;">
                 <input type="text" id="newTeamAddress" placeholder="0x..." style="flex:1; min-width: 250px;">
-                <button id="setTeamBtn" class="btn btn-admin">👥 Actualizar Team</button>
+                <button id="setTeamBtn" class="btn btn-admin">👥 Actualizar</button>
             </div>
         </div>
         <hr>
         <div id="adminTxLog" style="display:none;">
-            <p style="font-size:0.85rem; color:#6c5ce7;">✅ Última transacción admin: <span id="adminTxHash"></span></p>
+            <p style="font-size:0.85rem; color:#6c5ce7;">✅ Admin tx: <span id="adminTxHash"></span></p>
         </div>
     </div>
 
-    <!-- Registro de transacciones -->
+    <!-- Transacciones -->
     <div class="card" id="txLog" style="display:none;">
         <h4>📋 Última transacción</h4>
         <p id="txHash" class="tx-link"></p>
@@ -409,10 +405,9 @@
         </p>
     </div>
 
-    <!-- Disclaimer -->
     <div class="notice" style="text-align:center; margin-top:2rem;">
         🎓 <strong>Entorno educativo sin valor económico real.</strong><br>
-        Desplegado en BNB Smart Chain <strong>Testnet</strong>.
+        BNB Smart Chain <strong>Testnet</strong> · tBNB sin valor
     </div>
 </div>
 
@@ -453,7 +448,6 @@
     };
     const EXPLORER_URL = 'https://testnet.bscscan.com';
 
-    // ==================== DATOS LOCALES DE ANIMALES ====================
     const ANIMAL_DATA = [
         { name: 'Gallinas', product: 'Huevos', icon: '🐔', productIcon: '🥚', section: 'Mi Gallinero', primary: '#8B5A2B', secondary: '#D4A373', bg: '#fef9e7' },
         { name: 'Vacas', product: 'Leche', icon: '🐄', productIcon: '🥛', section: 'Mi Establo', primary: '#2d5a27', secondary: '#6b8f5e', bg: '#f2f7f2' },
@@ -462,16 +456,19 @@
         { name: 'Cerdos', product: 'Trufas', icon: '🐖', productIcon: '🍄', section: 'Mi Piara', primary: '#6b4c3b', secondary: '#8b6b5a', bg: '#fdf9f4' }
     ];
 
-    // ==================== ESTADO GLOBAL ====================
+    // ==================== ESTADO ====================
     let provider, signer, userAddress, contract, pollingInterval;
     let currentAnimalId = 0;
     let isCEO = false;
     let urlReferrer = '0x0000000000000000000000000000000000000000';
     let referralCleared = false;
     let isCorrectNetwork = false;
-    let animalConfigs = []; // Se carga del contrato
+    let animalConfigs = [];
 
     // ==================== UTILIDADES ====================
+    const $ = (id) => document.getElementById(id);
+    const root = document.documentElement;
+
     function formatNumber(num) {
         if (num === 0) return '0';
         if (num >= 1e9) return (num / 1e9).toFixed(2) + ' B';
@@ -496,11 +493,34 @@
         return `${window.location.origin}${window.location.pathname}?animalId=${currentAnimalId}&ref=${userAddress}`;
     }
 
-    // ==================== ELEMENTOS DOM ====================
-    const $ = (id) => document.getElementById(id);
-    const root = document.documentElement;
+    // ==================== HINT DE PRODUCCIÓN ====================
+    function updateProductionHint(animalId) {
+        const a = ANIMAL_DATA[animalId];
+        const cfg = animalConfigs[animalId];
+        
+        if (cfg && cfg.eggsToHatch > 0) {
+            const perMin = (60 / cfg.eggsToHatch).toFixed(2);
+            const perHour = (3600 / cfg.eggsToHatch).toFixed(1);
+            const perDay = (86400 / cfg.eggsToHatch).toFixed(1);
+            
+            let hint;
+            const singular = a.name.slice(0, -1).toLowerCase();
+            const prod = a.product.toLowerCase();
+            
+            if (cfg.eggsToHatch <= 60) {
+                hint = `1 ${singular} = ${perMin} ${prod}/min`;
+            } else if (cfg.eggsToHatch <= 3600) {
+                hint = `1 ${singular} = ${perHour} ${prod}/hora`;
+            } else {
+                hint = `1 ${singular} = ${perDay} ${prod}/día`;
+            }
+            $('productionHint').textContent = hint;
+        } else {
+            $('productionHint').textContent = 'Cargando...';
+        }
+    }
 
-    // ==================== CARGA DE CONFIGURACIÓN DEL CONTRATO ====================
+    // ==================== CARGA DE CONFIGS ====================
     async function loadAnimalConfigs() {
         if (!contract) return;
         try {
@@ -512,9 +532,11 @@
                     name: cfg.name,
                     productName: cfg.productName,
                     eggsToHatch: parseFloat(ethers.utils.formatUnits(cfg.eggsToHatch, 0)),
+                    initialMarket: parseFloat(ethers.utils.formatUnits(cfg.initialMarket, 0)),
                     active: cfg.active
                 });
             }
+            updateProductionHint(currentAnimalId);
         } catch (e) {
             console.error('Error cargando configs:', e);
         }
@@ -543,35 +565,26 @@
         $('sellBtn').innerHTML = `💸 Vender ${a.product}`;
         $('referralAnimalName').textContent = a.name;
 
-        // Actualizar hint de producción
-        if (animalConfigs[animalId]) {
-            const cfg = animalConfigs[animalId];
-            const perMinute = (60 / cfg.eggsToHatch).toFixed(1);
-            $('productionHint').textContent = `1 ${a.name.slice(0, -1).toLowerCase()} = ${perMinute} ${a.product.toLowerCase()}/min`;
-        }
+        updateProductionHint(animalId);
 
-        // Actualizar pestañas
         document.querySelectorAll('.animal-tab').forEach(tab => {
             tab.classList.toggle('active', parseInt(tab.dataset.id) === animalId);
         });
 
-        // Actualizar URL
         const url = new URL(window.location);
         url.searchParams.set('animalId', animalId);
         window.history.replaceState({}, '', url);
 
-        // Actualizar referidos
         updateReferralBox();
         updateReferralNotice();
         refreshData();
     }
 
-    // ==================== ACTUALIZACIÓN DE DATOS ====================
+    // ==================== REFRESCO DE DATOS ====================
     async function refreshData() {
         if (!contract || !userAddress || !isCorrectNetwork) return;
         const a = ANIMAL_DATA[currentAnimalId];
         try {
-            // Obtener estado del usuario para este animal
             const [miners, eggs, , referrer] = await contract.getUserState(currentAnimalId, userAddress);
             const mEggs = await contract.marketEggs(currentAnimalId);
             const balance = await provider.getBalance(userAddress);
@@ -584,7 +597,6 @@
             $('balanceBNB').textContent = parseFloat(ethers.utils.formatEther(balance)).toFixed(4);
             $('initNotice').style.display = init ? 'none' : 'block';
 
-            // Valor de venta estimado
             if (eggsNum > 0) {
                 try {
                     const sellVal = await contract.calculateEggSell(currentAnimalId, eggs);
@@ -601,28 +613,25 @@
                 $('eggValueEstimate').textContent = '';
             }
 
-            // Estimación de compra
             const buyVal = parseFloat($('buyAmount').value);
             if (buyVal > 0 && animalConfigs[currentAnimalId]) {
                 try {
-                    const eggsBought = await contract.calculateEggBuySimple(currentAnimalId, ethers.utils.parseEther($('buyAmount').value));
-                    const ebNum = parseFloat(ethers.utils.formatUnits(eggsBought, 0));
-                    const newMiners = ebNum / animalConfigs[currentAnimalId].eggsToHatch;
-                    $('buyEstimate').textContent = `≈ ${formatNumber(ebNum)} ${a.product} → ${formatSmallNumber(newMiners)} ${a.name.toLowerCase()}`;
+                    const eb = await contract.calculateEggBuySimple(currentAnimalId, ethers.utils.parseEther($('buyAmount').value));
+                    const ebNum = parseFloat(ethers.utils.formatUnits(eb, 0));
+                    const nm = ebNum / animalConfigs[currentAnimalId].eggsToHatch;
+                    $('buyEstimate').textContent = `≈ ${formatNumber(ebNum)} ${a.product} → ${formatSmallNumber(nm)} ${a.name.toLowerCase()}`;
                 } catch (e) { $('buyEstimate').textContent = ''; }
-            }
+            } else { $('buyEstimate').textContent = ''; }
 
-            // Estimación de reinversión
             if (eggsNum > 0 && animalConfigs[currentAnimalId]) {
                 const nm = eggsNum / animalConfigs[currentAnimalId].eggsToHatch;
                 $('hatchEstimate').textContent = `Usarás ${formatNumber(eggsNum)} ${a.product} → +${formatSmallNumber(nm)} ${a.name.toLowerCase()}`;
-            } else {
-                $('hatchEstimate').textContent = '';
-            }
+            } else { $('hatchEstimate').textContent = ''; }
 
             await checkCEOStatus();
             updateReferralBox();
             updateReferralNotice();
+            updateProductionHint(currentAnimalId);
         } catch (e) {
             console.error('Error refrescando:', e);
         }
@@ -707,10 +716,23 @@
         pollingInterval = setInterval(refreshData, 8000);
 
         window.ethereum.on('accountsChanged', (acc) => {
-            if (acc.length === 0) { userAddress = null; contract = null; $('walletAddress').textContent = 'No conectada'; }
-            else { userAddress = acc[0]; $('walletAddress').textContent = `${acc[0].substring(0, 6)}...${acc[0].substring(38)}`; contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer); loadAnimalConfigs(); refreshData(); }
+            if (acc.length === 0) {
+                userAddress = null; contract = null;
+                $('walletAddress').textContent = 'No conectada';
+            } else {
+                userAddress = acc[0];
+                $('walletAddress').textContent = `${acc[0].substring(0, 6)}...${acc[0].substring(38)}`;
+                contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                loadAnimalConfigs(); refreshData();
+            }
         });
-        window.ethereum.on('chainChanged', () => { checkNetwork(); if (isCorrectNetwork) { contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer); loadAnimalConfigs(); refreshData(); } });
+        window.ethereum.on('chainChanged', () => {
+            checkNetwork();
+            if (isCorrectNetwork) {
+                contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                loadAnimalConfigs(); refreshData();
+            }
+        });
     }
 
     // ==================== ACCIONES ====================
@@ -764,13 +786,23 @@
     async function setCEOAction() {
         const addr = $('newCEOAddress').value.trim();
         if (!ethers.utils.isAddress(addr)) return alert('Dirección inválida.');
-        try { const tx = await contract.setCEOAddress(addr); $('adminTxLog').style.display = 'block'; $('adminTxHash').textContent = tx.hash.substring(0, 20) + '...'; await tx.wait(); $('newCEOAddress').value = ''; refreshData(); } catch (e) { alert('Error.'); }
+        try {
+            const tx = await contract.setCEOAddress(addr);
+            $('adminTxLog').style.display = 'block';
+            $('adminTxHash').textContent = tx.hash.substring(0, 20) + '...';
+            await tx.wait(); $('newCEOAddress').value = ''; refreshData();
+        } catch (e) { alert('Error.'); }
     }
 
     async function setTeamAction() {
         const addr = $('newTeamAddress').value.trim();
         if (!ethers.utils.isAddress(addr)) return alert('Dirección inválida.');
-        try { const tx = await contract.setTeamAddress(addr); $('adminTxLog').style.display = 'block'; $('adminTxHash').textContent = tx.hash.substring(0, 20) + '...'; await tx.wait(); $('newTeamAddress').value = ''; refreshData(); } catch (e) { alert('Error.'); }
+        try {
+            const tx = await contract.setTeamAddress(addr);
+            $('adminTxLog').style.display = 'block';
+            $('adminTxHash').textContent = tx.hash.substring(0, 20) + '...';
+            await tx.wait(); $('newTeamAddress').value = ''; refreshData();
+        } catch (e) { alert('Error.'); }
     }
 
     // ==================== EVENTOS ====================
@@ -785,15 +817,16 @@
     $('copyReferralBtn').addEventListener('click', () => {
         navigator.clipboard.writeText(generateReferralLink()).then(showCopiedToast).catch(() => showCopiedToast());
     });
-    $('clearReferralBtn').addEventListener('click', () => { referralCleared = true; $('referralInput').value = ''; $('referralNotice').style.display = 'none'; });
+    $('clearReferralBtn').addEventListener('click', () => {
+        referralCleared = true; $('referralInput').value = ''; $('referralNotice').style.display = 'none';
+    });
     $('buyAmount').addEventListener('input', () => { if (contract && isCorrectNetwork) refreshData(); });
 
-    // Pestañas de animales
     document.querySelectorAll('.animal-tab').forEach(tab => {
         tab.addEventListener('click', () => applyAnimalTheme(parseInt(tab.dataset.id)));
     });
 
-    // Inicialización
+    // ==================== INICIALIZACIÓN ====================
     urlReferrer = getReferrerFromURL();
     const urlParams = new URLSearchParams(window.location.search);
     const aid = parseInt(urlParams.get('animalId'));
