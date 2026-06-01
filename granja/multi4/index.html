@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐾 Granja Educativa Unificada · BSC Testnet</title>
+    <style>
+        :root {
+            --bg: #fdfcf8;
+            --card: #ffffff;
+            --primary: #8B5A2B;
+            --secondary: #D4A373;
+            --accent: #E9C46A;
+            --text: #4B3B2B;
+            --border: #E6D5B8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container { width: 100%; max-width: 800px; }
+        header { text-align: center; margin: 2rem 0 1.5rem; }
+        header h1 { font-size: 2.4rem; color: var(--primary); }
+        .subtitle { color: #7a6e62; font-style: italic; }
+        .testnet-badge {
+            display: inline-block;
+            background: #f0b90b;
+            color: #000;
+            padding: 0.3rem 1rem;
+            border-radius: 1rem;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        .network-warning {
+            background: #fff3cd;
+            border: 2px solid #f0b90b;
+            border-radius: 0.8rem;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: 600;
+            color: #856404;
+        }
+        .card {
+            background: var(--card);
+            border-radius: 1.2rem;
+            padding: 1.6rem 1.8rem;
+            margin: 1.2rem 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .label { font-weight: 600; color: #7a6e62; }
+        .value { font-size: 1.6rem; font-weight: 700; }
+        .btn {
+            background: var(--secondary);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.4rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-primary { background: var(--primary); }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-copy { background: #27ae60; }
+        .btn-copy:hover { background: #219a52; }
+        .btn-admin { background: #6c5ce7; }
+        .btn-admin:hover { background: #5a4bd1; }
+        .btn-owner { background: #e74c3c; }
+        .btn-owner:hover { background: #c0392b; }
+        .btn-faucet { background: #f0b90b; color: #000; }
+        .btn-faucet:hover { background: #d4a30a; }
+        input, select {
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid var(--border);
+            font-size: 1rem;
+            outline: none;
+            background: white;
+        }
+        input { width: 120px; text-align: center; }
+        input[type="text"] { width: 340px; text-align: left; }
+        select { cursor: pointer; }
+        .animal-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .animal-tab {
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            border: 2px solid var(--border);
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .animal-tab:hover { border-color: var(--secondary); }
+        .animal-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        .status-item {
+            background: #faf8f4;
+            padding: 1rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .icon { font-size: 2rem; }
+        hr { border: 0; border-top: 1px solid var(--border); margin: 1.2rem 0; }
+        .tx-link { font-size: 0.85rem; color: var(--primary); word-break: break-all; }
+        .tx-link a { color: #3498db; text-decoration: none; }
+        .tx-link a:hover { text-decoration: underline; }
+        .notice { background: #fef9e7; border-radius: 0.8rem; padding: 0.8rem; margin: 1rem 0; font-size: 0.9rem; }
+        .referral-notice {
+            background: #fff3e0;
+            border: 2px solid #e67e22;
+            border-radius: 0.8rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .referral-notice .ref-address {
+            font-weight: bold;
+            color: #e67e22;
+            word-break: break-all;
+        }
+        .referral-box {
+            background: #faf8f4;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .referral-link {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.6rem;
+            font-size: 0.8rem;
+            word-break: break-all;
+            color: #666;
+            margin: 0.5rem 0;
+            user-select: all;
+        }
+        .copied-toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #27ae60;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .copied-toast.show { opacity: 1; }
+        .admin-panel { border: 2px dashed #6c5ce7; background: #f8f7ff; }
+        .owner-panel { border: 2px dashed #e74c3c; background: #fff5f5; }
+        .admin-title {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .address-display {
+            font-size: 0.8rem;
+            color: #666;
+            word-break: break-all;
+            margin-top: 0.3rem;
+        }
+        .sell-preview {
+            background: #f0faf0;
+            border: 1px solid #27ae60;
+            border-radius: 0.8rem;
+            padding: 0.8rem 1rem;
+            margin-top: 0.8rem;
+            text-align: center;
+            display: none;
+        }
+        .sell-preview .amount { font-size: 1.3rem; font-weight: 700; color: #27ae60; }
+        .unit-hint { font-size: 0.75rem; color: #888; display: block; margin-top: 0.2rem; }
+        .return-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 0.2rem 0.8rem;
+            border-radius: 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .role-badge {
+            display: inline-block;
+            padding: 0.15rem 0.6rem;
+            border-radius: 1rem;
+            font-weight: 700;
+            font-size: 0.7rem;
+            margin-left: 0.3rem;
+        }
+        .role-owner { background: #fce4e4; color: #c0392b; }
+        .role-ceo { background: #e8e4fc; color: #5a4bd1; }
+        .role-team { background: #e4f0fc; color: #2980b9; }
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 id="mainTitle">🐾 Granja Educativa Unificada</h1>
+        <p class="subtitle">Producción por hora · Owner + CEO + % Configurable</p>
+        <span class="testnet-badge">🔶 BNB Smart Chain Testnet</span>
+        <br><span class="return-badge" id="returnBadge" style="margin-top:0.5rem;">📈 Cargando % diario...</span>
+    </header>
+
+    <div class="network-warning" id="networkWarning" style="display:none;">
+        ⚠️ Red incorrecta. Cambia a <strong>BNB Smart Chain Testnet</strong> en MetaMask.
+        <br><button id="switchNetworkBtn" class="btn btn-faucet" style="margin-top:0.5rem;">🔶 Cambiar a BSC Testnet</button>
+    </div>
+
+    <div class="referral-notice" id="referralNotice">
+        🎁 Has sido invitado por: <span class="ref-address" id="referralNoticeAddress"></span>
+        <button id="clearReferralBtn" class="btn" style="margin-left:1rem; font-size:0.8rem; padding:0.4rem 1rem;">❌ Ignorar</button>
+    </div>
+
+    <!-- Conexión -->
+    <div class="card">
+        <div class="row">
+            <div>
+                <span class="label">🔗 Red:</span>
+                <span id="networkName" style="font-weight:600;">-</span>
+            </div>
+            <button id="connectBtn" class="btn btn-primary">🔌 Conectar MetaMask</button>
+        </div>
+        <div class="row" style="margin-top: 0.8rem;">
+            <span class="label">Cartera:</span>
+            <span id="walletAddress">No conectada</span>
+            <span id="roleIndicator" style="font-size:0.8rem;"></span>
+        </div>
+        <div class="row" style="margin-top: 0.8rem;">
+            <span class="label">💰 Pienso (tBNB):</span>
+            <span id="balanceBNB" class="value">0.00</span>
+        </div>
+        <div class="row" style="margin-top: 0.5rem;">
+            <a href="https://www.bnbchain.org/en/testnet-faucet" target="_blank" class="btn btn-faucet" style="font-size:0.85rem; padding:0.4rem 1rem;">🚰 Obtener tBNB (Faucet)</a>
+            <span style="font-size:0.75rem; color:#999;">Sin valor real</span>
+        </div>
+    </div>
+
+    <!-- Selector de animal -->
+    <div class="card">
+        <h3 style="margin-bottom:0.8rem;">🐾 Selecciona tu animal</h3>
+        <div class="animal-tabs" id="animalTabs">
+            <button class="animal-tab active" data-id="0">🐔 Gallinas</button>
+            <button class="animal-tab" data-id="1">🐄 Vacas</button>
+            <button class="animal-tab" data-id="2">🐑 Ovejas</button>
+            <button class="animal-tab" data-id="3">🐝 Abejas</button>
+            <button class="animal-tab" data-id="4">🐖 Cerdos</button>
+        </div>
+    </div>
+
+    <!-- Estado -->
+    <div class="card">
+        <h3 id="sectionTitle">📊 Mi Granja</h3>
+        <div class="status-grid">
+            <div class="status-item">
+                <div class="icon" id="animalIcon">🐔</div>
+                <div class="label" id="animalLabel">Mis Gallinas</div>
+                <div id="minerCount" class="value">0</div>
+                <span id="productionHint" class="unit-hint">Cargando producción...</span>
+            </div>
+            <div class="status-item">
+                <div class="icon" id="productIcon">🥚</div>
+                <div class="label" id="productLabel">Huevos acumulados</div>
+                <div id="eggCount" class="value">0</div>
+                <span id="eggValueEstimate" class="unit-hint" style="color:#27ae60;"></span>
+            </div>
+            <div class="status-item">
+                <div class="icon">🏪</div>
+                <div class="label" id="marketLabel">Mercado de Huevos</div>
+                <div id="marketEggs" class="value">-</div>
+                <span class="unit-hint">Oferta total</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="card">
+        <h3>⚡ Acciones</h3>
+        <div style="margin-bottom: 1rem;">
+            <span class="label" id="buyLabel">1. Comprar Gallina con Pienso</span>
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                <input type="number" id="buyAmount" value="0.01" step="0.001" min="0.001">
+                <button id="buyBtn" class="btn">🛒 Comprar</button>
+            </div>
+            <span id="buyEstimate" class="unit-hint" style="color:#666;"></span>
+        </div>
+        <div style="margin-bottom: 1rem; margin-top: 1rem;">
+            <span class="label" id="hatchLabel">2. Criar más Gallinas (usando Huevos)</span>
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem;">
+                <input type="text" id="referralInput" placeholder="Referido (0x...)" style="width:180px;">
+                <button id="hatchBtn" class="btn">🐣 Criar</button>
+            </div>
+            <span id="hatchEstimate" class="unit-hint" style="color:#666;"></span>
+        </div>
+        <div style="margin-top: 1rem;">
+            <span class="label" id="sellLabel">3. Vender Huevos por Pienso</span>
+            <button id="sellBtn" class="btn btn-primary" style="margin-top:0.4rem;">💸 Vender</button>
+            <div class="sell-preview" id="sellPreview">
+                💰 Recibirías: <span class="amount" id="sellPreviewAmount">0.0000 tBNB</span>
+                <br><small style="color:#888;">(descontada comisión del 5%)</small>
+            </div>
+        </div>
+        <hr>
+        <div class="referral-box" id="referralBox" style="display:none;">
+            <h4 style="margin-bottom: 0.8rem;">🔗 Tu enlace de referido (<span id="referralAnimalName">Gallinas</span>)</h4>
+            <p style="font-size:0.85rem; color:#666; margin-bottom:0.5rem;">
+                Comparte este enlace. Recibirás el <strong>10%</strong> de los productos cuando tus referidos críen.
+            </p>
+            <div class="referral-link" id="referralLink">-</div>
+            <button id="copyReferralBtn" class="btn btn-copy" style="margin-top:0.5rem;">📋 Copiar enlace</button>
+        </div>
+        <hr>
+        <div class="notice" id="initNotice" style="display:none;">
+            ⚠️ La granja aún no ha sido inaugurada. Cualquiera puede hacerlo.
+            <button id="seedBtn" class="btn" style="margin-left:1rem;">🌱 Inaugurar Granja</button>
+        </div>
+    </div>
+
+    <!-- Panel Owner -->
+    <div class="card owner-panel" id="ownerPanel" style="display:none;">
+        <h3 class="admin-title" style="color:#e74c3c;">🔴 Panel del Owner (Super-Admin)</h3>
+        <p style="font-size:0.85rem; color:#666; margin-bottom:1rem;">Control total del contrato.</p>
+        <div style="margin-bottom: 1rem;">
+            <span class="label">👤 Owner actual:</span>
+            <div class="address-display" id="currentOwner">-</div>
+        </div>
+        <div style="background: white; border-radius: 0.8rem; padding: 1rem; margin-bottom: 1rem;">
+            <span class="label">🔄 Transferir propiedad</span>
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem; flex-wrap: wrap;">
+                <input type="text" id="newOwnerAddress" placeholder="0x..." style="flex:1; min-width: 250px;">
+                <button id="transferOwnerBtn" class="btn btn-owner">Transferir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel Admin (Owner + CEO) -->
+    <div class="card admin-panel" id="adminPanel" style="display:none;">
+        <h3 class="admin-title" style="color:#6c5ce7;">👑 Panel de Administración</h3>
+        <p style="font-size:0.85rem; color:#666; margin-bottom:1rem;" id="adminAccessLabel">Acceso: Owner o CEO</p>
+
+        <div style="margin-bottom: 1.2rem;">
+            <span class="label">📈 % Diario actual:</span>
+            <span id="currentDailyReturn" style="font-weight:700; font-size:1.2rem; color:#2e7d32;"></span>
+        </div>
+        <div style="background: white; border-radius: 0.8rem; padding: 1rem; margin-bottom: 1rem;">
+            <span class="label">🔄 Cambiar % Diario (1-20)</span>
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem; flex-wrap: wrap;">
+                <input type="number" id="newDailyReturn" value="3" min="1" max="20" step="1">
+                <button id="setDailyReturnBtn" class="btn btn-admin">📈 Actualizar %</button>
+            </div>
+            <span class="unit-hint">Solo afecta nuevas compras. No es retroactivo.</span>
+        </div>
+
+        <div style="margin-bottom: 1.2rem;">
+            <span class="label">👤 CEO actual:</span>
+            <div class="address-display" id="currentCEO">-</div>
+        </div>
+        <div style="background: white; border-radius: 0.8rem; padding: 1rem; margin-bottom: 1rem;">
+            <span class="label">🔄 Cambiar CEO</span>
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem; flex-wrap: wrap;">
+                <input type="text" id="newCEOAddress" placeholder="0x..." style="flex:1; min-width: 250px;">
+                <button id="setCeoBtn" class="btn btn-admin">👑 Actualizar</button>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 1.2rem;">
+            <span class="label">👥 Team actual:</span>
+            <div class="address-display" id="currentTeam">-</div>
+        </div>
+        <div style="background: white; border-radius: 0.8rem; padding: 1rem; margin-bottom: 1rem;">
+            <span class="label">🔄 Cambiar Team</span>
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.4rem; flex-wrap: wrap;">
+                <input type="text" id="newTeamAddress" placeholder="0x..." style="flex:1; min-width: 250px;">
+                <button id="setTeamBtn" class="btn btn-admin">👥 Actualizar</button>
+            </div>
+        </div>
+        <hr>
+        <div id="adminTxLog" style="display:none;">
+            <p style="font-size:0.85rem; color:#6c5ce7;">✅ Admin tx: <span id="adminTxHash"></span></p>
+        </div>
+    </div>
+
+    <!-- Transacciones -->
+    <div class="card" id="txLog" style="display:none;">
+        <h4>📋 Última transacción</h4>
+        <p id="txHash" class="tx-link"></p>
+        <p style="font-size:0.75rem; color:#999; margin-top:0.3rem;">
+            🔍 Ver en <a id="explorerLink" href="#" target="_blank">BscScan Testnet</a>
+        </p>
+    </div>
+
+    <div class="notice" style="text-align:center; margin-top:2rem;">
+        🎓 <strong>Entorno educativo sin valor económico real.</strong><br>
+        BNB Smart Chain <strong>Testnet</strong> · tBNB sin valor
+    </div>
+</div>
+
+<div class="copied-toast" id="copiedToast">✅ ¡Enlace copiado!</div>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script>
+    // ==================== CONFIGURACIÓN ====================
+    const CONTRACT_ADDRESS = ''; // ← CAMBIAR
+
+    const CONTRACT_ABI = [
+        "function buyEggs(uint8 _animalId, address _ref) public payable",
+        "function sellEggs(uint8 _animalId) public",
+        "function hatchEggs(uint8 _animalId, address _ref) public",
+        "function seedMarket() public payable",
+        "function getMyEggs(uint8 _animalId) public view returns (uint256)",
+        "function getMyMiners(uint8 _animalId) public view returns (uint256)",
+        "function marketEggs(uint8) public view returns (uint256)",
+        "function animals(uint8) public view returns (string name, string productName, uint256 eggsToHatch, uint256 initialMarket, uint256 productionPerHour, bool active)",
+        "function animalCount() public view returns (uint8)",
+        "function initialized() public view returns (bool)",
+        "function calculateEggSell(uint8 _animalId, uint256 eggs) public view returns (uint256)",
+        "function calculateEggBuySimple(uint8 _animalId, uint256 eth) public view returns (uint256)",
+        "function owner() public view returns (address)",
+        "function ceoAddress() public view returns (address)",
+        "function teamAddress() public view returns (address)",
+        "function dailyReturnPercent() public view returns (uint256)",
+        "function transferOwnership(address _newOwner) public",
+        "function setDailyReturnPercent(uint256 _newPercent) public",
+        "function setCEOAddress(address _newCEO) public",
+        "function setTeamAddress(address _newTeam) public",
+        "function getBalance() public view returns (uint256)",
+        "function getUserState(uint8 _animalId, address _user) public view returns (uint256 miners, uint256 eggs, uint256 lastAction, address referrer)",
+        "function getProductionInfo(uint8 _animalId) public view returns (string name, string productName, uint256 perHour, uint256 perDay, uint256 eggsToHatch)",
+        "function getContractConfig() public view returns (address _owner, address _ceo, address _team, uint256 _dailyReturnPercent, uint256 _psn, uint256 _psnh, bool _initialized)"
+    ];
+
+    const BSC_TESTNET = {
+        chainId: '0x61',
+        chainName: 'BNB Smart Chain Testnet',
+        rpcUrls: ['https://data-seed-prebsc-1-s1.bnbchain.org:8545'],
+        nativeCurrency: { name: 'tBNB', symbol: 'tBNB', decimals: 18 },
+        blockExplorerUrls: ['https://testnet.bscscan.com']
+    };
+    const EXPLORER_URL = 'https://testnet.bscscan.com';
+
+    const ANIMAL_DATA = [
+        { name: 'Gallinas', product: 'Huevos', icon: '🐔', productIcon: '🥚', section: 'Mi Gallinero', primary: '#8B5A2B', secondary: '#D4A373', bg: '#fef9e7' },
+        { name: 'Vacas', product: 'Leche', icon: '🐄', productIcon: '🥛', section: 'Mi Establo', primary: '#2d5a27', secondary: '#6b8f5e', bg: '#f2f7f2' },
+        { name: 'Ovejas', product: 'Lana', icon: '🐑', productIcon: '🧶', section: 'Mi Rebaño', primary: '#8b7d6b', secondary: '#b8a590', bg: '#fdfcf8' },
+        { name: 'Abejas', product: 'Miel', icon: '🐝', productIcon: '🍯', section: 'Mi Colmenar', primary: '#d4a017', secondary: '#e8b830', bg: '#fffdf5' },
+        { name: 'Cerdos', product: 'Trufas', icon: '🐖', productIcon: '🍄', section: 'Mi Piara', primary: '#6b4c3b', secondary: '#8b6b5a', bg: '#fdf9f4' }
+    ];
+
+    // ==================== ESTADO ====================
+    let provider, signer, userAddress, contract, pollingInterval;
+    let currentAnimalId = 0;
+    let isOwner = false;
+    let isCEO = false;
+    let isAdmin = false;
+    let urlReferrer = '0x0000000000000000000000000000000000000000';
+    let referralCleared = false;
+    let isCorrectNetwork = false;
+    let animalConfigs = [];
+    let dailyReturn = 0;
+
+    // ==================== UTILIDADES ====================
+    const $ = (id) => document.getElementById(id);
+    const root = document.documentElement;
+
+    function formatNumber(num) {
+        if (num === 0) return '0';
+        if (num >= 1e9) return (num / 1e9).toFixed(2) + ' B';
+        if (num >= 1e6) return (num / 1e6).toFixed(2) + ' M';
+        if (num >= 1e3) return (num / 1e3).toFixed(2) + ' K';
+        return ethers.utils.commify(Math.floor(num).toString());
+    }
+
+    function formatSmallNumber(num) {
+        if (num >= 1000) return formatNumber(num);
+        if (num < 0.0001 && num > 0) return num.toFixed(6);
+        return num.toFixed(4);
+    }
+
+    function getReferrerFromURL() {
+        const p = new URLSearchParams(window.location.search);
+        const ref = p.get('ref');
+        return (ref && ethers.utils.isAddress(ref)) ? ref : '0x0000000000000000000000000000000000000000';
+    }
+
+    function generateReferralLink() {
+        if (!userAddress) return '';
+        return `${window.location.origin}${window.location.pathname}?animalId=${currentAnimalId}&ref=${userAddress}`;
+    }
+
+    // ==================== HINT DE PRODUCCIÓN ====================
+    function updateProductionHint(animalId) {
+        const a = ANIMAL_DATA[animalId];
+        const cfg = animalConfigs[animalId];
+        if (cfg && cfg.productionPerHour > 0) {
+            const perHour = cfg.productionPerHour;
+            const perDay = cfg.productionPerHour * 24;
+            const singular = a.name.slice(0, -1).toLowerCase();
+            const prod = a.product.toLowerCase();
+            let perHourStr = perHour >= 1 ? parseFloat(perHour.toFixed(1)).toString() : perHour.toFixed(2);
+            $('productionHint').textContent = `1 ${singular} = ${perHourStr} ${prod}/hora (${parseFloat(perDay.toFixed(1))} ${prod}/día)`;
+        } else {
+            $('productionHint').textContent = 'Cargando producción...';
+        }
+    }
+
+    // ==================== CARGA DE CONFIGS ====================
+    async function loadAnimalConfigs() {
+        if (!contract) return;
+        try {
+            const count = await contract.animalCount();
+            animalConfigs = [];
+            for (let i = 0; i < count; i++) {
+                const cfg = await contract.animals(i);
+                animalConfigs.push({
+                    name: cfg.name,
+                    productName: cfg.productName,
+                    eggsToHatch: parseFloat(ethers.utils.formatUnits(cfg.eggsToHatch, 0)),
+                    initialMarket: parseFloat(ethers.utils.formatUnits(cfg.initialMarket, 0)),
+                    productionPerHour: parseFloat(ethers.utils.formatUnits(cfg.productionPerHour, 0)),
+                    active: cfg.active
+                });
+            }
+            try {
+                dailyReturn = parseFloat(ethers.utils.formatUnits(await contract.dailyReturnPercent(), 0));
+                $('returnBadge').textContent = `📈 Retorno ~${dailyReturn}% diario`;
+                $('currentDailyReturn').textContent = `${dailyReturn}%`;
+                $('newDailyReturn').value = dailyReturn;
+            } catch (e) {
+                $('returnBadge').textContent = '📈 % diario no disponible';
+            }
+            updateProductionHint(currentAnimalId);
+        } catch (e) {
+            console.error('Error cargando configs:', e);
+        }
+    }
+
+    // ==================== CAMBIO DE ANIMAL ====================
+    function applyAnimalTheme(animalId) {
+        currentAnimalId = animalId;
+        const a = ANIMAL_DATA[animalId];
+        root.style.setProperty('--primary', a.primary);
+        root.style.setProperty('--secondary', a.secondary);
+        root.style.setProperty('--bg', a.bg);
+        $('mainTitle').innerHTML = `${a.icon} Granja de ${a.name}`;
+        $('sectionTitle').innerHTML = `📊 ${a.section}`;
+        $('animalIcon').textContent = a.icon;
+        $('animalLabel').textContent = `Mis ${a.name}`;
+        $('productIcon').textContent = a.productIcon;
+        $('productLabel').textContent = `${a.product} acumulados`;
+        $('marketLabel').textContent = `Mercado de ${a.product}`;
+        $('buyLabel').textContent = `1. Comprar ${a.name.slice(0, -1)} con Pienso`;
+        $('hatchLabel').textContent = `2. Criar más ${a.name} (usando ${a.product})`;
+        $('sellLabel').textContent = `3. Vender ${a.product} por Pienso`;
+        $('buyBtn').innerHTML = `🛒 Comprar`;
+        $('hatchBtn').innerHTML = `${a.icon} Criar`;
+        $('sellBtn').innerHTML = `💸 Vender ${a.product}`;
+        $('referralAnimalName').textContent = a.name;
+        updateProductionHint(animalId);
+        document.querySelectorAll('.animal-tab').forEach(tab => {
+            tab.classList.toggle('active', parseInt(tab.dataset.id) === animalId);
+        });
+        const url = new URL(window.location);
+        url.searchParams.set('animalId', animalId);
+        window.history.replaceState({}, '', url);
+        updateReferralBox();
+        updateReferralNotice();
+        refreshData();
+    }
+
+    // ==================== REFRESCO DE DATOS ====================
+    async function refreshData() {
+        if (!contract || !userAddress || !isCorrectNetwork) return;
+        const a = ANIMAL_DATA[currentAnimalId];
+        try {
+            const [miners, eggs, , ] = await contract.getUserState(currentAnimalId, userAddress);
+            const mEggs = await contract.marketEggs(currentAnimalId);
+            const balance = await provider.getBalance(userAddress);
+            const init = await contract.initialized();
+            $('minerCount').innerHTML = formatSmallNumber(parseFloat(ethers.utils.formatUnits(miners, 0)));
+            const eggsNum = parseFloat(ethers.utils.formatUnits(eggs, 0));
+            $('eggCount').innerHTML = formatNumber(eggsNum);
+            $('marketEggs').innerHTML = formatNumber(parseFloat(ethers.utils.formatUnits(mEggs, 0)));
+            $('balanceBNB').textContent = parseFloat(ethers.utils.formatEther(balance)).toFixed(4);
+            $('initNotice').style.display = init ? 'none' : 'block';
+
+            if (eggsNum > 0) {
+                try {
+                    const sellVal = await contract.calculateEggSell(currentAnimalId, eggs);
+                    const afterFee = parseFloat(ethers.utils.formatEther(sellVal)) * 0.95;
+                    $('sellPreview').style.display = 'block';
+                    $('sellPreviewAmount').textContent = `${afterFee.toFixed(6)} tBNB`;
+                    $('eggValueEstimate').textContent = `≈ ${afterFee.toFixed(6)} tBNB`;
+                } catch (e) { $('sellPreview').style.display = 'none'; $('eggValueEstimate').textContent = ''; }
+            } else { $('sellPreview').style.display = 'none'; $('eggValueEstimate').textContent = ''; }
+
+            const buyVal = parseFloat($('buyAmount').value);
+            if (buyVal > 0 && animalConfigs[currentAnimalId]) {
+                try {
+                    const eb = await contract.calculateEggBuySimple(currentAnimalId, ethers.utils.parseEther($('buyAmount').value));
+                    const ebNum = parseFloat(ethers.utils.formatUnits(eb, 0));
+                    const cfg = animalConfigs[currentAnimalId];
+                    const nm = cfg.eggsToHatch > 0 ? ebNum / cfg.eggsToHatch : 0;
+                    $('buyEstimate').textContent = `≈ ${formatNumber(ebNum)} ${a.product} → ${formatSmallNumber(nm)} ${a.name.toLowerCase()}`;
+                } catch (e) { $('buyEstimate').textContent = ''; }
+            } else { $('buyEstimate').textContent = ''; }
+
+            if (eggsNum > 0 && animalConfigs[currentAnimalId]) {
+                const cfg = animalConfigs[currentAnimalId];
+                const nm = cfg.eggsToHatch > 0 ? eggsNum / cfg.eggsToHatch : 0;
+                $('hatchEstimate').textContent = `Usarás ${formatNumber(eggsNum)} ${a.product} → +${formatSmallNumber(nm)} ${a.name.toLowerCase()}`;
+            } else { $('hatchEstimate').textContent = ''; }
+
+            await checkRoles();
+            updateReferralBox();
+            updateReferralNotice();
+            updateProductionHint(currentAnimalId);
+        } catch (e) { console.error('Error refrescando:', e); }
+    }
+
+    async function checkRoles() {
+        if (!contract || !userAddress) return;
+        try {
+            const cfg = await contract.getContractConfig();
+            const contractOwner = cfg._owner.toLowerCase();
+            const contractCEO = cfg._ceo.toLowerCase();
+            const contractTeam = cfg._team.toLowerCase();
+            const user = userAddress.toLowerCase();
+
+            isOwner = (user === contractOwner);
+            isCEO = (user === contractCEO);
+            isAdmin = isOwner || isCEO;
+
+            // Indicador de rol
+            let roleHtml = '';
+            if (isOwner) roleHtml += '<span class="role-badge role-owner">OWNER</span>';
+            if (isCEO) roleHtml += '<span class="role-badge role-ceo">CEO</span>';
+            if (user === contractTeam) roleHtml += '<span class="role-badge role-team">TEAM</span>';
+            $('roleIndicator').innerHTML = roleHtml;
+
+            // Paneles
+            $('ownerPanel').style.display = isOwner ? 'block' : 'none';
+            $('adminPanel').style.display = isAdmin ? 'block' : 'none';
+            $('adminAccessLabel').textContent = isOwner ? 'Acceso: Owner (Super-Admin)' : 'Acceso: CEO';
+
+            // Direcciones
+            $('currentOwner').textContent = cfg._owner;
+            $('currentCEO').textContent = cfg._ceo;
+            $('currentTeam').textContent = cfg._team;
+            $('currentDailyReturn').textContent = `${cfg._dailyReturnPercent}%`;
+            $('newDailyReturn').value = cfg._dailyReturnPercent;
+        } catch (e) { isOwner = false; isCEO = false; isAdmin = false; $('ownerPanel').style.display = 'none'; $('adminPanel').style.display = 'none'; }
+    }
+
+    function updateReferralNotice() {
+        if (urlReferrer !== '0x0000000000000000000000000000000000000000' && !referralCleared && userAddress) {
+            if (urlReferrer.toLowerCase() === userAddress.toLowerCase()) { $('referralNotice').style.display = 'none'; return; }
+            $('referralNotice').style.display = 'block';
+            $('referralNoticeAddress').textContent = `${urlReferrer.substring(0, 10)}...${urlReferrer.substring(38)}`;
+            $('referralInput').value = urlReferrer;
+        } else { $('referralNotice').style.display = 'none'; }
+    }
+
+    function updateReferralBox() {
+        if (!userAddress) { $('referralBox').style.display = 'none'; return; }
+        $('referralBox').style.display = 'block';
+        $('referralLink').textContent = generateReferralLink();
+    }
+
+    function showTx(hash) {
+        $('txLog').style.display = 'block';
+        $('txHash').innerHTML = `Transacción: <strong>${hash.substring(0, 20)}...</strong>`;
+        $('explorerLink').href = `${EXPLORER_URL}/tx/${hash}`;
+    }
+
+    function showAdminTx(hash) {
+        $('adminTxLog').style.display = 'block';
+        $('adminTxHash').innerHTML = `<a href="${EXPLORER_URL}/tx/${hash}" target="_blank" style="color:#6c5ce7;">${hash.substring(0, 20)}...</a>`;
+    }
+
+    function showCopiedToast() {
+        $('copiedToast').classList.add('show');
+        setTimeout(() => $('copiedToast').classList.remove('show'), 2000);
+    }
+
+    // ==================== CONEXIÓN ====================
+    async function checkNetwork() {
+        if (!window.ethereum) return false;
+        try {
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            isCorrectNetwork = (chainId === BSC_TESTNET.chainId);
+            $('networkName').textContent = isCorrectNetwork ? '🔶 BSC Testnet' : '❌ Red incorrecta';
+            $('networkWarning').style.display = isCorrectNetwork ? 'none' : 'block';
+            return isCorrectNetwork;
+        } catch (e) { return false; }
+    }
+
+    async function switchNetwork() {
+        try {
+            await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BSC_TESTNET.chainId }] });
+        } catch (e) {
+            if (e.code === 4902) await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [BSC_TESTNET] });
+        }
+    }
+
+    async function connectWallet() {
+        if (!window.ethereum) return alert('Instala MetaMask.');
+        const ok = await checkNetwork();
+        if (!ok) { await switchNetwork(); await checkNetwork(); }
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        signer = provider.getSigner();
+        userAddress = await signer.getAddress();
+        $('walletAddress').textContent = `${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
+        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+        await loadAnimalConfigs();
+        if (pollingInterval) clearInterval(pollingInterval);
+        refreshData();
+        pollingInterval = setInterval(refreshData, 8000);
+        window.ethereum.on('accountsChanged', (acc) => {
+            if (acc.length === 0) { userAddress = null; contract = null; $('walletAddress').textContent = 'No conectada'; }
+            else { userAddress = acc[0]; $('walletAddress').textContent = `${acc[0].substring(0, 6)}...${acc[0].substring(38)}`; contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer); loadAnimalConfigs(); refreshData(); }
+        });
+        window.ethereum.on('chainChanged', () => { checkNetwork(); if (isCorrectNetwork) { contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer); loadAnimalConfigs(); refreshData(); } });
+    }
+
+    // ==================== ACCIONES DE USUARIO ====================
+    function getRef() {
+        const m = $('referralInput').value.trim();
+        if (m && ethers.utils.isAddress(m)) return m;
+        if (!referralCleared && urlReferrer !== '0x0000000000000000000000000000000000000000') return urlReferrer;
+        return '0x0000000000000000000000000000000000000000';
+    }
+
+    async function buyAction() {
+        if (!contract) return alert('Conecta tu wallet.');
+        const val = $('buyAmount').value;
+        if (isNaN(val) || val <= 0) return alert('Cantidad inválida.');
+        try {
+            const tx = await contract.buyEggs(currentAnimalId, getRef(), { value: ethers.utils.parseEther(val) });
+            showTx(tx.hash);
+            $('buyBtn').disabled = true; $('buyBtn').innerHTML = '<span class="spinner"></span>';
+            await tx.wait();
+            $('buyBtn').disabled = false; applyAnimalTheme(currentAnimalId); refreshData();
+        } catch (e) { console.error(e); $('buyBtn').disabled = false; applyAnimalTheme(currentAnimalId); alert('Error. ¿tBNB suficiente?'); }
+    }
+
+    async function hatchAction() {
+        if (!contract) return alert('Conecta tu wallet.');
+        try {
+            const tx = await contract.hatchEggs(currentAnimalId, getRef());
+            showTx(tx.hash);
+            $('hatchBtn').disabled = true; $('hatchBtn').innerHTML = '<span class="spinner"></span>';
+            await tx.wait();
+            $('hatchBtn').disabled = false; applyAnimalTheme(currentAnimalId); refreshData();
+        } catch (e) { console.error(e); $('hatchBtn').disabled = false; applyAnimalTheme(currentAnimalId); alert('Error al criar.'); }
+    }
+
+    async function sellAction() {
+        if (!contract) return alert('Conecta tu wallet.');
+        try {
+            const tx = await contract.sellEggs(currentAnimalId);
+            showTx(tx.hash);
+            $('sellBtn').disabled = true; $('sellBtn').innerHTML = '<span class="spinner"></span>';
+            await tx.wait();
+            $('sellBtn').disabled = false; applyAnimalTheme(currentAnimalId); refreshData();
+        } catch (e) { console.error(e); $('sellBtn').disabled = false; applyAnimalTheme(currentAnimalId); alert('Error al vender.'); }
+    }
+
+    async function seedAction() {
+        if (!contract) return alert('Conecta tu wallet.');
+        try { const tx = await contract.seedMarket(); showTx(tx.hash); await tx.wait(); refreshData(); } catch (e) { alert('Error. ¿Ya inaugurada?'); }
+    }
+
+    // ==================== ACCIONES OWNER ====================
+    async function transferOwnerAction() {
+        const addr = $('newOwnerAddress').value.trim();
+        if (!ethers.utils.isAddress(addr)) return alert('Dirección inválida.');
+        try {
+            const tx = await contract.transferOwnership(addr);
+            showAdminTx(tx.hash);
+            await tx.wait(); $('newOwnerAddress').value = ''; refreshData();
+        } catch (e) { alert('Error. Solo el Owner puede transferir.'); }
+    }
+
+    // ==================== ACCIONES ADMIN (Owner + CEO) ====================
+    async function setDailyReturnAction() {
+        const val = parseInt($('newDailyReturn').value);
+        if (isNaN(val) || val < 1 || val > 20) return alert('% debe ser 1-20.');
+        try {
+            const tx = await contract.setDailyReturnPercent(val);
+            showAdminTx(tx.hash);
+            await tx.wait(); refreshData();
+        } catch (e) { alert('Error al cambiar %. Solo Owner o CEO.'); }
+    }
+
+    async function setCEOAction() {
+        const addr = $('newCEOAddress').value.trim();
+        if (!ethers.utils.isAddress(addr)) return alert('Dirección inválida.');
+        try {
+            const tx = await contract.setCEOAddress(addr);
+            showAdminTx(tx.hash);
+            await tx.wait(); $('newCEOAddress').value = ''; refreshData();
+        } catch (e) { alert('Error.'); }
+    }
+
+    async function setTeamAction() {
+        const addr = $('newTeamAddress').value.trim();
+        if (!ethers.utils.isAddress(addr)) return alert('Dirección inválida.');
+        try {
+            const tx = await contract.setTeamAddress(addr);
+            showAdminTx(tx.hash);
+            await tx.wait(); $('newTeamAddress').value = ''; refreshData();
+        } catch (e) { alert('Error.'); }
+    }
+
+    // ==================== EVENTOS ====================
+    $('connectBtn').addEventListener('click', connectWallet);
+    $('buyBtn').addEventListener('click', buyAction);
+    $('hatchBtn').addEventListener('click', hatchAction);
+    $('sellBtn').addEventListener('click', sellAction);
+    $('seedBtn').addEventListener('click', seedAction);
+    $('transferOwnerBtn').addEventListener('click', transferOwnerAction);
+    $('setDailyReturnBtn').addEventListener('click', setDailyReturnAction);
+    $('setCeoBtn').addEventListener('click', setCEOAction);
+    $('setTeamBtn').addEventListener('click', setTeamAction);
+    $('switchNetworkBtn').addEventListener('click', switchNetwork);
+    $('copyReferralBtn').addEventListener('click', () => {
+        navigator.clipboard.writeText(generateReferralLink()).then(showCopiedToast).catch(() => showCopiedToast());
+    });
+    $('clearReferralBtn').addEventListener('click', () => {
+        referralCleared = true; $('referralInput').value = ''; $('referralNotice').style.display = 'none';
+    });
+    $('buyAmount').addEventListener('input', () => { if (contract && isCorrectNetwork) refreshData(); });
+
+    document.querySelectorAll('.animal-tab').forEach(tab => {
+        tab.addEventListener('click', () => applyAnimalTheme(parseInt(tab.dataset.id)));
+    });
+
+    // ==================== INICIALIZACIÓN ====================
+    urlReferrer = getReferrerFromURL();
+    const urlParams = new URLSearchParams(window.location.search);
+    const aid = parseInt(urlParams.get('animalId'));
+    if (!isNaN(aid) && aid >= 0 && aid < 5) currentAnimalId = aid;
+    applyAnimalTheme(currentAnimalId);
+
+    window.addEventListener('load', async () => {
+        if (window.ethereum) {
+            await checkNetwork();
+            const acc = await window.ethereum.request({ method: 'eth_accounts' });
+            if (acc.length > 0) await connectWallet();
+        }
+    });
+</script>
+</body>
+</html>
