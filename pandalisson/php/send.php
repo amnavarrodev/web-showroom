@@ -1,6 +1,7 @@
 <?php
 /**
  * Global Connect Argentina - Procesador de formulario de contacto
+ * Dominio: pandalisson.com
  * 
  * Envía el mensaje al cliente Y una copia a tu correo para monitoreo
  */
@@ -8,7 +9,7 @@
 // ========== CONFIGURACIÓN ==========
 $destinatario = "grupointermediariosfraterndidad@gmail.com";  // Cliente (destinatario principal)
 $copia = "amnavarro.cu@gmail.com";                             // Tu correo (copia para chequear)
-$from = "email@revixo.link";                                   // Remitente (debe ser de tu dominio)
+$from = "formulario@pandalisson.com";                          // Remitente (debe ser de tu dominio)
 // ===================================
 
 // Verificar que el formulario fue enviado por POST
@@ -75,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Cabeceras del correo (con CC para tu copia)
     $cabeceras = "From: $from\r\n";
     $cabeceras .= "Reply-To: $email\r\n";
-    $cabeceras .= "Cc: $copia\r\n";                    // ← COPIA A TU CORREO
+    $cabeceras .= "Cc: $copia\r\n";
     $cabeceras .= "MIME-Version: 1.0\r\n";
     $cabeceras .= "Content-Type: text/plain; charset=UTF-8\r\n";
     $cabeceras .= "X-Mailer: PHP/" . phpversion();
@@ -102,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($enviado) {
         // Redirigir a página de agradecimiento
-        header("Location: ../thanks.html");
+        header("Location: ../thank.html");
         exit;
     } else {
         // Error al enviar
