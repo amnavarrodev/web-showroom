@@ -1,5 +1,5 @@
 // ==================== CONFIGURACIÓN ====================
-const CONTRACT_ADDRESS = '0xTU_CONTRATO_AQUI'; // ⚠️ CAMBIAR por tu dirección desplegada
+const CONTRACT_ADDRESS = '0xf0780cce0e9cf04dff9ec2e2b5381a3b750b6153';
 
 const BSC_TESTNET = {
     chainId: '0x61',
@@ -13,6 +13,7 @@ const EXPLORER_URL = 'https://testnet.bscscan.com';
 // ==================== ESTADO ====================
 let provider, signer, userAddress, contract, pollingInterval;
 let isCorrectNetwork = false;
+let readOnlyContract = null; // Para leer sin wallet conectada
 
 // ==================== UTILIDADES ====================
 const $ = (id) => document.getElementById(id);
@@ -35,6 +36,39 @@ function showTx(hash) {
     $('txLog').style.display = 'block';
     $('txHash').innerHTML = `Tx: <strong>${hash.substring(0, 20)}...</strong>`;
     $('explorerLink').href = `${EXPLORER_URL}/tx/${hash}`;
+}
+
+// ==================== LECTURA PÚBLICA (sin wallet) ====================
+async function checkInitializedPublic() {
+    try {
+        // Crear un provider público para solo lectura
+        const publicProvider = new ethers.providers.JsonRpcProvider(BSC_TESTNET.rpcUrls[0]);
+        const publicContract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, publicProvider);
+        const init = await publicContract.initialized();
+        
+        $('initialized').textContent = init ? '✅ Sí' : '❌ No';
+        
+        // Mostrar u ocultar el aviso de inauguración
+        $('initNotice').style.display = init ? 'none' : 'block';
+        
+        // También leer el balance del contrato
+        const bal = await publicProvider.getBalance(CONTRACT_ADDRESS);
+        $('contractBalance').textContent = parseFloat(ethers.utils.formatEther(bal)).toFixed(4);
+        
+        // Leer marketEggs
+        const mEggs = await publicContract.marketEggs();
+        $('marketEggs').textContent = formatNumber(mEggs);
+        
+        if (init && bal.gt(0)) {
+            const price = await publicContract.calculateEggBuySimple(ethers.utils.parseEther('0.01'));
+            $('pricePerBnb').textContent = formatNumber(price);
+        }
+        
+        return init;
+    } catch (e) {
+        console.error('Error lectura pública:', e);
+        return false;
+    }
 }
 
 // ==================== CONEXIÓN ====================
@@ -93,6 +127,7 @@ async function connectWallet() {
             userAddress = null;
             contract = null;
             $('walletAddress').textContent = 'No conectada';
+            $('referralBox').style.display = 'none';
         } else {
             userAddress = acc[0];
             $('walletAddress').textContent = `${acc[0].substring(0, 6)}...${acc[0].substring(38)}`;
@@ -170,7 +205,7 @@ async function refreshData() {
         const buyVal = parseFloat($('buyAmount').value);
         if (buyVal > 0) {
             const eb = await contract.calculateEggBuySimple(ethers.utils.parseEther($('buyAmount').value));
-            const netEggs = eb.sub(eb.mul(5).div(100)); // -5% comisión
+            const netEggs = eb.sub(eb.mul(5).div(100));
             const newMiners = netEggs.div(2592000);
             $('buyEstimate').textContent = `≈ ${formatNumber(netEggs)} huevos → +${formatNumber(newMiners)} gallinas`;
         } else {
@@ -262,10 +297,13 @@ async function seedAction() {
     try {
         const tx = await contract.seedMarket();
         showTx(tx.hash);
+        $('seedBtn').disabled = true;
         await tx.wait();
+        $('seedBtn').disabled = false;
         refreshData();
     } catch (e) {
         console.error(e);
+        $('seedBtn').disabled = false;
         alert('Error. ¿Ya está inaugurada?');
     }
 }
@@ -284,6 +322,9 @@ $('copyReferralBtn').addEventListener('click', () => {
 
 // ==================== INICIALIZACIÓN ====================
 window.addEventListener('load', async () => {
+    // SIEMPRE verificar el estado del contrato (incluso sin wallet)
+    await checkInitializedPublic();
+    
     if (window.ethereum) {
         await checkNetwork();
         const acc = await window.ethereum.request({ method: 'eth_accounts' });
