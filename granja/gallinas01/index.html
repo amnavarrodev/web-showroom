@@ -1,128 +1,173 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Granja de Gallinas - BlackBoxx</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐔 Granja de Gallinas · BSC Testnet</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>🐔 Granja de Gallinas</h1>
-      <p class="subtitle">BlackBoxx en BNB Smart Chain Testnet</p>
-    </header>
+    <div class="container">
+        <header>
+            <h1>🐔 Granja de Gallinas</h1>
+            <p class="subtitle">BlackBoxx en BNB Smart Chain Testnet</p>
+            <span class="testnet-badge">🔶 BSC Testnet</span>
+        </header>
 
-    <!-- Conexión de wallet -->
-    <section class="card wallet-section">
-      <h2>🔌 Conectar Wallet</h2>
-      <div id="wallet-info">
-        <button id="btn-connect" class="btn btn-primary">Conectar MetaMask</button>
-      </div>
-      <div id="account-info" style="display:none;">
-        <p>👤 Cuenta: <span id="account-address"></span></p>
-        <p>💰 Balance: <span id="account-balance"></span> tBNB</p>
-      </div>
-    </section>
-
-    <!-- Estadísticas del contrato -->
-    <section class="card stats-section">
-      <h2>📊 Estadísticas Generales</h2>
-      <div class="stats-grid">
-        <div class="stat-item">
-          <span class="stat-label">Balance del Contrato</span>
-          <span class="stat-value" id="contract-balance">0</span> tBNB
+        <div class="network-warning" id="networkWarning" style="display:none;">
+            ⚠️ Red incorrecta. Cambia a <strong>BNB Smart Chain Testnet</strong> en MetaMask.
+            <br><button id="switchNetworkBtn" class="btn btn-faucet" style="margin-top:0.5rem;">🔶 Cambiar a BSC Testnet</button>
         </div>
-        <div class="stat-item">
-          <span class="stat-label">Huevos en Mercado</span>
-          <span class="stat-value" id="market-eggs">0</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Precio 0.01 tBNB</span>
-          <span class="stat-value" id="price-per-bnb">0</span> huevos
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">¿Inicializado?</span>
-          <span class="stat-value" id="initialized">No</span>
-        </div>
-      </div>
-      <button id="btn-seed" class="btn btn-warning" style="margin-top:1rem;">🌱 Sembrar Mercado (CEO)</button>
-    </section>
 
-    <!-- Estado del jugador -->
-    <section class="card player-section">
-      <h2>🐔 Mi Granja</h2>
-      <div class="player-stats">
-        <div class="stat-item">
-          <span class="stat-label">Mis Gallinas</span>
-          <span class="stat-value" id="my-miners">0</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Huevos Acumulados</span>
-          <span class="stat-value" id="my-eggs">0</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-label">Mi Referidor</span>
-          <span class="stat-value" id="my-referral">Ninguno</span>
-        </div>
-      </div>
-    </section>
+        <!-- Conexión Wallet -->
+        <section class="card">
+            <h2>🔌 Conectar Wallet</h2>
+            <div class="row">
+                <span class="label">🔗 Red:</span>
+                <span id="networkName" style="font-weight:600;">-</span>
+            </div>
+            <div class="row">
+                <span class="label">👤 Cartera:</span>
+                <span id="walletAddress">No conectada</span>
+            </div>
+            <div class="row">
+                <span class="label">💰 Balance:</span>
+                <span id="balanceBNB" class="value">0.00</span>
+                <span class="unit-hint">tBNB</span>
+            </div>
+            <div style="margin-top:1rem;">
+                <button id="connectBtn" class="btn btn-primary">🔌 Conectar MetaMask</button>
+                <a href="https://www.bnbchain.org/en/testnet-faucet" target="_blank" class="btn btn-faucet" style="margin-left:0.5rem;">🚰 Faucet tBNB</a>
+            </div>
+        </section>
 
-    <!-- Acciones -->
-    <section class="card actions-section">
-      <h2>🎮 Acciones</h2>
-      
-      <!-- Comprar huevos -->
-      <div class="action-group">
-        <h3>🛒 Comprar Huevos</h3>
-        <div class="input-group">
-          <input type="number" id="buy-amount" placeholder="Cantidad en tBNB" step="0.001" min="0.001" value="0.01">
-          <input type="text" id="ref-address" placeholder="Dirección del referidor (opcional)">
-        </div>
-        <button id="btn-buy" class="btn btn-success">Comprar Huevos</button>
-        <p class="info-text">Recibirás: <span id="buy-estimate">--</span> huevos (aprox.)</p>
-      </div>
+        <!-- Estadísticas del Contrato -->
+        <section class="card">
+            <h2>📊 Estadísticas de la Granja</h2>
+            <div class="stats-grid">
+                <div class="status-item">
+                    <div class="icon">💰</div>
+                    <span class="label">Balance Contrato</span>
+                    <span id="contractBalance" class="value">0</span>
+                    <span class="unit-hint">tBNB</span>
+                </div>
+                <div class="status-item">
+                    <div class="icon">🥚</div>
+                    <span class="label">Huevos en Mercado</span>
+                    <span id="marketEggs" class="value">-</span>
+                    <span class="unit-hint">Oferta total</span>
+                </div>
+                <div class="status-item">
+                    <div class="icon">💱</div>
+                    <span class="label">Precio 0.01 tBNB</span>
+                    <span id="pricePerBnb" class="value">-</span>
+                    <span class="unit-hint">Huevos</span>
+                </div>
+                <div class="status-item">
+                    <div class="icon">🌱</div>
+                    <span class="label">Inaugurada</span>
+                    <span id="initialized" class="value">❌</span>
+                </div>
+            </div>
+            <div id="initNotice" class="notice" style="display:none; margin-top:1rem;">
+                ⚠️ La granja aún no ha sido inaugurada.
+                <button id="seedBtn" class="btn btn-warning" style="margin-left:0.5rem;">🌱 Inaugurar (CEO)</button>
+            </div>
+        </section>
 
-      <!-- Incubar huevos -->
-      <div class="action-group">
-        <h3>🥚 Incubar Huevos</h3>
-        <p class="info-text">Convierte tus huevos en más gallinas (1 gallina = 2,592,000 huevos)</p>
-        <button id="btn-hatch" class="btn btn-info">Incubar Huevos</button>
-      </div>
+        <!-- Mi Granja -->
+        <section class="card">
+            <h2>🐔 Mi Gallinero</h2>
+            <div class="stats-grid">
+                <div class="status-item">
+                    <div class="icon">🐔</div>
+                    <span class="label">Mis Gallinas</span>
+                    <span id="myMiners" class="value">0</span>
+                    <span class="unit-hint">1 gallina = 1 huevo/seg</span>
+                </div>
+                <div class="status-item">
+                    <div class="icon">🥚</div>
+                    <span class="label">Huevos Acumulados</span>
+                    <span id="myEggs" class="value">0</span>
+                    <span id="eggValueEstimate" class="unit-hint" style="color:#2ecc71;"></span>
+                </div>
+                <div class="status-item">
+                    <div class="icon">🔗</div>
+                    <span class="label">Mi Referidor</span>
+                    <span id="myReferral" class="value" style="font-size:1rem;">Ninguno</span>
+                </div>
+            </div>
+        </section>
 
-      <!-- Vender huevos -->
-      <div class="action-group">
-        <h3>💰 Vender Huevos</h3>
-        <p class="info-text">Vende todos tus huevos acumulados por tBNB</p>
-        <button id="btn-sell" class="btn btn-danger">Vender Huevos</button>
-        <p class="info-text">Valor estimado: <span id="sell-estimate">--</span> tBNB</p>
-      </div>
-    </section>
+        <!-- Acciones -->
+        <section class="card">
+            <h2>⚡ Acciones</h2>
 
-    <!-- Sección de referidos -->
-    <section class="card referral-section">
-      <h2>🔗 Mi Enlace de Referido</h2>
-      <div class="input-group">
-        <input type="text" id="referral-link" readonly value="Comparte tu dirección como referido">
-        <button id="btn-copy" class="btn btn-secondary">Copiar</button>
-      </div>
-    </section>
+            <!-- Comprar -->
+            <div class="action-group">
+                <h3>1. 🛒 Comprar Gallinas con tBNB</h3>
+                <p class="info-text">Compra huevos y se incuban automáticamente en gallinas.</p>
+                <div class="input-row">
+                    <input type="number" id="buyAmount" value="0.01" step="0.001" min="0.001" style="width:120px;" placeholder="tBNB">
+                    <input type="text" id="refAddress" placeholder="Dirección referidor 0x... (opcional)" style="flex:1; min-width:200px;">
+                </div>
+                <button id="buyBtn" class="btn btn-success" style="margin-top:0.5rem;">🛒 Comprar Huevos</button>
+                <span id="buyEstimate" class="unit-hint" style="color:#aaa; display:block; margin-top:0.3rem;"></span>
+            </div>
 
-    <!-- Eventos recientes -->
-    <section class="card events-section">
-      <h2>📜 Últimos Eventos</h2>
-      <div id="events-log" class="events-log">
-        <p class="event-placeholder">Conecta tu wallet y compra huevos para empezar...</p>
-      </div>
-    </section>
-  </div>
+            <hr>
 
-  <footer>
-    <p>🐔 Granja de Gallinas - Testnet BNB Smart Chain | <a href="https://testnet.bscscan.com/address/TU_CONTRATO" target="_blank">Ver contrato en BSCScan</a></p>
-  </footer>
+            <!-- Incubar -->
+            <div class="action-group">
+                <h3>2. 🐣 Criar más Gallinas</h3>
+                <p class="info-text">Convierte tus huevos acumulados en gallinas (1 gallina = 2,592,000 huevos). El sobrante se pierde.</p>
+                <button id="hatchBtn" class="btn btn-info">🐣 Criar Gallinas</button>
+                <span id="hatchEstimate" class="unit-hint" style="color:#aaa; display:block; margin-top:0.3rem;"></span>
+            </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6/dist/ethers.min.js"></script>
-  <script src="contractABI.js"></script>
-  <script src="app.js"></script>
+            <hr>
+
+            <!-- Vender -->
+            <div class="action-group">
+                <h3>3. 💰 Vender Huevos por tBNB</h3>
+                <p class="info-text">Vende todos tus huevos acumulados al precio actual de mercado (comisión 5%).</p>
+                <button id="sellBtn" class="btn btn-danger">💸 Vender Huevos</button>
+                <div class="sell-preview" id="sellPreview" style="display:none;">
+                    💰 Recibirías: <span class="amount" id="sellPreviewAmount">0.0000 tBNB</span>
+                    <br><small style="color:#aaa;">(descontada comisión del 5%)</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enlace de Referido -->
+        <section class="card" id="referralBox" style="display:none;">
+            <h2>🔗 Mi Enlace de Referido</h2>
+            <p class="info-text">Comparte este enlace. Recibirás el <strong style="color:var(--accent);">10%</strong> de los huevos cuando tus referidos críen.</p>
+            <div class="referral-link" id="referralLink">-</div>
+            <button id="copyReferralBtn" class="btn btn-copy" style="margin-top:0.5rem;">📋 Copiar enlace</button>
+        </section>
+
+        <!-- Transacciones -->
+        <section class="card" id="txLog" style="display:none;">
+            <h2>📋 Última Transacción</h2>
+            <p id="txHash" class="tx-link"></p>
+            <p style="font-size:0.75rem; color:#aaa; margin-top:0.3rem;">
+                🔍 <a id="explorerLink" href="#" target="_blank">Ver en BscScan Testnet</a>
+            </p>
+        </section>
+
+        <footer>
+            <p>🐔 <strong>Granja de Gallinas</strong> · BNB Smart Chain <strong>Testnet</strong></p>
+            <p style="margin-top:0.3rem;">🎓 Entorno educativo · Sin valor económico real · tBNB de prueba</p>
+        </footer>
+    </div>
+
+    <!-- Toast -->
+    <div class="copied-toast" id="copiedToast">✅ ¡Enlace copiado!</div>
+
+    <!-- ethers.js v5 -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="contractABI.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
