@@ -1,6 +1,7 @@
 /**
  * Script para generar páginas HTML de productos
  * Uso: node generar-productos.js
+ * Dominio: pandalisson.com
  */
 
 const fs = require('fs');
@@ -116,6 +117,7 @@ function generarHTML(producto) {
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="${producto.nombre} - Global Connect Argentina">
     <meta property="og:description" content="${producto.descripcion.substring(0, 150)}">
+    <meta property="og:url" content="https://pandalisson.com/product-${producto.id}.html">
     <link rel="icon" href="img/logo-nav.jpg" type="image/jpeg">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -265,7 +267,7 @@ function generarHTML(producto) {
 }
 
 // Generar archivos
-console.log('🚀 Generando páginas de productos...\n');
+console.log('🚀 Generando páginas de productos para pandalisson.com...\n');
 let generados = 0;
 
 productos.forEach(producto => {
